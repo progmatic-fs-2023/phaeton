@@ -1,0 +1,25 @@
+name: 'Frontend: Check the source code'
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+jobs:
+  test:
+    name: Check the source code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: npm i
+        working-directory: ./client
+      - name: Run prettier
+        run: npm run format
+        working-directory: ./client
+      - name: Run eslint
+        run: npm run lint
+        working-directory: ./client
+      - name: Run build
+        run: npm run build
+        working-directory: ./client
