@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { API_URL } from './constants';
+import Login from './components/Login';
 
 function App() {
   const [isConnect, setIsConnect] = useState(false);
@@ -18,6 +19,7 @@ function App() {
   return (
     <div>
       Hello project!
+      <Login />
       <ul>
         <li>
           {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}

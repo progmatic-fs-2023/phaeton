@@ -1,0 +1,9 @@
+dialog{
+  width: 500px;
+  text-align: center;
+}
+.input-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
