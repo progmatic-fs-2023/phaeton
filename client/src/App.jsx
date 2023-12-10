@@ -23,7 +23,6 @@ function App() {
           {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}
         </li>
       </ul>
-      <Footer />
     </div>
   );
 }
