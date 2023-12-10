@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { API_URL } from './constants';
-
+import Footer from './components/Footer.jsx';
 function App() {
   const [isConnect, setIsConnect] = useState(false);
 
@@ -23,6 +23,7 @@ function App() {
           {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}
         </li>
       </ul>
+      <Footer />
     </div>
   );
 }
