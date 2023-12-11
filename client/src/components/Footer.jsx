@@ -1,12 +1,12 @@
 import React from 'react';
-import '../components/footer.css';
+import './footer.css';
 import phoneIcon from '../assets/footer/phone.svg';
 import facebookIcon from '../assets/footer/facebook.svg';
 import instagramIcon from '../assets/footer/instagram.svg';
 import linkedinIcon from '../assets/footer/linkedin.svg';
 import mapIcon from '../assets/footer/map.svg';
 import mailIcon from '../assets/footer/mail.svg';
-import tweeterIcon from '../assets/footer/tweeter.svg';
+import twitterIcon from '../assets/footer/twitter.svg';
 
 export default function Footer() {
   return (
@@ -22,7 +22,7 @@ export default function Footer() {
       <ul>
         <li>
           <img src={phoneIcon} alt="phone" />
-          <p>+36 90 6969 696</p>
+          <p>+36 90 696 6969</p>
         </li>
         <li>
           <img src={mailIcon} alt="email" />
@@ -34,17 +34,17 @@ export default function Footer() {
         </li>
       </ul>
       <div className="icon-container">
-        <a href="">
+        <a href="www.facebook.com">
           <img src={facebookIcon} alt="facebook" />
         </a>
-        <a href="">
+        <a href="www.instagram.com">
           <img src={instagramIcon} alt="instagram" />
         </a>
-        <a href="">
+        <a href="www.linkedin.com">
           <img src={linkedinIcon} alt="linkedin" />
         </a>
-        <a href="">
-          <img src={tweeterIcon} alt="tweeter" />
+        <a href="www.twitter.com">
+          <img src={twitterIcon} alt="twitter" />
         </a>
       </div>
     </div>
