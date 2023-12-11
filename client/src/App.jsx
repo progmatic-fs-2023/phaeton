@@ -11,9 +11,7 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(isConnect);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div>
