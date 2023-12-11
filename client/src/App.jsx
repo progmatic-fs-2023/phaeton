@@ -11,8 +11,9 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-  }, []);
+
+  useEffect(() => {}, []);
+
 
   return (
     <div>
