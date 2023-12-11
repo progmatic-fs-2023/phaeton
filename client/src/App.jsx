@@ -10,11 +10,6 @@ function App() {
       if (response.ok) setIsConnect(true);
     });
   }, []);
-
-
-  useEffect(() => {}, []);
-
-
   return (
     <div>
       Hello project!
