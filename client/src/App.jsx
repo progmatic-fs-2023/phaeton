@@ -12,14 +12,11 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(isConnect);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div>
       Hello project!
-      <Login />
       <ul>
         <li>
           {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import './login.css';
+import React, { useState, useEffect, useRef } from 'react';
+import './Login.css';
 
-const Login = () => {
+function Login() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const dialogRef = useRef(null);
 
   const openDialog = () => {
     setIsDialogOpen(true);
@@ -16,36 +17,69 @@ const Login = () => {
   const handleSignUpClick = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
+  // pressing Escape button to close dialog box eventhandler
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeDialog();
+      } else if (event.key === 'l' || event.key === 'L') {
+        openDialog();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // click outside of window to close eventhandler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+        closeDialog();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
-      <div onClick={openDialog}>Login</div>
+      <button type="button" onClick={openDialog}>
+        Login
+      </button>
       {isDialogOpen && (
         // if true, shows dialog
-        <dialog open={isDialogOpen}>
+        <dialog open={isDialogOpen} ref={dialogRef}>
           {isLogin ? (
             <>
-              <h3>Login</h3>
+              <div className="login-header">
+                <h1>Login</h1>
+                <button className="nobg-btn" type="button" onClick={closeDialog}>
+                  ✖
+                </button>
+              </div>
               <form action="POST">
-                {
-                  <>
-                    <div className="input-container">
-                      <input type="email" name="email" placeholder="Enter e-mail" />
-                      <input type="password" name="password" placeholder="Enter password" />
-                    </div>
-                    <div>
-                      <button className="login-btn" type="submit">
-                        Login
-                      </button>
-                    </div>
-                  </>
-                }
+                <div className="login-container">
+                  <input type="email" name="email" placeholder="Enter e-mail" />
+                  <input type="password" name="password" placeholder="Enter password" />
+                </div>
+                <div>
+                  <button className="submit-btn" type="submit">
+                    Login
+                  </button>
+                </div>
               </form>
               <p>
                 No account?{' '}
-                <a href="#" onClick={handleSignUpClick}>
+                <button className="nobg-btn" type="button" onClick={handleSignUpClick}>
                   Sign Up
-                </a>
+                </button>
               </p>
             </>
           ) : (
@@ -53,41 +87,43 @@ const Login = () => {
               {/* Sing up section */}
               <form action="POST">
                 {' '}
-                <h3>Sign Up</h3>
-                {
-                  <>
-                    <div>
-                      <div className="name-container">
-                        <input type="text" name="firstName" placeholder="First name" />
-                        <input type="text" name="lastName" placeholder="Last name" />
-                      </div>
-                      <div className="email-password-container">
-                        <input type="email" name="email" placeholder="Enter e-mail" />
-                        <input type="password" name="password" placeholder="Enter password" />
-                        <input type="password" name="password" placeholder="Confirm password" />
-                      </div>
+                <div className="login-header">
+                  <h1>Sign Up</h1>
+                  <button className="nobg-btn" type="button" onClick={closeDialog}>
+                    ✖
+                  </button>
+                </div>
+                <div className="flex-column">
+                  <div className="flex-row">
+                    <input type="text" name="firstName" placeholder="First name" />
+                    <input type="text" name="lastName" placeholder="Last name" />
+                  </div>
+                  <div className="flex-column">
+                    <input type="email" name="email" placeholder="Enter e-mail" />
+                    <div className="flex-row">
+                      <input type="password" name="password" placeholder="Enter password" />
+                      <input type="password" name="password" placeholder="Confirm password" />
                     </div>
-                    <div>
-                      <button className="login-btn" type="submit">
-                        Login
-                      </button>
-                    </div>
-                  </>
-                }
+                  </div>
+                </div>
+                <div>
+                  <button className="submit-btn" type="submit">
+                    Sign Up
+                  </button>
+                </div>
               </form>
               <p>
                 Already have an account?{' '}
-                <a href="#" onClick={handleSignUpClick}>
+                <button className="nobg-btn" type="button" onClick={handleSignUpClick}>
                   Login
-                </a>
+                </button>
               </p>
             </>
           )}
-          <button onClick={closeDialog}>Cancel</button>
         </dialog>
       )}
     </>
   );
-};
+}
 
 export default Login;
