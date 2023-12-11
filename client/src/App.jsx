@@ -10,7 +10,6 @@ function App() {
       if (response.ok) setIsConnect(true);
     });
   }, []);
-
   return (
     <div>
       Hello project!
