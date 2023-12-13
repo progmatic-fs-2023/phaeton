@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Login.css';
+import './styles/Login.css';
 
 function Login() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
