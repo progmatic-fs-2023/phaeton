@@ -70,7 +70,7 @@ function Login() {
                   <input type="password" name="password" placeholder="Enter password" />
 
                   {/* forgot password needs a ref later */}
-                  <a className="forgot-password" href="">
+                  <a className="forgot-password" href="http://localhost:5173/">
                     I forgot my password
                   </a>
                 </div>
