@@ -13,12 +13,12 @@ function App() {
   }, []);
   return (
     <div>
-      {/* Hello project!
+      Hello project!
       <ul>
         <li>
           {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}
         </li>
-      </ul> */}
+      </ul>
       <Home />
     </div>
   );
