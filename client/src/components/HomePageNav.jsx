@@ -4,7 +4,8 @@ import rentalPic from '../assets/home_page_nav_pictures/rentalpic.jpg';
 import parkingPic from '../assets/home_page_nav_pictures/parkingpic.jpg';
 import shuttlePic from '../assets/home_page_nav_pictures/shuttlepic.jpg';
 
-import './styles/HomePageNav.css';
+
+import './styles/HomePageNav.css'
 
 function HomePageNav() {
   return (

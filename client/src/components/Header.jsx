@@ -1,8 +1,8 @@
 import React from 'react';
-import './Header.css';
-import eng from '../assets/header_pictures/eng.png';
+import './styles/Header.css';
 import phaetonlogo from '../assets/header_pictures/phaetonlogo.png';
 import Login from './Login';
+import HeaderNav from './HeaderNav';
 
 function Header() {
   return (
@@ -11,12 +11,11 @@ function Header() {
         {/* <a href="HOME PAGE"> */}
         <img src={phaetonlogo} alt="Logo" className="logo" />
       </div>
+      <div className="navigation-container">
+        <HeaderNav />
+      </div>
       <div className="login-container">
         <Login />
-      </div>
-      <div className="language-container">
-        {/* ITT LENYÍLÓ MENÜ ÉS NYELVVÁLASZTÁS */}
-        <img src={eng} alt="Language" className="language-icon" />
       </div>
     </header>
   );
