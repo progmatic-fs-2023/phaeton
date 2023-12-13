@@ -68,6 +68,11 @@ function Login() {
                 <div className="login-container">
                   <input type="email" name="email" placeholder="Enter e-mail" />
                   <input type="password" name="password" placeholder="Enter password" />
+
+                  {/* forgot password needs a ref later */}
+                  <a className="forgot-password" href="">
+                    I forgot my password
+                  </a>
                 </div>
                 <div>
                   <button className="submit-btn" type="submit">
