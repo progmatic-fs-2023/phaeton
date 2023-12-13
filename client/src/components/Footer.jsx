@@ -1,5 +1,5 @@
 import React from 'react';
-import './footer.css';
+import './styles/footer.css';
 import phoneIcon from '../assets/footer/phone.svg';
 import facebookIcon from '../assets/footer/facebook.svg';
 import instagramIcon from '../assets/footer/instagram.svg';
