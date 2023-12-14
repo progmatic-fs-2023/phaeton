@@ -1,9 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { API_URL } from './constants';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import HomePageNav from './components/HomePageNav';
+import Layout from './components/Layout';
 
 function App() {
   const [isConnect, setIsConnect] = useState(false);
@@ -15,9 +13,7 @@ function App() {
   }, []);
   return (
     <div>
-      <Header />
-      <HomePageNav />
-      <Footer />
+      <Layout />
       <ul>
         <li>
           {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}

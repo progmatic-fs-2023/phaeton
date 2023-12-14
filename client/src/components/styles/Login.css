@@ -39,7 +39,7 @@ input {
   gap: 20px;
 }
 
-.forgot-password{
+.forgot-password {
   font-weight: bold;
 }
 .submit-btn {
@@ -61,4 +61,14 @@ input {
 }
 .nobg-btn:hover {
   scale: 1.3;
+}
+
+.login-button {
+  background: none;
+  border: none;
+}
+
+.login-button img {
+  width: 50px;
+  filter: invert(100%);
 }
