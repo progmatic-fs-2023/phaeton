@@ -1,0 +1,20 @@
+.shuttle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 100px 20px;
+}
+
+.shuttle-title {
+    margin-top: 75px;
+    margin-bottom: 60px;
+}
+
+.shuttle-pic {
+    width: 75%;
+    border-radius: 10px;
+}
+
+.shuttle-list-elem {
+    margin: 20px 0px;
+}
