@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles/Login.css';
+import loginButton from '../assets/login_button/login_button.svg';
 
 function Login() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -50,8 +51,8 @@ function Login() {
 
   return (
     <>
-      <button type="button" onClick={openDialog}>
-        Login
+      <button className="login-button" type="button" onClick={openDialog}>
+        <img src={loginButton} alt="login" />
       </button>
       {isDialogOpen && (
         // if true, shows dialog
