@@ -6,6 +6,8 @@ import Header from './Header';
 import Footer from './Footer';
 import Rent from '../pages/Rent';
 import Parking from '../pages/Parking';
+import Shuttle from './Shuttle';
+
 
 function Layout() {
   return (
@@ -16,7 +18,7 @@ function Layout() {
         <Route path="*" element={<Home />} />
         <Route path="rental" element={<Rent />} />
         <Route path="parking" element={<Parking />} />
-        <Route path="shuttle" element={<Home />} />
+        <Route path="shuttle" element={<Shuttle />} />
         <Route path="contact" element={<Contact />} />
       </Routes>
       <Footer />
