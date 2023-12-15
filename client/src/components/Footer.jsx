@@ -43,7 +43,7 @@ export default function Footer() {
         <a href="www.linkedin.com">
           <img src={linkedinIcon} alt="linkedin" />
         </a>
-        <a href="www.twitter.com">
+        <a href="https://twitter.com">
           <img src={twitterIcon} alt="twitter" />
         </a>
       </div>
