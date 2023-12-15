@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id               String       @id @unique @default(cuid())
+  firstName        String       @db.VarChar(50)
+  lastName         String       @db.VarChar(50)
+  email            String       @unique @db.VarChar(30)
+  password         String       @db.VarChar(255)
+  role             Role         @default(USER)
+  driverLicence    String       @db.VarChar(50)
+  RentStartDate    DateTime?
+  RentEndtDate     DateTime?
+  ParkingStartDate DateTime?
+  ParkingEndtDate  DateTime?
+  Cars             Cars[]
+  ParkingLot       ParkingLot[]
+}
+
+model GuestUsers {
+  id               String       @id @unique @default(cuid())
+  firstName        String       @db.VarChar(50)
+  lastName         String       @db.VarChar(50)
+  email            String       @unique @db.VarChar(30)
+  role             Role         @default(USER)
+  driverLicence    String       @db.VarChar(50)
+  RentStartDate    DateTime?
+  RentEndtDate     DateTime?
+  ParkingStartDate DateTime?
+  ParkingEndtDate  DateTime?
+  Cars             Cars[]
+  ParkingLot       ParkingLot[]
+}
+
+model Cars {
+  id            String       @id @unique @default(cuid())
+  model         String       @db.VarChar(255)
+  imageUrl      String       @db.VarChar(255)
+  seats         Int
+  transmission  Transmission
+  price         Int
+  fuel          Fuel
+  power         Int
+  trunkCapacity Int
+  userID        String?
+  guestUserID   String?
+  GuestUsers    GuestUsers?  @relation(fields: [guestUserID], references: [id])
+  Users         Users?       @relation(fields: [userID], references: [id])
+}
+
+model ParkingLot {
+  id          String      @id @unique @default(cuid())
+  name        String      @unique @db.VarChar(50)
+  userID      String?
+  guestUserID String?
+  GuestUsers  GuestUsers? @relation(fields: [guestUserID], references: [id])
+  Users       Users?      @relation(fields: [userID], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Transmission {
+  A
+  M
+}
+
+enum Fuel {
+  Diesel
+  Petrol
+  Electric
+}
