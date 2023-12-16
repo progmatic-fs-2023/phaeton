@@ -1,0 +1,36 @@
+.text-area {
+  max-width: 70vw;
+  height: 300px;
+  resize: none;
+}
+.contact-main-container {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.contact-main-container form input {
+  max-width: 50vw;
+}
+
+.list-container {
+  max-width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10%;
+}
+
+.list-container li {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px;
+}
