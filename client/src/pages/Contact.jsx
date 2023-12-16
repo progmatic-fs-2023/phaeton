@@ -4,6 +4,7 @@ import mapIcon from '../assets/footer/map.svg';
 import mailIcon from '../assets/footer/mail.svg';
 import phoneIcon from '../assets/footer/phone.svg';
 import { phoneNumber } from './Shuttle';
+
 function Contact() {
   return (
     <div className="contact-main-container">
