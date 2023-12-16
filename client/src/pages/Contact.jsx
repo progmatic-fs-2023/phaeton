@@ -58,7 +58,7 @@ function Contact() {
         </form>
       </div>
       <dialog open={isDialogOpen} ref={dialogRef}>
-        <button className="nobg-btn" onClick={closeDialog}>
+        <button type="button" className="nobg-btn" onClick={closeDialog}>
           ✖
         </button>
         <h2>{dialogMessage}</h2>
