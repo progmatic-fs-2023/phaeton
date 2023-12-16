@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Users {
-  id               String       @id @unique @default(cuid())
+  id               String       @id @default(cuid())
   firstName        String       @db.VarChar(50)
   lastName         String       @db.VarChar(50)
   email            String       @unique @db.VarChar(30)
@@ -39,7 +39,7 @@ model Cars {
 }
 
 model ParkingLot {
-  id          String      @id @unique @default(cuid())
+  id          String      @id @default(cuid())
   name        String      @unique @db.VarChar(50)
   userID      String?
   Users       Users?      @relation(fields: [userID], references: [id])
