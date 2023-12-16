@@ -6,8 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Rent from '../pages/Rent';
 import Parking from '../pages/Parking';
-import Shuttle from './Shuttle';
-
+import Shuttle from '../pages/Shuttle';
 
 function Layout() {
   return (

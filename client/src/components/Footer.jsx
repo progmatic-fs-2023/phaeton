@@ -7,6 +7,7 @@ import linkedinIcon from '../assets/footer/linkedin.svg';
 import mapIcon from '../assets/footer/map.svg';
 import mailIcon from '../assets/footer/mail.svg';
 import twitterIcon from '../assets/footer/twitter.svg';
+import { phoneNumber } from '../pages/Shuttle';
 
 export default function Footer() {
   return (
@@ -22,7 +23,7 @@ export default function Footer() {
       <ul>
         <li>
           <img src={phoneIcon} alt="phone" />
-          <p>+36 90 696 6969</p>
+          <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
         </li>
         <li>
           <img src={mailIcon} alt="email" />

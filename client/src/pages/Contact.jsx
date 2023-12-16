@@ -3,7 +3,7 @@ import '../components/styles/Contact.css';
 import mapIcon from '../assets/footer/map.svg';
 import mailIcon from '../assets/footer/mail.svg';
 import phoneIcon from '../assets/footer/phone.svg';
-
+import { phoneNumber } from './Shuttle';
 function Contact() {
   return (
     <div className="contact-main-container">
@@ -12,14 +12,14 @@ function Contact() {
         <form action="post">
           <label htmlFor="email">
             E-mail : <br />
-            <input id="email" placeholder="E-mail..." name="email" type="email" />
+            <input id="email" placeholder="E-mail..." name="email" type="email" required />
           </label>
           <br />
           <label htmlFor="name">
             Name : <br />
             <input id="name" placeholder="Name..." type="text" />
           </label>
-          <textarea placeholder="Message..." className="text-area" type="text" />
+          <textarea placeholder="Message..." className="text-area" type="text" required />
           <input type="submit" value="Send" />
         </form>
       </div>
@@ -27,7 +27,7 @@ function Contact() {
         <ul>
           <li>
             <img src={phoneIcon} alt="phone" />
-            <p>+36 90 696 6969</p>
+            <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
           </li>
           <li>
             <img src={mailIcon} alt="email" />
