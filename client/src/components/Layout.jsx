@@ -8,7 +8,6 @@ import Rent from '../pages/Rent';
 import Parking from '../pages/Parking';
 import Shuttle from '../pages/Shuttle';
 
-
 function Layout() {
   return (
     <div>
