@@ -1,3 +1,5 @@
+@import url("variables.css");
+
 dialog {
   width: 400px;
   height: 500px;
@@ -48,7 +50,7 @@ input {
   margin-top: 30px;
   border-radius: 5px;
   border: none;
-  background-color: RGB(3, 30, 74);
+  background-color: var(--main-color);
   color: white;
 }
 .nobg-btn {
@@ -70,5 +72,5 @@ input {
 
 .login-button img {
   width: 50px;
-  filter: invert(100%);
+  filter: var(--main-svg-filter);
 }
