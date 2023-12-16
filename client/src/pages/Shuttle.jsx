@@ -1,5 +1,6 @@
 import shuttlePic from '../assets/shuttle/shuttlepic.jpg';
 import '../components/styles/shuttle.css';
+
 export const phoneNumber = '+1234567890';
 
 function Shuttle() {
