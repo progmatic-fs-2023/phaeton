@@ -1,5 +1,6 @@
-import React from 'react';
 import '../components/styles/Contact.css';
+import { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import mapIcon from '../assets/footer/map.svg';
 import mailIcon from '../assets/footer/mail.svg';
 import phoneIcon from '../assets/footer/phone.svg';
@@ -9,11 +10,11 @@ function Contact() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dialogRef = useRef(null);
   const [dialogMessage, setDialogMessage] = useState(null);
+
   const dialog = document.querySelector('.contact-modal');
 
   const openDialog = () => {
     dialog.showModal();
-    setIsDialogOpen(true);
   };
 
   const closeDialog = () => {
@@ -48,20 +49,30 @@ function Contact() {
     <div className="contact-main-container">
       <div className="form-container">
         <h3>Contact us</h3>
-        <form action="post">
+        <form action="post" ref={form} onSubmit={sendEmail}>
           <label htmlFor="email">
             E-mail : <br />
-            <input id="email" placeholder="E-mail..." name="email" type="email" required />
+            <input id="email" placeholder="E-mail..." name="user_email" type="email" required />
           </label>
           <br />
           <label htmlFor="name">
             Name : <br />
-            <input id="name" placeholder="Name..." type="text" />
+            <input id="name" placeholder="Name..." type="text" name="user_name" />
           </label>
-          <textarea placeholder="Message..." className="text-area" type="text" required />
+          <label htmlFor="subject">
+            Subject : <br />
+            <input id="subject" placeholder="Subject..." type="text" name="subject" />
+          </label>
+          <textarea placeholder="Message..." className="text-area" name="message" required />
           <input type="submit" value="Send" />
         </form>
       </div>
+      <dialog className="contact-modal" open={isDialogOpen} ref={dialogRef}>
+        <button type="button" className="contact-nobg-btn" onClick={closeDialog}>
+          ✖
+        </button>
+        <h2>{dialogMessage}</h2>
+      </dialog>
       <div className="list-container">
         <ul>
           <li>
