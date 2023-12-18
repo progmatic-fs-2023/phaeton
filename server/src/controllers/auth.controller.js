@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { createUser, findUserByEmail } from '../services/users.service.js';
+import { createUser, findUserByEmail } from '../services/users.service';
 
 // user registration
 export const signUp = async (req, res) => {
