@@ -30,10 +30,11 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({
+    res.status(400).json({
       message: 'Failed to login.',
       error: 'Email or password is missing.',
     });
+    return;
   }
 
   try {
