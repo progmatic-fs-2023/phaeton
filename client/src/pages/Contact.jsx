@@ -6,6 +6,44 @@ import phoneIcon from '../assets/footer/phone.svg';
 import { phoneNumber } from './Shuttle';
 
 function Contact() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const dialogRef = useRef(null);
+  const [dialogMessage, setDialogMessage] = useState(null);
+  const dialog = document.querySelector('.contact-modal');
+
+  const openDialog = () => {
+    dialog.showModal();
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_MAIL_SERVICE_ID,
+        import.meta.env.VITE_MAIL_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_API_PUBLIC_KEY,
+      )
+      .then(
+        () => {
+          setDialogMessage('Email was sent successfully');
+          openDialog();
+        },
+        () => {
+          setDialogMessage('Something went wrong, please try again later.');
+          openDialog();
+        },
+      );
+    e.target.reset();
+  };
+
   return (
     <div className="contact-main-container">
       <div className="form-container">
