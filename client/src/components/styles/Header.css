@@ -1,9 +1,11 @@
+@import url("variables.css");
+
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(3, 30, 74);
+  background-color: var(--main-color);;
   color: white;
   position: sticky;
   top: 0;
