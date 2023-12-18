@@ -14,7 +14,7 @@ model Users {
   email            String       @unique @db.VarChar(30)
   password         String       @db.VarChar(255)
   role             Role         @default(USER)
-  driverLicence    String?       @db.VarChar(50)
+  driverLicence    String?      @db.VarChar(50)
   RentStartDate    DateTime?
   RentEndtDate     DateTime?
   ParkingStartDate DateTime?
@@ -39,10 +39,10 @@ model Cars {
 }
 
 model ParkingLot {
-  id          String      @id @default(cuid())
-  name        String      @unique @db.VarChar(50)
-  userID      String?
-  Users       Users?      @relation(fields: [userID], references: [id])
+  id     String  @id @default(cuid())
+  name   String  @unique @db.VarChar(50)
+  userID String?
+  Users  Users?  @relation(fields: [userID], references: [id])
 }
 
 enum Role {
