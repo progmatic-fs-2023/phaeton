@@ -9,13 +9,6 @@ export async function createUser(newUser) {
   return user;
 }
 
-export async function loginUser(userInput) {
-  const user = await prisma.users.findUnique({
-    where: userInput,
-  });
-  return user;
-}
-
 export async function findUserByEmail(email) {
   const user = await prisma.users.findUnique({
     where: {

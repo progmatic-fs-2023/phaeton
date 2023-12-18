@@ -49,7 +49,7 @@ export const login = async (req, res) => {
       const result = await bcrypt.compare(password, user.password); // true if password matching
       if (result) {
         res.status(200).json({
-          message: 'Login succesful',
+          message: 'Login successful',
           user,
         });
       } else {
