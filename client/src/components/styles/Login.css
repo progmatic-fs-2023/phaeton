@@ -1,4 +1,4 @@
-@import url("variables.css");
+@import url('variables.css');
 
 dialog {
   width: 400px;
@@ -60,13 +60,6 @@ input {
   border: none;
   background: none;
   transition: 0.4s;
-  position: absolute;
-  right: 5px;
-  top: 5px;
-}
-
-dialog {
-  height: 120px;
 }
 
 .nobg-btn:hover {

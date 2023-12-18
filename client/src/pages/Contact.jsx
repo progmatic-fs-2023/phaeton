@@ -23,16 +23,23 @@ function Contact() {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_5ow6ifi', 'template_b804sbg', form.current, 'mI35iHIc2jmdOmPR1').then(
-      () => {
-        setDialogMessage('Email was sent successfully');
-        openDialog();
-      },
-      () => {
-        setDialogMessage('Something went wrong, please try again later.');
-        openDialog();
-      },
-    );
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_MAIL_SERVICE_ID,
+        import.meta.env.VITE_MAIL_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_API_PUBLIC_KEY,
+      )
+      .then(
+        () => {
+          setDialogMessage('Email was sent successfully');
+          openDialog();
+        },
+        () => {
+          setDialogMessage('Something went wrong, please try again later.');
+          openDialog();
+        },
+      );
     e.target.reset();
   };
   return (
@@ -57,8 +64,8 @@ function Contact() {
           <input type="submit" value="Send" />
         </form>
       </div>
-      <dialog open={isDialogOpen} ref={dialogRef}>
-        <button type="button" className="nobg-btn" onClick={closeDialog}>
+      <dialog className="contact-modal" open={isDialogOpen} ref={dialogRef}>
+        <button type="button" className="contact-nobg-btn" onClick={closeDialog}>
           ✖
         </button>
         <h2>{dialogMessage}</h2>
