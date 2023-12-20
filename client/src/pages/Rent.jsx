@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 
@@ -8,17 +8,26 @@ function Rent() {
 
   function getStartDate(data) {
     startDate = data;
-    console.log(startDate);
+    return startDate;
   }
 
   function getEndDate(data) {
     endDate = data;
-    console.log(endDate);
+    return endDate;
   }
+
+  const handleGetStartDate = useCallback(() => {
+    getStartDate();
+  }, [getStartDate]);
+
+  const handleGetEndDate = useCallback(() => {
+    getEndDate();
+  }, [getEndDate]);
+
   return (
     <div>
-      <BackGroundContext.Provider value={'rental-bg'}>
-        <DatePicker getStartDate={getStartDate} getEndDate={getEndDate} />
+      <BackGroundContext.Provider value="rental-bg">
+        <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
       </BackGroundContext.Provider>
     </div>
   );
