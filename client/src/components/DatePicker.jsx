@@ -37,16 +37,14 @@ function DatePicker({ getStartDate, getEndDate }) {
     getEndDate(toValue);
   }
 
-  const fromDate = [
-    fromValue.getDate(),
-    fromValue.toLocaleString('default', { month: 'short' }),
-    fromValue.getFullYear(),
-  ].join(' ');
-  const toDate = [
-    toValue.getDate(),
-    toValue.toLocaleString('default', { month: 'short' }),
-    toValue.getFullYear(),
-  ].join(' ');
+  function dateFormatter(value) {
+    const date = [
+      value.getDate(),
+      value.toLocaleString('default', { month: 'short' }),
+      value.getFullYear(),
+    ].join(' ');
+    return date
+  }
 
   return (
     <div className={`component-background ${parkingBg}`}>
@@ -58,12 +56,12 @@ function DatePicker({ getStartDate, getEndDate }) {
             onClick={() => openCalendar('start')}
           >
             <img src={calendarSVG} alt="calendar" />
-            {fromDate}
+            {dateFormatter(fromValue)}
           </button>
           <img src={arrow} className="arrow" alt="arrow" />
           <button className="button date-picker-button" type="button" onClick={() => openCalendar('end')}>
             <img src={calendarSVG} alt="calendar" />
-            {toDate}
+            {dateFormatter(toValue)}
           </button>
           <button type="button" className="button search-button" onClick={onSearch}>
             Search
