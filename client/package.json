@@ -38,5 +38,10 @@
     "prettier": "^2.8.8",
     "sass": "^1.63.6",
     "vite": "^4.3.9"
-  }
+  },
+  "description": "- **telepítés:**\r     ```shell\r     $ npm install\r     ```\r - **fejlesztői verzió elindítása:**\r     ```shell\r     $ npm run dev\r     ```\r ### backend api url megváltoztatása:\r - hozz létre egy `.env` file-t a project gyökerében a `.env.example` mintájára.\r - A `VITE_BACKEND_URL` kulcsnak add meg a saját backend-ed URL-ét.",
+  "main": "vite.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
