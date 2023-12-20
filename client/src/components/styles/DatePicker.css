@@ -1,0 +1,92 @@
+@import url("variables.css");
+
+/* Background */
+
+.component-background {
+    background-size: cover;
+    height: 87vh;
+
+}
+
+.parking-bg {
+    /* background-image: URL("../../assets/DatePicker/parking_bg.jpg");  SOMEHOW NOT WORKING*/
+    background-image: var(--main-linear-gradient), URL("https://cdn.vox-cdn.com/thumbor/okY54qvEzKcEa2RpTNu84xArEFI=/0x0:5464x3640/1200x675/filters:focal(2295x1383:3169x2257)/cdn.vox-cdn.com/uploads/chorus_image/image/72262173/GettyImages_1354859135__1_.0.jpg");
+}
+
+.rental-bg {
+    /* background-image: var(--main-linear-gradient), URL("../../assets/DatePicker/rental_bg.webp");   SOMEHOW NOT WORKING**/
+    background-image: var(--main-linear-gradient), URL("https://fouraroundtheworld.com/wp-content/uploads/2023/04/road-trip-quotes-1-1.jpg");
+}
+
+/* Main-container */
+
+.date-picker-main-container {
+    display: flex;
+    justify-content: center;
+}
+
+.date-picker-container {
+    gap: 30px;
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    background-color: whitesmoke;
+    padding: 50px 75px;
+    border-radius: 5px;
+    box-shadow: var(--main-box-shadow);
+}
+
+/* Main button */
+
+button {
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Date Picker button */
+
+.date-picker-button img {
+    height: 15px;
+    padding-right: 10px;
+}
+
+.date-picker-button {
+    border: 1px solid grey; 
+    background-color: white;
+    padding: 5px 10px;
+    min-width: 200px;
+}
+
+.date-picker-button:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+/* Search button */
+
+.search-button {
+    background-color: var(--main-color);
+    border: 0;
+    color: white;
+    font-weight: bold;
+    padding: 0px 20px;
+    width: 125px;
+}
+
+.search-button:hover {
+    background-color: #031533;
+}
+
+.search-button:active {
+    background-color: var(--secondary-color);
+}
+
+/* Modal */
+
+#calendar-dialog {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+    height: 400px;
+    width: 400px;
+}
