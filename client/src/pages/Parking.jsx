@@ -1,36 +1,45 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 
 function Parking() {
-  let startDate;
-  let endDate;
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null)
+
 
   function getStartDate(data) {
-    startDate = data;
-    return startDate;
+    setStartDate(data);
   }
 
   function getEndDate(data) {
-    endDate = data;
-    return endDate;
+    setEndDate(data);
   }
 
-  const handleGetStartDate = useCallback(() => {
-    getStartDate();
+  const handleGetStartDate = useCallback((data) => {
+    getStartDate(data);
   }, [getStartDate]);
-
-  const handleGetEndDate = useCallback(() => {
-    getEndDate();
+  
+  const handleGetEndDate = useCallback((data) => {
+    getEndDate(data);
   }, [getEndDate]);
 
+  if(!startDate && !endDate) {
   return (
     <div>
-      <BackGroundContext.Provider value="parking-bg">
+      <BackGroundContext.Provider value="component-background parking-bg">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
       </BackGroundContext.Provider>
     </div>
   );
+  }
+    return (
+      <div>
+        <BackGroundContext.Provider value="opened">
+          <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
+          <p>Parking</p>
+        </BackGroundContext.Provider>
+      </div>
+    )
 }
 
 export default Parking;

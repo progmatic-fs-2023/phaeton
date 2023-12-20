@@ -1,26 +1,26 @@
 import React, { useState, useContext, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
+import BackGroundContext from '../contexts/BackgroundContext';
+import 'react-calendar/dist/Calendar.css';
 import './styles/DatePicker.css';
 import './styles/Calendar.css';
 import calendarSVG from '../assets/DatePicker/calendar.svg';
 import arrow from '../assets/DatePicker/arrow.svg';
-import BackGroundContext from '../contexts/BackgroundContext';
 
 function DatePicker({ getStartDate, getEndDate }) {
   DatePicker.propTypes = {
-    getStartDate: PropTypes.instanceOf(Date).isRequired,
-    getEndDate: PropTypes.instanceOf(Date).isRequired,
+    getStartDate: PropTypes.func.isRequired,
+    getEndDate: PropTypes.func.isRequired,
   };
   const current = new Date();
   const followingDay = new Date(current.getTime() + 172800000);
-  const parkingBg = useContext(BackGroundContext);
-
+  
   const [fromValue, setFromValue] = useState(current);
   const [toValue, setToValue] = useState(followingDay);
   const [option, setOption] = useState('');
-
+  
+  const parkingBg = useContext(BackGroundContext);
   const calendarDialog = useRef(null);
 
   function openCalendar(prop) {
@@ -56,7 +56,7 @@ function DatePicker({ getStartDate, getEndDate }) {
   }, [onDateChange]);
 
   return (
-    <div className={`component-background ${parkingBg}`}>
+    <div className={parkingBg}>
       <div className="date-picker-main-container">
         <div className="date-picker-container">
           <button

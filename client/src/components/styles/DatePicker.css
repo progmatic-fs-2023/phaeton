@@ -5,17 +5,22 @@
 .component-background {
     background-size: cover;
     height: 87vh;
-
 }
 
 .parking-bg {
+    padding-top: 20vh;
     /* background-image: URL("../../assets/DatePicker/parking_bg.jpg");  SOMEHOW NOT WORKING*/
     background-image: var(--main-linear-gradient), URL("https://cdn.vox-cdn.com/thumbor/okY54qvEzKcEa2RpTNu84xArEFI=/0x0:5464x3640/1200x675/filters:focal(2295x1383:3169x2257)/cdn.vox-cdn.com/uploads/chorus_image/image/72262173/GettyImages_1354859135__1_.0.jpg");
 }
 
 .rental-bg {
+    padding-top: 20vh ;
     /* background-image: var(--main-linear-gradient), URL("../../assets/DatePicker/rental_bg.webp");   SOMEHOW NOT WORKING**/
     background-image: var(--main-linear-gradient), URL("https://fouraroundtheworld.com/wp-content/uploads/2023/04/road-trip-quotes-1-1.jpg");
+}
+
+.opened {
+    margin-top: 10px;
 }
 
 /* Main-container */
@@ -29,7 +34,6 @@
     gap: 30px;
     display: flex;
     justify-content: center;
-    margin: 50px;
     background-color: whitesmoke;
     padding: 50px 75px;
     border-radius: 5px;
@@ -87,6 +91,6 @@ button {
     border: 0;
     background-color: transparent;
     box-shadow: none;
-    height: 400px;
+    max-height: 350px;
     width: 400px;
 }
