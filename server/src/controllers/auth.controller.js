@@ -15,6 +15,7 @@ export const signUp = async (req, res) => {
       email,
       password: passwordHash,
     });
+    delete createdUser.password;
 
     res.status(201).json({
       message: 'User created.',
@@ -65,16 +66,17 @@ export const login = async (req, res) => {
           token,
         });
       } else {
-        res.status(401).json({
-          message: 'Failed to login.',
-          error: 'Password is incorrect.',
-        });
+        throw new Error();
+        // res.status(404).json({
+        //   message: 'Failed to login.',
+        //   error: 'Password is incorrect.',
+        // });
       }
     }
   } catch (err) {
     res.status(404).json({
       message: 'Failed to get user',
-      error: err.message,
+      err: err.message,
     });
   }
 };
