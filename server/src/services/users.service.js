@@ -14,6 +14,14 @@ export async function findUserByEmail(email) {
     where: {
       email,
     },
+    // returns with selected columns
+    select: {
+      firstName: true,
+      lastName: true,
+      email: true,
+      password: true,
+      role: true,
+    },
   });
   return user;
 }
