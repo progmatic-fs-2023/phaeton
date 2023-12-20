@@ -1,5 +1,7 @@
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { createUser, findUserByEmail } from '../services/users.service';
+import 'dotenv/config';
 
 // user registration
 export const signUp = async (req, res) => {
@@ -48,9 +50,19 @@ export const login = async (req, res) => {
     } else {
       const result = await bcrypt.compare(password, user.password); // true if password matching
       if (result) {
+        // client gets user object without password
+        delete user.password;
+
+        const payload = {
+          email: user.email,
+          role: user.role,
+        };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
+
         res.status(200).json({
           message: 'Login successful',
           user,
+          token,
         });
       } else {
         res.status(401).json({
@@ -60,7 +72,7 @@ export const login = async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(400).json({
+    res.status(404).json({
       message: 'Failed to get user',
       error: err.message,
     });
