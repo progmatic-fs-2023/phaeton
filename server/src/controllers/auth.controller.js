@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { createUser, findUserByEmail } from '../services/users.service';
 import 'dotenv/config';
-import jwt from 'jsonwebtoken';
 
 // user registration
 export const signUp = async (req, res) => {
