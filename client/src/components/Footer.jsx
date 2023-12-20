@@ -35,13 +35,13 @@ export default function Footer() {
         </li>
       </ul>
       <div className="icon-container">
-        <a href="www.facebook.com">
+        <a href="https://facebook.com">
           <img src={facebookIcon} alt="facebook" />
         </a>
-        <a href="www.instagram.com">
+        <a href="https://instagram.com">
           <img src={instagramIcon} alt="instagram" />
         </a>
-        <a href="www.linkedin.com">
+        <a href="https://linkedin.com">
           <img src={linkedinIcon} alt="linkedin" />
         </a>
         <a href="https://twitter.com">
