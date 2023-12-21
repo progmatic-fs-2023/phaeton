@@ -1,6 +1,6 @@
 @import url('variables.css');
 
-dialog {
+.login-modal {
   width: 400px;
   height: 500px;
   text-align: center;

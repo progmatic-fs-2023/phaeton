@@ -7,18 +7,15 @@ import phoneIcon from '../assets/footer/phone.svg';
 import { phoneNumber } from './Shuttle';
 
 function Contact() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dialogRef = useRef(null);
   const [dialogMessage, setDialogMessage] = useState(null);
 
-  const dialog = document.querySelector('.contact-modal');
-
   const openDialog = () => {
-    dialog.showModal();
+    dialogRef.current.showModal();
   };
 
   const closeDialog = () => {
-    setIsDialogOpen(false);
+    dialogRef.current.close();
   };
 
   const form = useRef();
@@ -67,11 +64,11 @@ function Contact() {
           <input type="submit" value="Send" />
         </form>
       </div>
-      <dialog className="contact-modal" open={isDialogOpen} ref={dialogRef}>
+      <dialog className="contact-modal" ref={dialogRef}>
+        <h2>{dialogMessage}</h2>
         <button type="button" className="contact-nobg-btn" onClick={closeDialog}>
           ✖
         </button>
-        <h2>{dialogMessage}</h2>
       </dialog>
       <div className="list-container">
         <ul>

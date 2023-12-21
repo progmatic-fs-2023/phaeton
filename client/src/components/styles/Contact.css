@@ -49,4 +49,10 @@
 
 .contact-modal {
   height: auto;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px rgb(52, 50, 50);
+  z-index: 100;
 }
