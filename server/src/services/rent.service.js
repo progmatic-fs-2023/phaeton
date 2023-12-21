@@ -16,7 +16,7 @@ export async function getCarById(id) {
     return car
 }
 
-export async function rentCarById(id, userId, ParkingStartDate, ParkingEndDate) {
+export async function rentCarById(id, userId, RentStartDate, RentEndDate) {
     const car = await getCarById(id)
     if(car.userID == null) {
         await prisma.Cars.update({
@@ -30,8 +30,8 @@ export async function rentCarById(id, userId, ParkingStartDate, ParkingEndDate) 
         await prisma.Users.update({
             where: { id: userId },
             data: { 
-                ParkingStartDate,
-                ParkingEndDate
+                RentStartDate,
+                RentEndDate
             },
         });
     } else {
@@ -46,8 +46,8 @@ export async function rentCarById(id, userId, ParkingStartDate, ParkingEndDate) 
         await prisma.Users.update({
             where: { id: userId },
             data: { 
-                parkingstartdate: null,
-                parkingenddate: null
+                RentStartDate: null,
+                RentEndDate: null
             },
         });
     }
