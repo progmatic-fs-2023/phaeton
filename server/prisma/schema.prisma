@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model  Users   {
   id               String       @id @default(cuid())
   firstName        String       @db.VarChar(50)
   lastName         String       @db.VarChar(50)
@@ -18,7 +18,7 @@ model Users {
   RentStartDate    DateTime?
   RentEndtDate     DateTime?
   ParkingStartDate DateTime?
-  ParkingEndtDate  DateTime?
+  ParkingEndDate   DateTime?
   Cars             Cars[]
   ParkingLot       ParkingLot[]
   IsGuestUser      Boolean      @default(false)
@@ -40,6 +40,10 @@ model Cars {
 
 model ParkingLot {
   id     String  @id @default(cuid())
+ String  @id @default(cuid())
+ String  @id @default(cuid())
+ String  @id @default(cuid())
+  String  @id @default(cuid())
   name   String  @unique @db.VarChar(50)
   userID String?
   Users  Users?  @relation(fields: [userID], references: [id])
