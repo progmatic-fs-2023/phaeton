@@ -1,11 +1,11 @@
 import express from 'express';
 import * as rentController from '../controllers/rent.controller';
-import rentingValidator from '../middlewares/rentingValidator.middleware';
+import userIdValidator from '../middlewares/userIdValidator.middleware';
 
 const router = express.Router();
 
 router.get('/', rentController.list);
 router.get('/:id', rentController.listById);
-router.patch('/:id', rentingValidator, rentController.rent);
+router.patch('/:id', userIdValidator, rentController.rent);
 
 export default router;

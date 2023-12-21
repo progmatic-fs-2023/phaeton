@@ -9,7 +9,7 @@ function idError(res, message) {
   });
 }
 
-async function rentingValidator(req, res, next) {
+async function userIdValidator(req, res, next) {
   if (req.body.userId.length !== 25) {
     idError(res, 'UserID is invalid');
   } else {
@@ -25,7 +25,7 @@ async function rentingValidator(req, res, next) {
         if (userCheck.userId == null) {
           next();
         } else {
-          idError(res, 'Car is already borrowed');
+          idError(res, 'Already taken');
         }
       } else {
         idError(res, 'UserID is invalid');
@@ -36,4 +36,4 @@ async function rentingValidator(req, res, next) {
   }
 }
 
-export default rentingValidator;
+export default userIdValidator;
