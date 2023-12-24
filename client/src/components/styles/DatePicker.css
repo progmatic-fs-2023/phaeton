@@ -9,14 +9,12 @@
 
 .parking-bg {
     padding-top: 20vh;
-    /* background-image: var(--main-linear-gradient),URL("../../assets/DatePicker/parking_bg.jpg");  SOMEHOW NOT WORKING*/
-    background-image: var(--main-linear-gradient), URL("https://cdn.vox-cdn.com/thumbor/okY54qvEzKcEa2RpTNu84xArEFI=/0x0:5464x3640/1200x675/filters:focal(2295x1383:3169x2257)/cdn.vox-cdn.com/uploads/chorus_image/image/72262173/GettyImages_1354859135__1_.0.jpg");
+    background-image: var(--main-linear-gradient),URL("../../../public/DatePicker/parking_bg.jpg");
 }
 
 .rental-bg {
     padding-top: 20vh ;
-    /* background-image: var(--main-linear-gradient), URL("../../assets/DatePicker/rental_bg.webp");   SOMEHOW NOT WORKING**/
-    background-image: var(--main-linear-gradient), URL("https://fouraroundtheworld.com/wp-content/uploads/2023/04/road-trip-quotes-1-1.jpg");
+    background-image: var(--main-linear-gradient), URL("../../../public/DatePicker/rental_bg.webp");
 }
 
 .opened {
