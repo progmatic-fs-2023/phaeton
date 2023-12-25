@@ -25,6 +25,23 @@ function Login() {
     }
   };
 
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const response = await fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password, firstName, lastName }),
+    });
+
+    const data = await response.json();
+
+    if (data) {
+      dialogRef.current.close();
+    }
+  };
+
   const openDialog = () => {
     dialogRef.current.showModal();
   };
@@ -125,19 +142,44 @@ function Login() {
               </div>
               <div className="flex-column">
                 <div className="flex-row">
-                  <input type="text" name="firstName" placeholder="First name" />
-                  <input type="text" name="lastName" placeholder="Last name" />
+                  <input
+                    type="text"
+                    name="firstName"
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="First name"
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last name"
+                  />
                 </div>
                 <div className="flex-column">
-                  <input type="email" name="email" placeholder="Enter e-mail" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter e-mail"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <div className="flex-row">
-                    <input type="password" name="password" placeholder="Enter password" />
-                    <input type="password" name="password" placeholder="Confirm password" />
+                    <input
+                      type="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      name="password"
+                      placeholder="Enter password"
+                    />
+                    <input
+                      type="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      name="password"
+                      placeholder="Confirm password"
+                    />
                   </div>
                 </div>
               </div>
               <div>
-                <button className="submit-btn" type="submit">
+                <button className="submit-btn" type="submit" onClick={handleRegister}>
                   Sign Up
                 </button>
               </div>
