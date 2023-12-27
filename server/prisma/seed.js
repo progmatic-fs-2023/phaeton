@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 // Run these functions once to fill the database
 
 function main() {
-  const zoneNames = ["A", "B", "C", "D", "E", "F"]
+  const zoneNames = ['A', 'B', 'C', 'D', 'E', 'F'];
 
   let zoneInc = 0;
 
@@ -111,7 +111,7 @@ function main() {
       power: 72,
       trunkCapacity: 1,
     },
-        {
+    {
       model: 'Renault Zoe',
       imageUrl: 'renault_zoe.jpg',
       seats: 4,
@@ -130,7 +130,7 @@ function main() {
       fuel: 'Electric',
       power: 198,
       trunkCapacity: 1,
-    }, 
+    },
   ];
 
   async function createLot() {
@@ -159,9 +159,9 @@ function main() {
 
   async function CreateCars() {
     const cars = await prisma.cars.createMany({
-      data: carsArray
+      data: carsArray,
     });
-    console.log(cars)
+    console.log(cars);
   }
 
   CreateAdmin();
@@ -170,11 +170,10 @@ function main() {
 
   for (let i = 1; i <= 599; i += 1) {
     if (i % 100 === 0) {
-      zoneInc += 1
+      zoneInc += 1;
     }
     createLot();
   }
-
 }
 
 main();
