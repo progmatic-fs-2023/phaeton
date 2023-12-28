@@ -34,7 +34,7 @@ model Cars {
 
 model ParkingLot {
   id      String     @id @default(cuid())
-  zone    String     @unique @db.VarChar(50)
+  zone    String     @db.VarChar(50)
   Service Services[]
 }
 
