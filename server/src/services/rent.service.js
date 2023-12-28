@@ -7,6 +7,30 @@ export async function getAllCars() {
   return cars;
 }
 
+export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate) {
+  const cars = await prisma.Cars.findMany();
+  const services = await prisma.services.findMany({
+    where: {
+      OR: [
+        {
+          ServiceEndDate: {
+            lt: ServiceStartDate
+          }
+        },
+        {
+          ServiceStartDate: {
+            gt: ServiceEndDate
+          }
+        }
+      ]
+    }
+  });
+  
+  return {cars, services};
+  
+
+}
+
 export async function getCarById(id) {
   const car = await prisma.cars.findUnique({
     where: {
@@ -16,40 +40,22 @@ export async function getCarById(id) {
   return car;
 }
 
-export async function rentCarById(id, userId, RentStartDate, RentEndDate) {
-  const car = await getCarById(id);
-  if (car.userID == null) {
-    await prisma.Cars.update({
-      where: { id },
-      data: {
-        Users: {
-          connect: { id: userId },
+export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDate) {
+  const check = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
+  let result 
+  console.log(check)
+  if(check.services.length > 0) {
+    result =  await prisma.Services.create({
+        data: {
+          ServiceStartDate,
+          ServiceEndDate,
+          userID,
+          CarID
         },
-      },
-    });
-    await prisma.Users.update({
-      where: { id: userId },
-      data: {
-        RentStartDate,
-        RentEndDate,
-      },
-    });
-  } else {
-    await prisma.Cars.update({
-      where: { id },
-      data: {
-        Users: {
-          disconnect: true,
-        },
-      },
-    });
-    await prisma.Users.update({
-      where: { id: userId },
-      data: {
-        RentStartDate: null,
-        RentEndDate: null,
-      },
-    });
-  }
-  return car;
+      });     
+    } else {
+      throw new Error('Car is already taken')
+    }
+    return result;
 }
+
