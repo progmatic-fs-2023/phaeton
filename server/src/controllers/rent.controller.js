@@ -1,8 +1,32 @@
-import { getAllCars, getCarById, rentCarById } from '../services/rent.service';
+import {
+  getAllCars,
+  getCarsAndServicesByDate,
+  getCarById,
+  rentCarById,
+} from '../services/rent.service';
 
 export const list = async (_, res) => {
   const result = await getAllCars();
   res.json(result);
+};
+
+export const listByDate = async (req, res) => {
+  try {
+    const { ServiceStartDate, ServiceEndDate } = req.body;
+    if (new Date(ServiceStartDate) > new Date(ServiceEndDate)) {
+      throw new Error('The Start date is greater than the End Date');
+    } else if (ServiceStartDate === ServiceEndDate) {
+      throw new Error('The minimum rent time is 24 hours');
+    } else {
+      const result = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate);
+      res.json(result);
+    }
+  } catch (err) {
+    res.status(400).json({
+      error: `Internal server error code: 400`,
+      message: err.message,
+    });
+  }
 };
 
 export const listById = async (req, res) => {
@@ -26,9 +50,12 @@ export const listById = async (req, res) => {
 
 export const rent = async (req, res) => {
   try {
-    const { userId, RentStartDate, RentEndDate } = req.body;
-    const result = await rentCarById(req.params.id, userId, RentStartDate, RentEndDate);
-    res.json(result);
+    const { userId, ServiceStartDate, ServiceEndDate } = req.body;
+    const result = await rentCarById(req.params.id, userId, ServiceStartDate, ServiceEndDate);
+    res.json({
+      message: 'Car rented successfully',
+      result,
+    });
   } catch (err) {
     res.status(400).json({
       error: `Internal server error code: 400`,
