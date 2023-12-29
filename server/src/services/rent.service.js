@@ -11,15 +11,15 @@ export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
   const cars = await prisma.Cars.findMany();
   const services = await prisma.services.findMany({
     where: {
-      OR: [
+      AND: [
         {
-          ServiceEndDate: {
-            lt: ServiceStartDate
+          ServiceStartDate: {
+            gte: ServiceStartDate
           }
         },
         {
-          ServiceStartDate: {
-            gt: ServiceEndDate
+          ServiceEndDate: {
+            lte: ServiceEndDate
           }
         }
       ]
@@ -27,8 +27,6 @@ export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
   });
   
   return {cars, services};
-  
-
 }
 
 export async function getCarById(id) {
@@ -41,10 +39,12 @@ export async function getCarById(id) {
 }
 
 export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDate) {
-  const check = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
+  const carCheck = await getCarById(CarID)
   let result 
-  console.log(check)
-  if(check.services.length > 0) {
+  if(carCheck) {
+  const dateCheck = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
+  const filteredCars = dateCheck.services.filter((car) => car.CarID === CarID)
+  if(filteredCars.length === 0) {
     result =  await prisma.Services.create({
         data: {
           ServiceStartDate,
@@ -56,6 +56,9 @@ export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDat
     } else {
       throw new Error('Car is already taken')
     }
+  } else {
+  throw new Error('Car does not exist')
+  }
     return result;
 }
 

@@ -47,7 +47,10 @@ export const rent = async (req, res) => {
   try {
     const { userId, ServiceStartDate, ServiceEndDate } = req.body;
     const result = await rentCarById(req.params.id, userId, ServiceStartDate, ServiceEndDate);
-    res.json(result);
+    res.json({
+      message: 'Car rented successfully',
+      result
+    });
   } catch (err) {
     res.status(400).json({
       error: `Internal server error code: 400`,
