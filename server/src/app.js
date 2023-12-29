@@ -6,6 +6,7 @@ import apiRouter from './routes/api.route';
 import usersRouter from './routes/users.routes';
 import rentController from './routes/rent.routes';
 import parkingRouter from './routes/parking.routes';
+import adminController from './routes/admin.routes';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use('/users', usersRouter);
 app.use('/rental', rentController);
 
 app.use('/parking', parkingRouter);
+
+app.use('/admin', adminController);
 
 app.use(errorHandler);
 export default app;

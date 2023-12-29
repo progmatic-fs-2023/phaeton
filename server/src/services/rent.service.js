@@ -7,6 +7,28 @@ export async function getAllCars() {
   return cars;
 }
 
+export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate) {
+  const cars = await prisma.Cars.findMany();
+  const services = await prisma.services.findMany({
+    where: {
+      AND: [
+        {
+          ServiceStartDate: {
+            gte: ServiceStartDate,
+          },
+        },
+        {
+          ServiceEndDate: {
+            lte: ServiceEndDate,
+          },
+        },
+      ],
+    },
+  });
+
+  return { cars, services };
+}
+
 export async function getCarById(id) {
   const car = await prisma.cars.findUnique({
     where: {
@@ -16,40 +38,26 @@ export async function getCarById(id) {
   return car;
 }
 
-export async function rentCarById(id, userId, RentStartDate, RentEndDate) {
-  const car = await getCarById(id);
-  if (car.userID == null) {
-    await prisma.Cars.update({
-      where: { id },
-      data: {
-        Users: {
-          connect: { id: userId },
+export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDate) {
+  const carCheck = await getCarById(CarID);
+  let result;
+  if (carCheck) {
+    const dateCheck = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate);
+    const filteredCars = dateCheck.services.filter(car => car.CarID === CarID);
+    if (filteredCars.length === 0) {
+      result = await prisma.Services.create({
+        data: {
+          ServiceStartDate,
+          ServiceEndDate,
+          userID,
+          CarID,
         },
-      },
-    });
-    await prisma.Users.update({
-      where: { id: userId },
-      data: {
-        RentStartDate,
-        RentEndDate,
-      },
-    });
+      });
+    } else {
+      throw new Error('Car is already taken');
+    }
   } else {
-    await prisma.Cars.update({
-      where: { id },
-      data: {
-        Users: {
-          disconnect: true,
-        },
-      },
-    });
-    await prisma.Users.update({
-      where: { id: userId },
-      data: {
-        RentStartDate: null,
-        RentEndDate: null,
-      },
-    });
+    throw new Error('Car does not exist');
   }
-  return car;
+  return result;
 }

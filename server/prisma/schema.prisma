@@ -34,7 +34,7 @@ model Cars {
 
 model ParkingLot {
   id      String     @id @default(cuid())
-  zone    String     @unique @db.VarChar(50)
+  zone    String     @db.VarChar(50)
   Service Services[]
 }
 
@@ -42,6 +42,7 @@ model Services {
   id               String      @id @default(cuid())
   ServiceStartDate DateTime?
   ServiceEndDate   DateTime?
+  ActualServiceEndDate DateTime?
   ParkingLotID     String?
   ParkingLot       ParkingLot? @relation(fields: [ParkingLotID], references: [id])
   userID           String?
