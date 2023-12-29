@@ -5,7 +5,7 @@ import errorHandler from './middlewares/errorHandler.middleware';
 import apiRouter from './routes/api.route';
 import usersRouter from './routes/users.routes';
 import rentController from './routes/rent.routes';
-import adminController from './routes/admin.routes'
+import adminController from './routes/admin.routes';
 
 const app = express();
 

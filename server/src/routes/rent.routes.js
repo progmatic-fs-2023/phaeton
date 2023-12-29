@@ -1,6 +1,6 @@
 import express from 'express';
 import * as rentController from '../controllers/rent.controller';
-import * as userIdValidator from '../middlewares/userIdValidator.middleware'
+import * as userIdValidator from '../middlewares/userIdValidator.middleware';
 
 const router = express.Router();
 

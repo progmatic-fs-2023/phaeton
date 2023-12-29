@@ -14,19 +14,19 @@ export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
       AND: [
         {
           ServiceStartDate: {
-            gte: ServiceStartDate
-          }
+            gte: ServiceStartDate,
+          },
         },
         {
           ServiceEndDate: {
-            lte: ServiceEndDate
-          }
-        }
-      ]
-    }
+            lte: ServiceEndDate,
+          },
+        },
+      ],
+    },
   });
-  
-  return {cars, services};
+
+  return { cars, services };
 }
 
 export async function getCarById(id) {
@@ -39,25 +39,25 @@ export async function getCarById(id) {
 }
 
 export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDate) {
-  const carCheck = await getCarById(CarID)
-  let result 
-  if(carCheck) {
-  const dateCheck = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
-  const filteredCars = dateCheck.services.filter((car) => car.CarID === CarID)
-  if(filteredCars.length === 0) {
-    result =  await prisma.Services.create({
+  const carCheck = await getCarById(CarID);
+  let result;
+  if (carCheck) {
+    const dateCheck = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate);
+    const filteredCars = dateCheck.services.filter(car => car.CarID === CarID);
+    if (filteredCars.length === 0) {
+      result = await prisma.Services.create({
         data: {
           ServiceStartDate,
           ServiceEndDate,
           userID,
-          CarID
+          CarID,
         },
-      });     
+      });
     } else {
-      throw new Error('Car is already taken')
+      throw new Error('Car is already taken');
     }
   } else {
-  throw new Error('Car does not exist')
+    throw new Error('Car does not exist');
   }
-    return result;
+  return result;
 }
