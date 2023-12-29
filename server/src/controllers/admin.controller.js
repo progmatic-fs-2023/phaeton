@@ -1,6 +1,6 @@
 import cancelServiceById from "../services/admin.service";
 
-// export individually when there's more function in it
+// export functions individually when there's more function in it
 
 async function endService(req, res) {
     try {

@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// export individually when there's more function in it
+// export functions individually when there's more function in it
 
 async function cancelServiceById(userID, id) {
     const now = new Date(Date.now());
