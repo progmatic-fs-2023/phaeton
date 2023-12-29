@@ -1,4 +1,4 @@
-import { getAllCars, getCarsAndServicesByDate, getCarById, rentCarById } from '../services/rent.service';
+import { getAllCars, getCarsAndServicesByDate, getCarById, rentCarById, cancelRentById } from '../services/rent.service';
 
 export const list = async (_, res) => {
   const result = await getAllCars();

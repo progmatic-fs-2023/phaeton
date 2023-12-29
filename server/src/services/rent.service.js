@@ -62,3 +62,7 @@ export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDat
     return result;
 }
 
+export async function cancelRentById() {
+  
+}
+

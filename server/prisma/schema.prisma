@@ -42,6 +42,7 @@ model Services {
   id               String      @id @default(cuid())
   ServiceStartDate DateTime?
   ServiceEndDate   DateTime?
+  ActualServiceEndDate DateTime?
   ParkingLotID     String?
   ParkingLot       ParkingLot? @relation(fields: [ParkingLotID], references: [id])
   userID           String?
