@@ -7,12 +7,25 @@ function Rent() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [carsData, SetCarsData] = useState([]);
+  const [serviceData, SetServiceData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/rental')
-      .then((response) => response.json())
-      .then((data) => SetCarsData(data));
-  }, []);
+    if (startDate && endDate) {
+      fetch('http://localhost:3000/rental/date', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ServiceStartDate: startDate,
+          ServiceEndDate: endDate,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {SetCarsData(data.cars)
+          SetServiceData(data.services)});
+    }
+  }, [startDate, endDate]);
 
   function getStartDate(data) {
     setStartDate(data);
@@ -36,6 +49,9 @@ function Rent() {
     [getEndDate],
   );
 
+  const filteredCarsData = carsData.filter(car => !serviceData.some(service => service.CarID === car.id));
+
+
   if (!startDate && !endDate) {
     return (
       // Component with the background
@@ -52,7 +68,7 @@ function Rent() {
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
         <div className="car-container">
-          {carsData.map((car) => (
+          {filteredCarsData.map((car) => (
             <div key={car.model} className="car-card">
               <div className="photo-and-info-container">
                 <div className="car-photo-container">
