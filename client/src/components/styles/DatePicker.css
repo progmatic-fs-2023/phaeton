@@ -18,7 +18,11 @@
 }
 
 .opened {
-    margin-top: 10px;
+    margin-top: 30px;
+}
+
+#opened {
+    background-color: white;
 }
 
 /* Main-container */
@@ -29,6 +33,7 @@
 }
 
 .date-picker-container {
+    margin: 0 100px;
     gap: 30px;
     display: flex;
     justify-content: center;
@@ -59,6 +64,10 @@ button {
     padding: 5px 10px;
     min-width: 200px;
 }
+.date-picker-button p{
+    margin: 0;
+    font-size: 0.8rem;
+}
 
 .date-picker-button:hover {
     background-color: rgb(230, 230, 230);
@@ -73,6 +82,7 @@ button {
     font-weight: bold;
     padding: 0px 20px;
     width: 125px;
+    min-height: 50px;
 }
 
 .search-button:hover {
@@ -91,4 +101,11 @@ button {
     box-shadow: none;
     max-height: 350px;
     width: 400px;
+}
+
+@media only screen and (max-width: 1000px) {
+.date-picker-container{
+    flex-direction: column;
+    align-items: center;
+}
 }

@@ -1,0 +1,106 @@
+@import url("variables.css");
+
+.rent-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.car-container{
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    gap: 20px;
+}
+
+.photo-and-info-container {
+    display: flex;
+    gap: 50px;
+}
+
+.car-photo-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.car-info-elem {
+    display: flex;
+    gap: 5px;
+}
+
+.car-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid silver;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 5px;
+    width: 800px;
+    min-width: 500px;
+    background-color: white;
+}
+
+.car-photo {
+    width: 300px;
+    overflow: hidden;
+}
+
+.car-info-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 15px;
+}
+
+.title-and-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px
+}
+
+.rent-button {
+    color: white;
+    background-color: green;
+    border: none;
+    padding: 5px;
+    height: 50px;
+    width: 150px;
+}
+
+.rent-button:hover {
+    background-color: darkgreen
+}
+
+.rent-button:active {
+    opacity: 0.6;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .car-container {
+          margin: 25px;;
+        }
+        .car-photo-container {
+            height: auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .title-and-info-container {
+            gap: 0px;
+            margin-bottom: 15px;
+        }
+
+        .photo-and-info-container {
+            gap: 20px
+        }
+    
+        .car-photo {
+            width: 150px;
+            overflow: hidden;
+        }
+        .car-card{
+            width: auto;
+        }
+        
+      }

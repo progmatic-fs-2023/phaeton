@@ -58,14 +58,17 @@ function DatePicker({ getStartDate, getEndDate }) {
   return (
     <div className={parkingBg}>
       <div className="date-picker-main-container">
-        <div className="date-picker-container">
+        <div className="date-picker-container" id={parkingBg}>
           <button
             className="date-picker-button"
             type="button"
             onClick={() => openCalendar('start')}
           >
+            <p>Departure</p>
+            <div>
             <img src={calendarSVG} alt="calendar" />
             {dateFormatter(fromValue)}
+            </div>
           </button>
           <img src={arrow} className="arrow" alt="arrow" />
           <button
@@ -73,8 +76,11 @@ function DatePicker({ getStartDate, getEndDate }) {
             type="button"
             onClick={() => openCalendar('end')}
           >
+            <p>Return</p>
+            <div>
             <img src={calendarSVG} alt="calendar" />
             {dateFormatter(toValue)}
+            </div>
           </button>
           <button type="button" className="button search-button" onClick={onSearch}>
             Search
