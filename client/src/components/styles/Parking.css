@@ -1,0 +1,31 @@
+@import url('variables.css');
+
+.parking-zones-container{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+}
+
+.map{
+  margin-right: 20px;
+  margin-top: 20px;
+}
+.map text{
+  font-weight: bold;
+}
+.parking-text-container{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 50px;
+  padding: 30px;
+}
+/*zone "button" config */
+.zone-btn{
+  fill: var(--secondary-color);
+transition: 0.5s;
+}
+
+.zone-btn:hover{
+  fill: greenyellow;
+}
