@@ -3,6 +3,7 @@ import { useCallback, useState, useEffect, useRef } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 import Cars from '../components/Cars';
+import CarFilter from '../components/CarFilter';
 
 function Rent() {
   const [startDate, setStartDate] = useState(null);
@@ -11,9 +12,9 @@ function Rent() {
   const [originalCarsData, setOriginalCarsData] = useState([]);
   const [serviceData, setServiceData] = useState([]);
 
-  const dieselRef = useRef(null)
-  const petrolRef = useRef(null)
-  const electricRef = useRef(null)
+  const dieselRef = useRef(null);
+  const petrolRef = useRef(null);
+  const electricRef = useRef(null);
 
   useEffect(() => {
     if (startDate && endDate) {
@@ -35,7 +36,6 @@ function Rent() {
         });
     }
   }, [startDate, endDate]);
-
 
   function getStartDate(data) {
     setStartDate(data);
@@ -59,7 +59,9 @@ function Rent() {
     [getEndDate],
   );
 
-  const filteredCarsData = carsData.filter(car => !serviceData.some(service => service.CarID === car.id));
+  const filteredCarsData = carsData.filter(
+    (car) => !serviceData.some((service) => service.CarID === car.id),
+  );
 
   function filteringCars() {
     let dieselCars = [];
@@ -75,10 +77,14 @@ function Rent() {
     if (electricRef.current.checked) {
       electricCars = originalCarsData.filter((car) => car.fuel === 'Electric');
     }
-  
+
     const combinedCars = [...dieselCars, ...petrolCars, ...electricCars];
     setCarsData(combinedCars.sort());
   }
+
+  const handleFilteringCars = useCallback(() => {
+    filteringCars();
+  }, [filteringCars]);
 
   if (!startDate && !endDate) {
     return (
@@ -95,22 +101,12 @@ function Rent() {
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
-        <div className='filter-main-container'>
-          <div className='filter-container fuel-type'>
-          <h3>Fuel-type</h3>
-        <div className='filter-items'>
-          <label htmlFor='diesel'>Diesel
-          <input type='checkbox' ref={dieselRef} value='diesel' id='diesel' name='fuel-type' defaultChecked onClick={filteringCars}/>
-          </label>
-          <label htmlFor='diesel'>Petrol
-          <input type='checkbox' ref={petrolRef} value='diesel' id='diesel' name='fuel-type' defaultChecked onClick={filteringCars}/>
-          </label>
-          <label htmlFor='diesel'>Electric
-          <input type='checkbox' ref={electricRef} value='diesel' id='diesel' name='fuel-type' defaultChecked onClick={filteringCars}/>
-          </label>
-          </div>
-        </div>
-        </div>
+        <CarFilter
+          dieselRef={dieselRef}
+          petrolRef={petrolRef}
+          electricRef={electricRef}
+          filteringCars={handleFilteringCars}
+        />
         <Cars data={filteredCarsData} />
       </BackGroundContext.Provider>
     </div>

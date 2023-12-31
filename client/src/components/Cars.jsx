@@ -5,7 +5,7 @@ function Cars({ data }) {
   Cars.propTypes = {
     data: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
   };
-
+  if (data.length > 0) {
   return (
     <div className="car-container">
       {data.map((car) => (
@@ -50,6 +50,8 @@ function Cars({ data }) {
       ))}
     </div>
   );
+} 
+    return "Unfortunately there's no cars for these requirements :("
 }
 
 export default Cars;
