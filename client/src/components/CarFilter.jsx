@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles/CarFilter.css'
 
 function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
   // These refs are not meant to have default values. They are initialized with null and then get assigned the DOM elements during the component’s lifecycle.
@@ -16,11 +17,16 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
 
   return (
     <div className="filter-main-container">
+        <div className="filter-main-container-title">
+        <h2>Filters</h2>
+        <span className="material-symbols-outlined">
+tune
+</span>
+</div>
       <div className="filter-container fuel-type">
         <h3>Fuel-type</h3>
         <div className="filter-items">
           <label htmlFor="diesel">
-            Diesel
             <input
               type="checkbox"
               ref={dieselRef}
@@ -29,10 +35,10 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
               name="fuel-type"
               defaultChecked
               onClick={filteringCars}
-            />
+              />
+              Diesel
           </label>
           <label htmlFor="diesel">
-            Petrol
             <input
               type="checkbox"
               ref={petrolRef}
@@ -41,10 +47,10 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
               name="fuel-type"
               defaultChecked
               onClick={filteringCars}
-            />
+              />
+              Petrol
           </label>
           <label htmlFor="diesel">
-            Electric
             <input
               type="checkbox"
               ref={electricRef}
@@ -53,7 +59,8 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
               name="fuel-type"
               defaultChecked
               onClick={filteringCars}
-            />
+              />
+              Electric
           </label>
         </div>
       </div>

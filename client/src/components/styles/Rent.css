@@ -13,6 +13,11 @@
     gap: 20px;
 }
 
+.car-service-container {
+    display: flex;
+    align-items: flex-start;
+}
+
 .photo-and-info-container {
     display: flex;
     gap: 50px;
@@ -35,7 +40,7 @@
     border: 1px solid silver;
     border-radius: 5px;
     padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 5px;
+    box-shadow: var(--main-box-shadow);
     width: 800px;
     min-width: 500px;
     background-color: white;
@@ -79,6 +84,12 @@
         .car-container {
           margin: 25px;;
         }
+
+        .car-service-container {
+             flex-direction: column;
+             align-items: center;
+        }
+
         .car-photo-container {
             height: auto;
             overflow: hidden;

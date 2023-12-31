@@ -101,6 +101,7 @@ function Rent() {
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
+        <div className='car-service-container'>
         <CarFilter
           dieselRef={dieselRef}
           petrolRef={petrolRef}
@@ -108,6 +109,7 @@ function Rent() {
           filteringCars={handleFilteringCars}
         />
         <Cars data={filteredCarsData} />
+        </div>
       </BackGroundContext.Provider>
     </div>
   );
