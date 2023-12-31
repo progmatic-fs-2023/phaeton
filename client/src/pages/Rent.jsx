@@ -1,13 +1,19 @@
 import '../components/styles/Rent.css';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
+import Cars from '../components/Cars';
 
 function Rent() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [carsData, SetCarsData] = useState([]);
-  const [serviceData, SetServiceData] = useState([]);
+  const [carsData, setCarsData] = useState([]);
+  const [originalCarsData, setOriginalCarsData] = useState([]);
+  const [serviceData, setServiceData] = useState([]);
+
+  const dieselRef = useRef(null)
+  const petrolRef = useRef(null)
+  const electricRef = useRef(null)
 
   useEffect(() => {
     if (startDate && endDate) {
@@ -22,10 +28,14 @@ function Rent() {
         }),
       })
         .then((response) => response.json())
-        .then((data) => {SetCarsData(data.cars)
-          SetServiceData(data.services)});
+        .then((data) => {
+          setOriginalCarsData(data.cars);
+          setCarsData(data.cars);
+          setServiceData(data.services);
+        });
     }
   }, [startDate, endDate]);
+
 
   function getStartDate(data) {
     setStartDate(data);
@@ -51,6 +61,24 @@ function Rent() {
 
   const filteredCarsData = carsData.filter(car => !serviceData.some(service => service.CarID === car.id));
 
+  function filteringCars() {
+    let dieselCars = [];
+    let petrolCars = [];
+    let electricCars = [];
+
+    if (dieselRef.current.checked) {
+      dieselCars = originalCarsData.filter((car) => car.fuel === 'Diesel');
+    }
+    if (petrolRef.current.checked) {
+      petrolCars = originalCarsData.filter((car) => car.fuel === 'Petrol');
+    }
+    if (electricRef.current.checked) {
+      electricCars = originalCarsData.filter((car) => car.fuel === 'Electric');
+    }
+  
+    const combinedCars = [...dieselCars, ...petrolCars, ...electricCars];
+    setCarsData(combinedCars.sort());
+  }
 
   if (!startDate && !endDate) {
     return (
@@ -67,51 +95,23 @@ function Rent() {
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
-        <div className="car-container">
-          {filteredCarsData.map((car) => (
-            <div key={car.model} className="car-card">
-              <div className="photo-and-info-container">
-                <div className="car-photo-container">
-                  <img
-                    className="car-photo"
-                    alt={car.model}
-                    src={`../../public/cars/${car.imageUrl}`}
-                  />
-                </div>
-                <div className="title-and-info-container">
-                  <h3 className="car-title">{car.model}</h3>
-                  <div className="car-info-container">
-                    <div className="car-info-elem">
-                      <span className="material-symbols-outlined">person</span> {car.seats}
-                    </div>
-                    <div className="car-info-elem">
-                      <span className="material-symbols-outlined">luggage</span> {car.trunkCapacity}
-                    </div>
-                    <div className="car-info-elem">
-                      <span className="material-symbols-outlined">local_gas_station</span>{' '}
-                      {car.fuel}
-                    </div>
-                    <div className="car-info-elem">
-                      <span className="material-symbols-outlined">auto_transmission</span>{' '}
-                      {car.transmission === 'A' ? 'Automatic' : 'Manual'}
-                    </div>
-                    <div className="car-info-elem">
-                      <span className="material-symbols-outlined">settings</span>{' '}
-                      {`${car.power} KW`}
-                    </div>
-                    <div className="car-info-elem">
-                      <span className="material-symbols-outlined">payments</span>{' '}
-                      {`${car.price} HUF`}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button type="button" className="rent-button">
-                Rent
-              </button>
-            </div>
-          ))}
+        <div className='filter-main-container'>
+          <div className='filter-container fuel-type'>
+          <h3>Fuel-type</h3>
+        <div className='filter-items'>
+          <label htmlFor='diesel'>Diesel
+          <input type='checkbox' ref={dieselRef} value='diesel' id='diesel' name='fuel-type' defaultChecked onClick={filteringCars}/>
+          </label>
+          <label htmlFor='diesel'>Petrol
+          <input type='checkbox' ref={petrolRef} value='diesel' id='diesel' name='fuel-type' defaultChecked onClick={filteringCars}/>
+          </label>
+          <label htmlFor='diesel'>Electric
+          <input type='checkbox' ref={electricRef} value='diesel' id='diesel' name='fuel-type' defaultChecked onClick={filteringCars}/>
+          </label>
+          </div>
         </div>
+        </div>
+        <Cars data={filteredCarsData} />
       </BackGroundContext.Provider>
     </div>
   );
