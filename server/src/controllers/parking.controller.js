@@ -57,12 +57,12 @@ export const listById = async (req, res) => {
 
 export const book = async (req, res) => {
   try {
-    const { userId, ServicesStartDate, ServicesEndDate } = req.body;
+    const { userID, ServiceStartDate, ServiceEndDate } = req.body;
     const booked = await bookParkingLotById(
       req.params.id,
-      userId,
-      ServicesStartDate,
-      ServicesEndDate,
+      userID,
+      ServiceStartDate,
+      ServiceEndDate,
     );
     res.json({ message: 'Parking lot rented successfully', booked });
   } catch (err) {

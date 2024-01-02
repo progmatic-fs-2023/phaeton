@@ -14,12 +14,12 @@ export async function getParkingAndServicesByDate(ServiceStartDate, ServiceEndDa
       AND: [
         {
           ServiceStartDate: {
-            gte: ServiceStartDate,
+            lte: ServiceEndDate,
           },
         },
         {
           ServiceEndDate: {
-            lte: ServiceEndDate,
+            gte: ServiceStartDate,
           },
         },
       ],
@@ -43,7 +43,7 @@ export async function bookParkingLotById(ParkingLotID, userID, ServiceStartDate,
   if (parkingCheck) {
     const dateCheck = await getParkingAndServicesByDate(ServiceStartDate, ServiceEndDate);
     const filteredParkingLots = dateCheck.services.filter(
-      parking => parking.ParkingLotID === ParkingLotId,
+      parking => parking.ParkingLotID === ParkingLotID,
     );
     if (filteredParkingLots.length === 0) {
       result = await prisma.services.create({
@@ -58,6 +58,6 @@ export async function bookParkingLotById(ParkingLotID, userID, ServiceStartDate,
       throw new Error('Parking lot is already taken');
     }
   } else {
-    throw new Error('Parking lot dose not exist');
+    throw new Error('Parking lot does not exist');
   }
 }
