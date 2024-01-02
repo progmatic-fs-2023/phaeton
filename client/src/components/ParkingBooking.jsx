@@ -1,7 +1,7 @@
 import React from 'react';
 import Map from "./Map"
 
-function ParkingZones() {
+function ParkingBooking() {
 
   return (
     <div className="parking-zones-container">
@@ -15,4 +15,4 @@ function ParkingZones() {
   );
 }
 
-export default ParkingZones;
+export default ParkingBooking;

@@ -7,8 +7,12 @@
 }
 
 .map{
-  margin-right: 20px;
+  max-height: 100vh;
   margin-top: 20px;
+  margin-right: 20px;
+  background-image: url("../../../public/parking_pictures/parkingBGGGG.jpg");
+background-repeat: no-repeat;
+  background-size: contain;
 }
 .map text{
   font-weight: bold;
@@ -23,9 +27,17 @@
 /*zone "button" config */
 .zone-btn{
   fill: var(--secondary-color);
+  opacity: 0.8;
 transition: 0.5s;
 }
 
-.zone-btn:hover{
+.noSpace:hover{
+  fill:red
+}
+.freeSpace:hover{
   fill: greenyellow;
+}
+
+a text{
+  cursor: pointer;
 }

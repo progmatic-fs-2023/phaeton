@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
-import ParkingZones from '../components/ParkingZones';
+import ParkingBooking from '../components/ParkingBooking';
 import '../components/styles/Parking.css';
 
 function Parking() {
@@ -44,7 +44,7 @@ function Parking() {
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
       </BackGroundContext.Provider>
-      <ParkingZones />
+      <ParkingBooking />
     </div>
   );
 }
