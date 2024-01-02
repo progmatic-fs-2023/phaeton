@@ -1,5 +1,6 @@
 import express from 'express';
-import * as parkingController from '../controllers/parking.controller.js';
+import * as parkingController from '../controllers/parking.controller';
+
 const router = express.Router();
 
 router.get('/', parkingController.list);

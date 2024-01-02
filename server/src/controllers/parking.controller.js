@@ -43,8 +43,7 @@ export const listById = async (req, res) => {
       res.status(200).json(parkingLot);
     } else {
       res.status(404).json({
-        error: 'Internal server error code 404',
-        message: err.message,
+        message: 'Internal server error code 404',
       });
     }
   } catch (err) {

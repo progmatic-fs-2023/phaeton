@@ -54,9 +54,9 @@ export async function bookParkingLotById(ParkingLotID, userID, ServiceStartDate,
           ParkingLotID,
         },
       });
-    } else {
-      throw new Error('Parking lot is already taken');
+      return result;
     }
+    throw new Error('Parking lot is already taken');
   } else {
     throw new Error('Parking lot does not exist');
   }
