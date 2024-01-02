@@ -11,8 +11,10 @@ function Contact() {
   const dialogRef = useRef(null);
   const [dialogMessage, setDialogMessage] = useState(null);
 
+  const dialog = document.querySelector('.contact-modal');
+
   const openDialog = () => {
-    setIsDialogOpen(true);
+    dialog.showModal();
   };
 
   const closeDialog = () => {
@@ -42,6 +44,7 @@ function Contact() {
       );
     e.target.reset();
   };
+
   return (
     <div className="contact-main-container">
       <div className="form-container">

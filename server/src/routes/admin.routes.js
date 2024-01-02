@@ -6,4 +6,4 @@ const router = express.Router();
 
 router.patch('/cancel/:userID', userIdValidator.userIdValidatorInParams, endService);
 
-export default router
+export default router;
