@@ -9,20 +9,20 @@ function idError(res, message) {
   });
 }
 
-async function userIdValidator(req, res, next) {
-  if (req.body.userId.length !== 25) {
+export async function userIdValidatorInBody(req, res, next) {
+  if (req.body.userID.length !== 25) {
     idError(res, 'UserID is invalid');
   } else {
     const userCheck = await prisma.Users.findUnique({
       where: {
-        id: req.body.userId,
+        id: req.body.userID,
       },
     });
     if (userCheck) {
       // eslint-disable-next-line prefer-destructuring
       const length = Object.keys(userCheck).length;
       if (length > 0) {
-        if (userCheck.userId == null) {
+        if (userCheck.userID == null) {
           next();
         } else {
           idError(res, 'Already taken');
@@ -36,4 +36,29 @@ async function userIdValidator(req, res, next) {
   }
 }
 
-export default userIdValidator;
+export async function userIdValidatorInParams(req, res, next) {
+  if (req.params.userID.length !== 25) {
+    idError(res, 'UserID is invalid');
+  } else {
+    const userCheck = await prisma.Users.findUnique({
+      where: {
+        id: req.params.userID,
+      },
+    });
+    if (userCheck) {
+      // eslint-disable-next-line prefer-destructuring
+      const length = Object.keys(userCheck).length;
+      if (length > 0) {
+        if (userCheck.userID == null) {
+          next();
+        } else {
+          idError(res, 'UserID is invalid');
+        }
+      } else {
+        idError(res, 'UserID is invalid');
+      }
+    } else {
+      idError(res, 'UserID is invalid');
+    }
+  }
+}
