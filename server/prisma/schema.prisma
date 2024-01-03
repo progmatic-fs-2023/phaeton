@@ -8,20 +8,15 @@ datasource db {
 }
 
 model Users {
-  id               String       @id @default(cuid())
-  firstName        String       @db.VarChar(50)
-  lastName         String       @db.VarChar(50)
-  email            String       @unique @db.VarChar(30)
-  password         String       @db.VarChar(255)
-  role             Role         @default(USER)
-  driverLicence    String?      @db.VarChar(50)
-  RentStartDate    DateTime?
-  RentEndtDate     DateTime?
-  ParkingStartDate DateTime?
-  ParkingEndtDate  DateTime?
-  Cars             Cars[]
-  ParkingLot       ParkingLot[]
-  IsGuestUser      Boolean      @default(false)
+  id            String     @id @default(cuid())
+  firstName     String     @db.VarChar(50)
+  lastName      String     @db.VarChar(50)
+  email         String     @unique @db.VarChar(30)
+  password      String     @db.VarChar(255)
+  role          Role       @default(USER)
+  driverLicence String?    @db.VarChar(50)
+  Service       Services[]
+  IsGuestUser   Boolean    @default(false)
 }
 
 model Cars {
@@ -34,15 +29,26 @@ model Cars {
   fuel          Fuel
   power         Int
   trunkCapacity Int
-  userID        String?
-  Users         Users?       @relation(fields: [userID], references: [id])
+  Service       Services[]
 }
 
 model ParkingLot {
-  id     String  @id @default(cuid())
-  name   String  @unique @db.VarChar(50)
-  userID String?
-  Users  Users?  @relation(fields: [userID], references: [id])
+  id      String     @id @default(cuid())
+  zone    String     @db.VarChar(50)
+  Service Services[]
+}
+
+model Services {
+  id               String      @id @default(cuid())
+  ServiceStartDate DateTime?
+  ServiceEndDate   DateTime?
+  ActualServiceEndDate DateTime?
+  ParkingLotID     String?
+  ParkingLot       ParkingLot? @relation(fields: [ParkingLotID], references: [id])
+  userID           String?
+  Users            Users?      @relation(fields: [userID], references: [id])
+  CarID            String?
+  Cars             Cars?       @relation(fields: [CarID], references: [id])
 }
 
 enum Role {
