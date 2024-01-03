@@ -7,20 +7,17 @@ function valuetext(value) {
   return { value };
 }
 
-const minDistance = 1;
+const minDistance = 1000;
 
-export default function PriceSlider({
-  getTypeData,
-  getFilterData,
-}) {
+export default function PriceSlider({ getTypeData, getFilterData }) {
   PriceSlider.propTypes = {
     getTypeData: PropTypes.func.isRequired,
     getFilterData: PropTypes.func.isRequired,
   };
 
-  const startNr = 11000
-  const endNr= 20000
-  const steps= 1000
+  const startNr = 11000;
+  const endNr = 20000;
+  const steps = 1000;
 
   const [value, setValue] = React.useState([startNr, endNr]);
 
@@ -48,8 +45,11 @@ export default function PriceSlider({
       value: 17000,
     },
     {
-        value: 18000,
-      },
+      value: 18000,
+    },
+    {
+      value: 19000,
+    },
     {
       value: 20000,
       label: 20000,

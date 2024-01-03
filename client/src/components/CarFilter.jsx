@@ -22,10 +22,9 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
   const [typeData, setTypeData] = useState([]);
 
   function filterData(data) {
-    const newData = [...data, typeData]
-      filteringCars(newData);
+    const newData = [...data, typeData];
+    filteringCars(newData);
   }
-  
 
   const handlefilterData = useCallback(
     (data) => {
@@ -104,28 +103,19 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
       <div className="filter-container price">
         <h3>Price</h3>
         <div className="slider">
-          <PriceSlider
-            getTypeData={handleGetTypeData}
-            getFilterData={handlefilterData}
-          />
+          <PriceSlider getTypeData={handleGetTypeData} getFilterData={handlefilterData} />
         </div>
       </div>
       <div className="filter-container seat-quantity">
         <h3>Trunk capacity</h3>
         <div className="slider">
-          <TrunkCapacity
-            getTypeData={handleGetTypeData}
-            getFilterData={handlefilterData}
-          />
+          <TrunkCapacity getTypeData={handleGetTypeData} getFilterData={handlefilterData} />
         </div>
       </div>
       <div className="filter-container seat-quantity">
         <h3>Power</h3>
         <div className="slider">
-          <PowerSlider
-            getTypeData={handleGetTypeData}
-            getFilterData={handlefilterData}
-          />
+          <PowerSlider getTypeData={handleGetTypeData} getFilterData={handlefilterData} />
         </div>
       </div>
     </div>

@@ -61,33 +61,36 @@ function Rent() {
   );
 
   const filteredCarsData = carsData.filter(
-  (car) => !serviceData.some((service) => service.CarID === car.id),
+    (car) => !serviceData.some((service) => service.CarID === car.id),
   );
 
   function filteringCars(data) {
     let filteredCars = [...originalCarsData];
 
     if (dieselRef.current.checked || petrolRef.current.checked || electricRef.current.checked) {
-      filteredCars = filteredCars.filter((car) => 
-        (dieselRef.current.checked && car.fuel === 'Diesel') ||
-        (petrolRef.current.checked && car.fuel === 'Petrol') ||
-        (electricRef.current.checked && car.fuel === 'Electric')
+      filteredCars = filteredCars.filter(
+        (car) =>
+          (dieselRef.current.checked && car.fuel === 'Diesel') ||
+          (petrolRef.current.checked && car.fuel === 'Petrol') ||
+          (electricRef.current.checked && car.fuel === 'Electric'),
       );
     }
-    
-    if(data[2] === 'seats') {
-      filteredCars = filteredCars.filter((car) => data[0] <= car.seats && car.seats <= data[1])
+
+    if (data[2] === 'seats') {
+      filteredCars = filteredCars.filter((car) => data[0] <= car.seats && car.seats <= data[1]);
     }
-    if(data[2] === 'price') {
-      filteredCars = filteredCars.filter((car) => data[0] <= car.price && car.price <= data[1])
+    if (data[2] === 'price') {
+      filteredCars = filteredCars.filter((car) => data[0] <= car.price && car.price <= data[1]);
     }
-    if(data[2] === 'trunk') {
-      filteredCars = filteredCars.filter((car) => data[0] <= car.trunkCapacity && car.trunkCapacity <= data[1])
+    if (data[2] === 'trunk') {
+      filteredCars = filteredCars.filter(
+        (car) => data[0] <= car.trunkCapacity && car.trunkCapacity <= data[1],
+      );
     }
-    if(data[2] === 'power') {
-      filteredCars = filteredCars.filter((car) => data[0] <= car.power && car.power <= data[1])
+    if (data[2] === 'power') {
+      filteredCars = filteredCars.filter((car) => data[0] <= car.power && car.power <= data[1]);
     }
-    
+
     setCarsData(filteredCars);
   }
 
@@ -113,14 +116,14 @@ function Rent() {
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
-        <div className='car-service-container'>
-        <CarFilter
-          dieselRef={dieselRef}
-          petrolRef={petrolRef}
-          electricRef={electricRef}
-          filteringCars={handleFilteringCars}
-        />
-        <Cars data={filteredCarsData} />
+        <div className="car-service-container">
+          <CarFilter
+            dieselRef={dieselRef}
+            petrolRef={petrolRef}
+            electricRef={electricRef}
+            filteringCars={handleFilteringCars}
+          />
+          <Cars data={filteredCarsData} />
         </div>
       </BackGroundContext.Provider>
     </div>

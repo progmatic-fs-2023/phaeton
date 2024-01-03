@@ -9,18 +9,15 @@ function valuetext(value) {
 
 const minDistance = 1;
 
-export default function SeatsSlider({
-  getTypeData,
-  getFilterData,
-}) {
+export default function SeatsSlider({ getTypeData, getFilterData }) {
   SeatsSlider.propTypes = {
     getTypeData: PropTypes.func.isRequired,
     getFilterData: PropTypes.func.isRequired,
   };
 
-  const startNr = 2
-  const endNr= 9
-  const steps= 1
+  const startNr = 2;
+  const endNr = 9;
+  const steps = 1;
 
   const [value, setValue] = React.useState([startNr, endNr]);
 

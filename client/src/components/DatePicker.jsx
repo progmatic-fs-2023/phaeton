@@ -15,11 +15,11 @@ function DatePicker({ getStartDate, getEndDate }) {
   };
   const current = new Date();
   const followingDay = new Date(current.getTime() + 172800000);
-  
+
   const [fromValue, setFromValue] = useState(current);
   const [toValue, setToValue] = useState(followingDay);
   const [option, setOption] = useState('');
-  
+
   const parkingBg = useContext(BackGroundContext);
   const calendarDialog = useRef(null);
 
@@ -51,9 +51,12 @@ function DatePicker({ getStartDate, getEndDate }) {
     return date;
   }
 
-  const HandleEndDateChange = useCallback((date) => {
-    onDateChange(date);
-  }, [onDateChange]);
+  const HandleEndDateChange = useCallback(
+    (date) => {
+      onDateChange(date);
+    },
+    [onDateChange],
+  );
 
   return (
     <div className={parkingBg}>
@@ -66,8 +69,8 @@ function DatePicker({ getStartDate, getEndDate }) {
           >
             <p>Departure</p>
             <div>
-            <img src={calendarSVG} alt="calendar" />
-            {dateFormatter(fromValue)}
+              <img src={calendarSVG} alt="calendar" />
+              {dateFormatter(fromValue)}
             </div>
           </button>
           <img src={arrow} className="arrow" alt="arrow" />
@@ -78,8 +81,8 @@ function DatePicker({ getStartDate, getEndDate }) {
           >
             <p>Return</p>
             <div>
-            <img src={calendarSVG} alt="calendar" />
-            {dateFormatter(toValue)}
+              <img src={calendarSVG} alt="calendar" />
+              {dateFormatter(toValue)}
             </div>
           </button>
           <button type="button" className="button search-button" onClick={onSearch}>
@@ -88,7 +91,11 @@ function DatePicker({ getStartDate, getEndDate }) {
         </div>
       </div>
       <dialog id="calendar-dialog" ref={calendarDialog}>
-        <Calendar className="date-picker-calendar" onChange={HandleEndDateChange} value={fromValue} />
+        <Calendar
+          className="date-picker-calendar"
+          onChange={HandleEndDateChange}
+          value={fromValue}
+        />
       </dialog>
     </div>
   );

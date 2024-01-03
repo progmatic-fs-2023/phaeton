@@ -9,18 +9,15 @@ function valuetext(value) {
 
 const minDistance = 25;
 
-export default function PowerSlider({
-  getTypeData,
-  getFilterData,
-}) {
+export default function PowerSlider({ getTypeData, getFilterData }) {
   PowerSlider.propTypes = {
     getTypeData: PropTypes.func.isRequired,
     getFilterData: PropTypes.func.isRequired,
   };
 
-  const startNr = 50
-  const endNr= 200
-  const steps= 25
+  const startNr = 50;
+  const endNr = 200;
+  const steps = 25;
 
   const [value, setValue] = React.useState([startNr, endNr]);
 
