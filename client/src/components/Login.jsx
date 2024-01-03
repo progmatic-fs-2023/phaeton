@@ -5,8 +5,13 @@ import loginButton from '../assets/login_button/login_button.svg';
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const dialogRef = useRef(null);
+  const dialog2Ref = useRef(null);
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,9 +30,19 @@ function Login() {
     }
   };
 
+  const openDialog2 = () => {
+    dialog2Ref.current.showModal();
+  };
+  const closeDialog2 = () => {
+    dialog2Ref.current.close();
+  };
   const handleRegister = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:3000/users', {
+    if (password !== passwordConfirm) {
+      setMessage('The passwords do not match.');
+      return;
+    }
+    const response = await fetch('http://localhost:3000/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,6 +54,8 @@ function Login() {
 
     if (data) {
       dialogRef.current.close();
+      openDialog2();
+      setTimeout(closeDialog2, 2000);
     }
   };
 
@@ -171,11 +188,12 @@ function Login() {
                     />
                     <input
                       type="password"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => setPasswordConfirm(e.target.value)}
                       name="password"
                       placeholder="Confirm password"
                     />
                   </div>
+                  {message || ''}
                 </div>
               </div>
               <div>
@@ -192,6 +210,9 @@ function Login() {
             </p>
           </>
         )}
+      </dialog>
+      <dialog className="registration-ok" ref={dialog2Ref}>
+        <p>Register was successful, wait for the response Thanks.</p>
       </dialog>
     </>
   );
