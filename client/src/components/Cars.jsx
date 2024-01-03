@@ -38,7 +38,7 @@ function Cars({ data }) {
                   <span className="material-symbols-outlined">settings</span> {`${car.power} KW`}
                 </div>
                 <div className="car-info-elem">
-                  <span className="material-symbols-outlined">payments</span> {`${car.price} HUF`}
+                  <span className="material-symbols-outlined">payments</span> {`${car.price} / day`}
                 </div>
               </div>
             </div>

@@ -76,6 +76,10 @@
     background-color: darkgreen
 }
 
+.slider {
+    margin-left: 15px;
+}
+
 .rent-button:active {
     opacity: 0.6;
     }

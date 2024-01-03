@@ -30,8 +30,9 @@ function Rent() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setOriginalCarsData(data.cars);
-          setCarsData(data.cars);
+          const sortedCars = [...data.cars].sort((a, b) => a.model.localeCompare(b.model));
+          setOriginalCarsData(sortedCars);
+          setCarsData(sortedCars);
           setServiceData(data.services);
         });
     }
@@ -60,31 +61,42 @@ function Rent() {
   );
 
   const filteredCarsData = carsData.filter(
-    (car) => !serviceData.some((service) => service.CarID === car.id),
+  (car) => !serviceData.some((service) => service.CarID === car.id),
   );
 
-  function filteringCars() {
-    let dieselCars = [];
-    let petrolCars = [];
-    let electricCars = [];
+  function filteringCars(data) {
+    let filteredCars = [...originalCarsData];
 
-    if (dieselRef.current.checked) {
-      dieselCars = originalCarsData.filter((car) => car.fuel === 'Diesel');
+    if (dieselRef.current.checked || petrolRef.current.checked || electricRef.current.checked) {
+      filteredCars = filteredCars.filter((car) => 
+        (dieselRef.current.checked && car.fuel === 'Diesel') ||
+        (petrolRef.current.checked && car.fuel === 'Petrol') ||
+        (electricRef.current.checked && car.fuel === 'Electric')
+      );
     }
-    if (petrolRef.current.checked) {
-      petrolCars = originalCarsData.filter((car) => car.fuel === 'Petrol');
+    
+    if(data[2] === 'seats') {
+      filteredCars = filteredCars.filter((car) => data[0] <= car.seats && car.seats <= data[1])
     }
-    if (electricRef.current.checked) {
-      electricCars = originalCarsData.filter((car) => car.fuel === 'Electric');
+    if(data[2] === 'price') {
+      filteredCars = filteredCars.filter((car) => data[0] <= car.price && car.price <= data[1])
     }
-
-    const combinedCars = [...dieselCars, ...petrolCars, ...electricCars];
-    setCarsData(combinedCars.sort());
+    if(data[2] === 'trunk') {
+      filteredCars = filteredCars.filter((car) => data[0] <= car.trunkCapacity && car.trunkCapacity <= data[1])
+    }
+    if(data[2] === 'power') {
+      filteredCars = filteredCars.filter((car) => data[0] <= car.power && car.power <= data[1])
+    }
+    
+    setCarsData(filteredCars);
   }
 
-  const handleFilteringCars = useCallback(() => {
-    filteringCars();
-  }, [filteringCars]);
+  const handleFilteringCars = useCallback(
+    (data) => {
+      filteringCars(data);
+    },
+    [filteringCars],
+  );
 
   if (!startDate && !endDate) {
     return (
