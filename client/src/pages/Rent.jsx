@@ -4,8 +4,11 @@ import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 import Cars from '../components/Cars';
 import CarFilter from '../components/CarFilter';
+import useDocumentTitle from '../components/useDocumentTitle';
 
 function Rent() {
+  useDocumentTitle('Phaeton · Rent');
+
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [carsData, setCarsData] = useState([]);
