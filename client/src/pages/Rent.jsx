@@ -5,6 +5,8 @@ import BackGroundContext from '../contexts/BackgroundContext';
 import Cars from '../components/Cars';
 import CarFilter from '../components/CarFilter';
 import useDocumentTitle from '../components/useDocumentTitle';
+import LoadingScreen from '../components/LoadingScreen';
+
 
 function Rent() {
   useDocumentTitle('Phaeton · Rent');
@@ -14,6 +16,7 @@ function Rent() {
   const [carsData, setCarsData] = useState([]);
   const [originalCarsData, setOriginalCarsData] = useState([]);
   const [serviceData, setServiceData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
 
   const dieselRef = useRef(null);
   const petrolRef = useRef(null);
@@ -21,6 +24,7 @@ function Rent() {
 
   useEffect(() => {
     if (startDate && endDate) {
+      setIsLoading(true)
       fetch('http://localhost:3000/rental/date', {
         method: 'POST',
         headers: {
@@ -37,6 +41,7 @@ function Rent() {
           setOriginalCarsData(sortedCars);
           setCarsData(sortedCars);
           setServiceData(data.services);
+          setIsLoading(false);
         });
     }
   }, [startDate, endDate]);
@@ -103,6 +108,10 @@ function Rent() {
     },
     [filteringCars],
   );
+  
+  if (isLoading) {
+    return <LoadingScreen />
+ }
 
   if (!startDate && !endDate) {
     return (

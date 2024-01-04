@@ -84,7 +84,7 @@
   opacity: 0.6;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1250px) {
   .car-container {
     margin: 25px;
   }

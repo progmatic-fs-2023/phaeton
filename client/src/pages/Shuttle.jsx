@@ -25,7 +25,7 @@ function Shuttle() {
             day
           </li>
           <li className="shuttle-list-elem">
-            every 45 minutes in the mornings, evenings and at nigth
+            every 45 minutes in the mornings, evenings and at night
           </li>
         </ul>
         <p>
