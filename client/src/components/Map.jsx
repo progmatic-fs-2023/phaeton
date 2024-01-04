@@ -3,6 +3,7 @@ import React from 'react';
 function Map() {
 const width400 = "210"
 const height100 = "170"
+// window resize event
 
 const parkingLot = [
   {id:"123abc", zone: "A", serviceID: null},
@@ -48,12 +49,12 @@ return (
     <rect x="10" y="330" rx="5" ry="5" width="80" height="290" fill="#14D32E" />
 
     {/* Zones A-F */}
-    <g href="/" className={`${zoneStatus  } zone-btn`}>
+    <a href="/" className={`${zoneStatus  } zone-btn`}>
   
     <rect   x="110" y="90" rx="5" ry="5" width={width400} height={height100} aria-label='Zone-A' />
     <text x="190" y="180" fill="black">Zone A</text>
 
-    </g>
+    </a>
     <a href="/" className={`${zoneStatus  } zone-btn`}>
         
     <rect x="380" y="90" rx="5" ry="5" width={width400} height={height100} aria-label='Zone-B'/>

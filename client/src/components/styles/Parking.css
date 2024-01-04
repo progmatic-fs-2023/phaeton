@@ -24,9 +24,12 @@ background-repeat: no-repeat;
   gap: 50px;
   padding: 30px;
 }
+
+
+
 /*zone "button" config */
 .zone-btn{
-  fill: var(--secondary-color);
+  background-color: var(--secondary-color);
   opacity: 0.8;
 transition: 0.5s;
 }
@@ -41,3 +44,5 @@ transition: 0.5s;
 a text{
   cursor: pointer;
 }
+
+
