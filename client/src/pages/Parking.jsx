@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 import ParkingBooking from '../components/ParkingBooking';
+// import ParkingZones from '../components/ParkingZones';
 import '../components/styles/Parking.css';
 
 function Parking() {
@@ -31,6 +32,7 @@ function Parking() {
   );
 // fetching data
     
+
   if (!startDate && !endDate) {
     return (
       <div>
@@ -46,6 +48,7 @@ function Parking() {
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
       </BackGroundContext.Provider>
       <ParkingBooking />
+      {/* <ParkingZones /> */}
     </div>
   );
 }
