@@ -1,5 +1,6 @@
 import React from "react"
 import "./styles/ParkingZones.css"
+
 function ParkingZones (){
     const parkingLot = [
         {id:"123abc", zone: "A", serviceID: null},
@@ -33,8 +34,7 @@ function ParkingZones (){
 const zoneStatus = checkStatus(zoneA)
 
 
-    return(<>
-    <div className="zones-grid">
+    return(<div className="zones-grid">
         <div className="office"><span>Office</span></div>
         <div className="shuttle-div"><span>Shuttle</span></div>
         <a href="/" className="zone-A">
@@ -61,8 +61,6 @@ const zoneStatus = checkStatus(zoneA)
 
         <div className={`${zoneStatus  } zone-btn`}><span>Zone F</span></div>
         </a>
-    </div>
-    
-    </>)
+    </div>)
 }
 export default ParkingZones
