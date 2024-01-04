@@ -7,7 +7,6 @@ import CarFilter from '../components/CarFilter';
 import useDocumentTitle from '../components/useDocumentTitle';
 import LoadingScreen from '../components/LoadingScreen';
 
-
 function Rent() {
   useDocumentTitle('Phaeton · Rent');
 
@@ -16,7 +15,7 @@ function Rent() {
   const [carsData, setCarsData] = useState([]);
   const [originalCarsData, setOriginalCarsData] = useState([]);
   const [serviceData, setServiceData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const dieselRef = useRef(null);
   const petrolRef = useRef(null);
@@ -35,26 +34,25 @@ function Rent() {
           ServiceEndDate: endDate,
         }),
       })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const sortedCars = [...data.cars].sort((a, b) => a.model.localeCompare(b.model));
-        setOriginalCarsData(sortedCars);
-        setCarsData(sortedCars);
-        setServiceData(data.services);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error('There has been a problem with your fetch operation: ', error);
-        setIsLoading(false);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const sortedCars = [...data.cars].sort((a, b) => a.model.localeCompare(b.model));
+          setOriginalCarsData(sortedCars);
+          setCarsData(sortedCars);
+          setServiceData(data.services);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          return <div>{`There has been a problem with your fetch operation: ${error}`}</div>;
+        });
     }
   }, [startDate, endDate]);
-  
 
   function getStartDate(data) {
     setStartDate(data);
@@ -118,10 +116,10 @@ function Rent() {
     },
     [filteringCars],
   );
-  
+
   if (isLoading) {
-    return <LoadingScreen />
- }
+    return <LoadingScreen />;
+  }
 
   if (!startDate && !endDate) {
     return (
@@ -139,12 +137,14 @@ function Rent() {
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
         <div className="car-service-container">
-          <CarFilter
-            dieselRef={dieselRef}
-            petrolRef={petrolRef}
-            electricRef={electricRef}
-            filteringCars={handleFilteringCars}
-          />
+          {carsData.length > 0 && (
+            <CarFilter
+              dieselRef={dieselRef}
+              petrolRef={petrolRef}
+              electricRef={electricRef}
+              filteringCars={handleFilteringCars}
+            />
+          )}
           <Cars data={filteredCarsData} />
         </div>
       </BackGroundContext.Provider>

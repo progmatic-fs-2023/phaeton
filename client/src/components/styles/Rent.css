@@ -49,6 +49,7 @@
 .car-photo {
   width: 300px;
   overflow: hidden;
+  min-height: 180px;
 }
 
 .car-info-container {
@@ -74,6 +75,13 @@
 
 .rent-button:hover {
   background-color: darkgreen;
+}
+
+.no-car {
+  margin: 150px;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
 }
 
 .slider {
@@ -112,6 +120,7 @@
 
   .car-photo {
     width: 150px;
+    min-height: 95px;
     overflow: hidden;
   }
   .car-card {

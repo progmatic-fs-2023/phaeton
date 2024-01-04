@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+
 import PropTypes from 'prop-types';
 import './styles/CarFilter.css';
 import SeatsSlider from './Sliders/SeatsSlider';
