@@ -24,7 +24,7 @@ function Rent() {
 
   useEffect(() => {
     if (startDate && endDate) {
-      setIsLoading(true)
+      setIsLoading(true);
       fetch('http://localhost:3000/rental/date', {
         method: 'POST',
         headers: {
@@ -35,16 +35,26 @@ function Rent() {
           ServiceEndDate: endDate,
         }),
       })
-        .then((response) => response.json())
-        .then((data) => {
-          const sortedCars = [...data.cars].sort((a, b) => a.model.localeCompare(b.model));
-          setOriginalCarsData(sortedCars);
-          setCarsData(sortedCars);
-          setServiceData(data.services);
-          setIsLoading(false);
-        });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const sortedCars = [...data.cars].sort((a, b) => a.model.localeCompare(b.model));
+        setOriginalCarsData(sortedCars);
+        setCarsData(sortedCars);
+        setServiceData(data.services);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation: ', error);
+        setIsLoading(false);
+      });
     }
   }, [startDate, endDate]);
+  
 
   function getStartDate(data) {
     setStartDate(data);
