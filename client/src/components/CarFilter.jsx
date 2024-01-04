@@ -64,7 +64,7 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
             />
             Diesel
           </label>
-          <label htmlFor="diesel">
+          <label htmlFor="petrol">
             <input
               type="checkbox"
               ref={petrolRef}
@@ -75,7 +75,7 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
             />
             Petrol
           </label>
-          <label htmlFor="diesel">
+          <label htmlFor="electric">
             <input
               type="checkbox"
               ref={electricRef}
