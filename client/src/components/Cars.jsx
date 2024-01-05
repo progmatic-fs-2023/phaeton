@@ -62,7 +62,7 @@ function Cars({ data }) {
       </div>
     );
   }
-  return <div className="no-car">Something went wrong, please try again later</div>;
+  return <div className="no-car">{`There's no car to be shown`}</div>;
 }
 
 export default Cars;

@@ -83,6 +83,7 @@ function Rent() {
   function filteringCars(data) {
     let filteredCars = [...originalCarsData];
 
+    // Apply fuel filter
     if (dieselRef.current.checked || petrolRef.current.checked || electricRef.current.checked) {
       filteredCars = filteredCars.filter(
         (car) =>
@@ -92,17 +93,24 @@ function Rent() {
       );
     }
 
+    // Apply seats filter
     if (data[2] === 'seats') {
       filteredCars = filteredCars.filter((car) => data[0] <= car.seats && car.seats <= data[1]);
     }
+
+    // Apply price filter
     if (data[2] === 'price') {
       filteredCars = filteredCars.filter((car) => data[0] <= car.price && car.price <= data[1]);
     }
+
+    // Apply trunk filter
     if (data[2] === 'trunk') {
       filteredCars = filteredCars.filter(
         (car) => data[0] <= car.trunkCapacity && car.trunkCapacity <= data[1],
       );
     }
+
+    // Apply power filter
     if (data[2] === 'power') {
       filteredCars = filteredCars.filter((car) => data[0] <= car.power && car.power <= data[1]);
     }
@@ -137,14 +145,13 @@ function Rent() {
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
         <div className="car-service-container">
-          {carsData.length > 0 && (
-            <CarFilter
-              dieselRef={dieselRef}
-              petrolRef={petrolRef}
-              electricRef={electricRef}
-              filteringCars={handleFilteringCars}
-            />
-          )}
+          <CarFilter
+            dieselRef={dieselRef}
+            petrolRef={petrolRef}
+            electricRef={electricRef}
+            filteringCars={handleFilteringCars}
+            onChange={console.log('asd')}
+          />
           <Cars data={filteredCarsData} />
         </div>
       </BackGroundContext.Provider>

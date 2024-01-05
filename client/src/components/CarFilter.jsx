@@ -1,11 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import PropTypes from 'prop-types';
 import './styles/CarFilter.css';
-import SeatsSlider from './Sliders/SeatsSlider';
-import PriceSlider from './Sliders/PriceSlider';
-import TrunkCapacity from './Sliders/TrunkCapacitySlider';
-import PowerSlider from './Sliders/PowerSlider';
+import SliderFilter from './SliderFilter';
 
 function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
   // These refs are not meant to have default values. They are initialized with null and then get assigned the DOM elements during the component’s lifecycle.
@@ -20,29 +17,16 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
     filteringCars: PropTypes.func.isRequired,
   };
 
-  const [typeData, setTypeData] = useState([]);
-
-  function filterData(data) {
-    const newData = [...data, typeData];
+  function filterData(data, type) {
+    const newData = [...data, type];
     filteringCars(newData);
+    console.log(newData);
   }
-
   const handlefilterData = useCallback(
-    (data) => {
-      filterData(data);
+    (data, type) => {
+      filterData(data, type);
     },
     [filterData],
-  );
-
-  function getTypeData(data) {
-    setTypeData(data);
-  }
-
-  const handleGetTypeData = useCallback(
-    (data) => {
-      getTypeData(data);
-    },
-    [getTypeData],
   );
 
   return (
@@ -92,31 +76,164 @@ function CarFilter({ dieselRef, petrolRef, electricRef, filteringCars }) {
       <div className="filter-container seat-quantity">
         <h3>Seats</h3>
         <div className="slider">
-          <SeatsSlider
-            getTypeData={handleGetTypeData}
+          <SliderFilter
             getFilterData={handlefilterData}
             startNr={2}
             endNr={9}
             steps={1}
+            marks={[
+              {
+                value: 2,
+                label: '2',
+              },
+              {
+                value: 3,
+              },
+              {
+                value: 4,
+              },
+              {
+                value: 5,
+              },
+              {
+                value: 6,
+              },
+              {
+                value: 7,
+              },
+              {
+                value: 8,
+              },
+              {
+                value: 9,
+                label: '9',
+              },
+            ]}
+            type="seats"
           />
         </div>
       </div>
       <div className="filter-container price">
         <h3>Price</h3>
         <div className="slider">
-          <PriceSlider getTypeData={handleGetTypeData} getFilterData={handlefilterData} />
+          <SliderFilter
+            getFilterData={handlefilterData}
+            startNr={1}
+            endNr={8}
+            steps={1}
+            marks={[
+              {
+                value: 1,
+                label: '1',
+              },
+              {
+                value: 2,
+              },
+              {
+                value: 3,
+              },
+              {
+                value: 4,
+              },
+              {
+                value: 5,
+              },
+              {
+                value: 6,
+              },
+              {
+                value: 7,
+              },
+              {
+                value: 8,
+                label: '8',
+              },
+            ]}
+            type="trunk"
+          />
         </div>
       </div>
       <div className="filter-container seat-quantity">
         <h3>Trunk capacity</h3>
         <div className="slider">
-          <TrunkCapacity getTypeData={handleGetTypeData} getFilterData={handlefilterData} />
+          <SliderFilter
+            getFilterData={handlefilterData}
+            startNr={11000}
+            endNr={20000}
+            steps={1000}
+            marks={[
+              {
+                value: 11000,
+                label: '11000',
+              },
+              {
+                value: 12000,
+              },
+              {
+                value: 13000,
+              },
+              {
+                value: 14000,
+              },
+              {
+                value: 15000,
+              },
+              {
+                value: 16000,
+              },
+              {
+                value: 17000,
+              },
+              {
+                value: 18000,
+              },
+              {
+                value: 19000,
+              },
+              {
+                value: 20000,
+                label: 20000,
+              },
+            ]}
+            type="price"
+          />
         </div>
       </div>
       <div className="filter-container seat-quantity">
         <h3>Power</h3>
         <div className="slider">
-          <PowerSlider getTypeData={handleGetTypeData} getFilterData={handlefilterData} />
+          <SliderFilter
+            getFilterData={handlefilterData}
+            startNr={50}
+            endNr={200}
+            steps={25}
+            marks={[
+              {
+                value: 50,
+                label: '50',
+              },
+              {
+                value: 75,
+              },
+              {
+                value: 100,
+              },
+              {
+                value: 125,
+              },
+              {
+                value: 150,
+              },
+              {
+                value: 175,
+              },
+              {
+                value: 200,
+                label: '200',
+              },
+            ]}
+            type="power"
+          />
         </div>
       </div>
     </div>
