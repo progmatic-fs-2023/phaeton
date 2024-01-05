@@ -6,17 +6,6 @@
   align-items: center;
 }
 
-.map{
-  max-height: 100vh;
-  margin-top: 20px;
-  margin-right: 20px;
-  background-image: url("../../../public/parking_pictures/parkingBGGGG.jpg");
-background-repeat: no-repeat;
-  background-size: contain;
-}
-.map text{
-  font-weight: bold;
-}
 .parking-text-container{
   display: flex;
   justify-content: space-between;
@@ -26,23 +15,5 @@ background-repeat: no-repeat;
 }
 
 
-
-/*zone "button" config */
-.zone-btn{
-  background-color: var(--secondary-color);
-  opacity: 0.8;
-transition: 0.5s;
-}
-
-.noSpace:hover{
-  fill:red
-}
-.freeSpace:hover{
-  fill: greenyellow;
-}
-
-a text{
-  cursor: pointer;
-}
 
 
