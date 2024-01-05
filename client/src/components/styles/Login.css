@@ -2,7 +2,7 @@
 
 .login-modal {
   width: 400px;
-  height: 500px;
+  height: 600px;
   text-align: center;
   border-radius: 10px;
   border: 1px solid black;
@@ -80,4 +80,7 @@ input {
 .login-button img {
   width: 50px;
   filter: var(--main-svg-filter);
+}
+.pw-error {
+  color: red;
 }

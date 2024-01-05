@@ -24,9 +24,13 @@ function Login() {
     });
 
     const data = await response.json();
-
-    if (data) {
+    console.log(data);
+    if (!response.ok) {
+      setMessage(data.message);
+    } else if (response.ok) {
+      setEmail('');
       dialogRef.current.close();
+      setPassword('');
     }
   };
 
@@ -42,20 +46,34 @@ function Login() {
       setMessage('The passwords do not match.');
       return;
     }
-    const response = await fetch('http://localhost:3000/users/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password, firstName, lastName }),
-    });
+    let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/g;
+    if (!password.match(check)) {
+      setMessage(
+        'A password should be 8 characters long and include uppercase and lowercase letters as well as numbers ',
+      );
+    } else {
+      const response = await fetch('http://localhost:3000/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, firstName, lastName }),
+      });
 
-    const data = await response.json();
-
-    if (data) {
-      dialogRef.current.close();
-      openDialog2();
-      setTimeout(closeDialog2, 2000);
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.error);
+      } else if (response.ok) {
+        dialogRef.current.close();
+        openDialog2();
+        setTimeout(closeDialog2, 2000);
+        setEmail('');
+        setFirstName('');
+        setLastName('');
+        setPassword('');
+        setPasswordConfirm('');
+        setMessage('');
+      }
     }
   };
 
@@ -120,13 +138,16 @@ function Login() {
                   name="email"
                   placeholder="Enter e-mail"
                   onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
                 <input
                   type="password"
                   name="password"
                   placeholder="Enter password"
                   onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
+                {message ? <p className="pw-error">{message}</p> : ''}
 
                 {/* forgot password needs a ref later */}
                 <a className="forgot-password" href="http://localhost:5173/">
@@ -164,12 +185,14 @@ function Login() {
                     name="firstName"
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="First name"
+                    value={firstName}
                   />
                   <input
                     type="text"
                     name="lastName"
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Last name"
+                    value={lastName}
                   />
                 </div>
                 <div className="flex-column">
@@ -178,6 +201,7 @@ function Login() {
                     name="email"
                     placeholder="Enter e-mail"
                     onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                   />
                   <div className="flex-row">
                     <input
@@ -185,15 +209,17 @@ function Login() {
                       onChange={(e) => setPassword(e.target.value)}
                       name="password"
                       placeholder="Enter password"
+                      value={password}
                     />
                     <input
                       type="password"
                       onChange={(e) => setPasswordConfirm(e.target.value)}
                       name="password"
                       placeholder="Confirm password"
+                      value={passwordConfirm}
                     />
                   </div>
-                  {message || ''}
+                  <p className="pw-error">{message || ''}</p>
                 </div>
               </div>
               <div>
