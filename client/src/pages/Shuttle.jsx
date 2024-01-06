@@ -1,9 +1,12 @@
 import shuttlePic from '../assets/shuttle/shuttlepic.jpg';
 import '../components/styles/shuttle.css';
+import useDocumentTitle from '../components/useDocumentTitle';
 
 export const phoneNumber = '+1234567890';
 
 function Shuttle() {
+  useDocumentTitle('Phaeton · Shuttle')
+
   return (
     <div className="shuttle-container">
       <img className="shuttle-pic" src={shuttlePic} alt="shuttlepic" />
@@ -22,7 +25,7 @@ function Shuttle() {
             day
           </li>
           <li className="shuttle-list-elem">
-            every 45 minutes in the mornings, evenings and at nigth
+            every 45 minutes in the mornings, evenings and at night
           </li>
         </ul>
         <p>

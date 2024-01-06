@@ -15,11 +15,11 @@ function DatePicker({ getStartDate, getEndDate }) {
   };
   const current = new Date();
   const followingDay = new Date(current.getTime() + 172800000);
-  
+
   const [fromValue, setFromValue] = useState(current);
   const [toValue, setToValue] = useState(followingDay);
   const [option, setOption] = useState('');
-  
+
   const parkingBg = useContext(BackGroundContext);
   const calendarDialog = useRef(null);
 
@@ -51,21 +51,27 @@ function DatePicker({ getStartDate, getEndDate }) {
     return date;
   }
 
-  const HandleEndDateChange = useCallback((date) => {
-    onDateChange(date);
-  }, [onDateChange]);
+  const HandleEndDateChange = useCallback(
+    (date) => {
+      onDateChange(date);
+    },
+    [onDateChange],
+  );
 
   return (
     <div className={parkingBg}>
       <div className="date-picker-main-container">
-        <div className="date-picker-container">
+        <div className="date-picker-container" id={parkingBg}>
           <button
             className="date-picker-button"
             type="button"
             onClick={() => openCalendar('start')}
           >
-            <img src={calendarSVG} alt="calendar" />
-            {dateFormatter(fromValue)}
+            <p>Departure</p>
+            <div>
+              <img src={calendarSVG} alt="calendar" />
+              {dateFormatter(fromValue)}
+            </div>
           </button>
           <img src={arrow} className="arrow" alt="arrow" />
           <button
@@ -73,8 +79,11 @@ function DatePicker({ getStartDate, getEndDate }) {
             type="button"
             onClick={() => openCalendar('end')}
           >
-            <img src={calendarSVG} alt="calendar" />
-            {dateFormatter(toValue)}
+            <p>Return</p>
+            <div>
+              <img src={calendarSVG} alt="calendar" />
+              {dateFormatter(toValue)}
+            </div>
           </button>
           <button type="button" className="button search-button" onClick={onSearch}>
             Search
@@ -82,7 +91,11 @@ function DatePicker({ getStartDate, getEndDate }) {
         </div>
       </div>
       <dialog id="calendar-dialog" ref={calendarDialog}>
-        <Calendar className="date-picker-calendar" onChange={HandleEndDateChange} value={fromValue} />
+        <Calendar
+          className="date-picker-calendar"
+          onChange={HandleEndDateChange}
+          value={fromValue}
+        />
       </dialog>
     </div>
   );

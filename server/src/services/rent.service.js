@@ -14,12 +14,12 @@ export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
       AND: [
         {
           ServiceStartDate: {
-            gte: ServiceStartDate,
+            lte: ServiceEndDate,
           },
         },
         {
           ServiceEndDate: {
-            lte: ServiceEndDate,
+            gte: ServiceStartDate,
           },
         },
       ],

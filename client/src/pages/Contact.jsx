@@ -1,12 +1,16 @@
 import '../components/styles/Contact.css';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import useDocumentTitle from '../components/useDocumentTitle';
 import mapIcon from '../assets/footer/map.svg';
 import mailIcon from '../assets/footer/mail.svg';
 import phoneIcon from '../assets/footer/phone.svg';
 import { phoneNumber } from './Shuttle';
 
 function Contact() {
+  useDocumentTitle('Phaeton · Contact');
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dialogRef = useRef(null);
   const [dialogMessage, setDialogMessage] = useState(null);
 
