@@ -10,7 +10,6 @@ import { phoneNumber } from './Shuttle';
 function Contact() {
   useDocumentTitle('Phaeton · Contact');
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dialogRef = useRef(null);
   const [dialogMessage, setDialogMessage] = useState(null);
 
