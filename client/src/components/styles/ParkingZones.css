@@ -1,0 +1,77 @@
+@import url('variables.css');
+
+.zones-grid{
+    background-image: url("/parking_pictures/parkingBG.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 879px;
+    height: 882px;
+    margin:100px 100px 100px 0;
+    display: grid;
+    grid-template-columns: 130px repeat(2, 2fr);
+    grid-template-rows: 120px repeat(3, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 0px;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.zones-grid div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    opacity: 0.8;
+}
+
+
+/*zone "button" config */
+.zone-btn {
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    margin-right: 90px;
+    background-color: var(--secondary-color);
+    opacity: 0.8;
+    transition: 0.5s;
+    cursor: pointer;
+    height: 230px;
+    background-color: skyblue;
+}
+
+.noSpace:hover {
+    background-color: red;
+}
+.fewSpace:hover {
+    background-color: orange;
+}
+
+.freeSpace:hover {
+    background-color: greenyellow;
+}
+
+
+.shuttle-div { 
+    grid-area: 3 / 1 / 5 / 2;
+    margin-left: 20px;
+    width: 100px;
+    background-color: greenyellow;
+}
+.office { 
+    grid-area: 1 / 1 / 2 / 4;
+    margin-left:70px ;
+    margin-right:115px ;
+    height: 65px;
+    background-color: gray;
+}
+
+.zone-A { grid-area: 2 / 2 / 3 / 3; }
+.zone-B { grid-area: 2 / 3 / 3 / 4; }
+.zone-C { grid-area: 3 / 2 / 4 / 3; }
+.zone-D { grid-area: 3 / 3 / 4 / 4; }
+.zone-E { grid-area: 4 / 2 / 5 / 3; }
+.zone-F { grid-area: 4 / 3 / 5 / 4; }
+

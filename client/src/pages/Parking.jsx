@@ -1,14 +1,15 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
-import useDocumentTitle from '../components/useDocumentTitle';
+import ParkingZones from '../components/Parking/ParkingZones';
+import '../components/styles/Parking.css';
 
 function Parking() {
-  useDocumentTitle('Phaeton · Parking');
-
+  const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-
+  const [parkingLotData, setParkingLotData] = useState([]);
+  
   function getStartDate(data) {
     setStartDate(data);
   }
@@ -31,6 +32,34 @@ function Parking() {
     [getEndDate],
   );
 
+  // fetching data
+  useEffect(() => {
+    if (startDate && endDate) {
+      setIsLoading(true);
+      fetch('http://localhost:3000/parking/date', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ServiceStartDate: startDate,
+          ServiceEndDate: endDate,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setParkingLotData(data);
+          setIsLoading(false);
+        })
+        .catch((error) => <div>{`There has been a problem with your fetch operation: ${error}`}</div>);
+    }
+  }, [startDate, endDate]);
+  
   if (!startDate && !endDate) {
     return (
       <div>
@@ -44,8 +73,18 @@ function Parking() {
     <div>
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
-        <p>Parking</p>
       </BackGroundContext.Provider>
+      {isLoading || !parkingLotData || parkingLotData.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="parking-zones-container">
+          <div className="parking-text-container">
+            <h1>Your vehicle is safe and secure with us.</h1>
+            <h2>Select a parking zone </h2>
+          </div>
+          <ParkingZones data={parkingLotData} />
+        </div>
+      )}
     </div>
   );
 }
