@@ -119,8 +119,9 @@ function Login() {
 
   return (
     <>
-      <button className="login-button" type="button" onClick={openDialog}>
+      <button id="login-button" type="button" onClick={openDialog}>
         <img src={loginButton} alt="login" />
+        <span>Login</span>
       </button>
       <dialog className="login-modal" ref={dialogRef}>
         {isLogin ? (
