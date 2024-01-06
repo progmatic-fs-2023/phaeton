@@ -12,8 +12,10 @@ function Rent() {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [carsData, setCarsData] = useState([]);
   const [originalCarsData, setOriginalCarsData] = useState([]);
+  const [carsData, setCarsData] = useState([]);
+  const [fuelFilter, setFuelFilter] = useState(null);
+  const [seatFilter, setSeatFilter] = useState(null);
   const [serviceData, setServiceData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -80,7 +82,7 @@ function Rent() {
     (car) => !serviceData.some((service) => service.CarID === car.id),
   );
 
-  function filteringCars(data) {
+  useEffect(() => {
     let filteredCars = [...originalCarsData];
 
     // Apply fuel filter
@@ -94,29 +96,52 @@ function Rent() {
     }
 
     // Apply seats filter
-    if (data[2] === 'seats') {
-      filteredCars = filteredCars.filter((car) => data[0] <= car.seats && car.seats <= data[1]);
+    if (seatFilter) {
+      filteredCars = filteredCars.filter((car) => seatFilter[0] <= car.seats && car.seats <= seatFilter[1]);
     }
 
-    // Apply price filter
-    if (data[2] === 'price') {
-      filteredCars = filteredCars.filter((car) => data[0] <= car.price && car.price <= data[1]);
-    }
-
-    // Apply trunk filter
-    if (data[2] === 'trunk') {
-      filteredCars = filteredCars.filter(
-        (car) => data[0] <= car.trunkCapacity && car.trunkCapacity <= data[1],
-      );
-    }
-
-    // Apply power filter
-    if (data[2] === 'power') {
-      filteredCars = filteredCars.filter((car) => data[0] <= car.power && car.power <= data[1]);
-    }
+    // ... apply other filters ...
 
     setCarsData(filteredCars);
-  }
+  }, [fuelFilter, seatFilter /* ... other filters ... */]);
+
+  // function filteringCars(data) {
+  //   let filteredCars = [...originalCarsData];
+
+  //   // Apply fuel filter
+  //   if (dieselRef.current.checked || petrolRef.current.checked || electricRef.current.checked) {
+  //     filteredCars = filteredCars.filter(
+  //       (car) =>
+  //         (dieselRef.current.checked && car.fuel === 'Diesel') ||
+  //         (petrolRef.current.checked && car.fuel === 'Petrol') ||
+  //         (electricRef.current.checked && car.fuel === 'Electric'),
+  //     );
+  //   }
+
+  //   // Apply seats filter
+  //   if (data[2] === 'seats') {
+  //     filteredCars = filteredCars.filter((car) => data[0] <= car.seats && car.seats <= data[1]);
+  //   }
+
+  //   // Apply price filter
+  //   if (data[2] === 'price') {
+  //     filteredCars = filteredCars.filter((car) => data[0] <= car.price && car.price <= data[1]);
+  //   }
+
+  //   // Apply trunk filter
+  //   if (data[2] === 'trunk') {
+  //     filteredCars = filteredCars.filter(
+  //       (car) => data[0] <= car.trunkCapacity && car.trunkCapacity <= data[1],
+  //     );
+  //   }
+
+  //   // Apply power filter
+  //   if (data[2] === 'power') {
+  //     filteredCars = filteredCars.filter((car) => data[0] <= car.power && car.power <= data[1]);
+  //   }
+
+  //   setCarsData(filteredCars);
+  // }
 
   const handleFilteringCars = useCallback(
     (data) => {
