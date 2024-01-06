@@ -3,7 +3,8 @@ import React from 'react';
 import '../styles/ParkingZones.css';
 
 function ParkingZones(parkingLotData) {
-  const { parkings, services } = parkingLotData;
+  const { data } = parkingLotData;
+  const { parkings, services } = data;
   const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
   const zoneB = parkings.filter((parkingSpot) => parkingSpot.zone === 'B');
   const zoneC = parkings.filter((parkingSpot) => parkingSpot.zone === 'C');
@@ -20,32 +21,32 @@ function ParkingZones(parkingLotData) {
     zoneFSpots: zoneF.length,
   };
 
-  // if (parkingLotData.data.services.length > 0) {
-  //   parkingLotData.data.services.forEach((record) => {
-  //     switch (true) {
-  //       case zoneA.some((spot) => spot.id === record.ParkingLotID):
-  //         zoneASpots -= 1;
-  //         break;
-  //       case zoneB.some((spot) => spot.Id === record.ParkingLotID):
-  //         zoneBSpots -= 1;
-  //         break;
-  //       case zoneC.some((spot) => spot.id === record.ParkingLotID):
-  //         zoneCSpots -= 1;
-  //         break;
-  //       case zoneD.some((spot) => spot.id === record.ParkingLotID):
-  //         zoneDSpots -= 1;
-  //         break;
-  //       case zoneE.some((spot) => spot.id === record.ParkingLotID):
-  //         zoneESpots -= 1;
-  //         break;
-  //       case zoneF.some((spot) => spot.id === record.ParkingLotID):
-  //         zoneFSpots -= 1;
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   });
-  // }
+  if (services.length > 0) {
+    services.forEach((record) => {
+      switch (true) {
+        case zoneA.some((spot) => spot.id === record.ParkingLotID):
+          zonesSpots.zoneASpots -= 1;
+          break;
+        case zoneB.some((spot) => spot.Id === record.ParkingLotID):
+          zonesSpots.zoneBSpots -= 1;
+          break;
+        case zoneC.some((spot) => spot.id === record.ParkingLotID):
+          zonesSpots.zoneCSpots -= 1;
+          break;
+        case zoneD.some((spot) => spot.id === record.ParkingLotID):
+          zonesSpots.zoneDSpots -= 1;
+          break;
+        case zoneE.some((spot) => spot.id === record.ParkingLotID):
+          zonesSpots.zoneESpots -= 1;
+          break;
+        case zoneF.some((spot) => spot.id === record.ParkingLotID):
+          zonesSpots.zoneFSpots -= 1;
+          break;
+        default:
+          break;
+      }
+    });
+  }
   function checkSpace(zone) {
     if (zone.length === 0) {
       return 'noSpace';
