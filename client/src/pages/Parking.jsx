@@ -9,6 +9,7 @@ function Parking() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [parkingLotData, setParkingLotData] = useState([]);
+  
   function getStartDate(data) {
     setStartDate(data);
   }
@@ -30,6 +31,7 @@ function Parking() {
     },
     [getEndDate],
   );
+
   // fetching data
   useEffect(() => {
     if (startDate && endDate) {
@@ -57,7 +59,7 @@ function Parking() {
         .catch((error) => <div>{`There has been a problem with your fetch operation: ${error}`}</div>);
     }
   }, [startDate, endDate]);
-
+  
   if (!startDate && !endDate) {
     return (
       <div>

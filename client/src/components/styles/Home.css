@@ -79,6 +79,10 @@
   filter: brightness(75%);
 }
 
+.home-page-list-elem:active::before {
+  filter: contrast(60%);
+}
+
 /* Background pictures */
 
 .background-pic {

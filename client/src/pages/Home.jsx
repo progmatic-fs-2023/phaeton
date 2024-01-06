@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import { NavLink } from 'react-router-dom';
-
+import useDocumentTitle from '../components/useDocumentTitle';
 
 import '../components/styles/Home.css';
 
 function Home() {
+  useDocumentTitle('Phaeton · Home');
   return (
     <div className="home-page-container">
       <div className="home-page-list">
