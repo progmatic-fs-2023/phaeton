@@ -3,46 +3,49 @@ import React from 'react';
 import '../styles/ParkingZones.css';
 
 function ParkingZones(parkingLotData) {
-  const zoneA = parkingLotData.data.parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
-  const zoneB = parkingLotData.data.parkings.filter((parkingSpot) => parkingSpot.zone === 'B');
-  const zoneC = parkingLotData.data.parkings.filter((parkingSpot) => parkingSpot.zone === 'C');
-  const zoneD = parkingLotData.data.parkings.filter((parkingSpot) => parkingSpot.zone === 'D');
-  const zoneE = parkingLotData.data.parkings.filter((parkingSpot) => parkingSpot.zone === 'E');
-  const zoneF = parkingLotData.data.parkings.filter((parkingSpot) => parkingSpot.zone === 'F');
+  const { parkings, services } = parkingLotData;
+  const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
+  const zoneB = parkings.filter((parkingSpot) => parkingSpot.zone === 'B');
+  const zoneC = parkings.filter((parkingSpot) => parkingSpot.zone === 'C');
+  const zoneD = parkings.filter((parkingSpot) => parkingSpot.zone === 'D');
+  const zoneE = parkings.filter((parkingSpot) => parkingSpot.zone === 'E');
+  const zoneF = parkings.filter((parkingSpot) => parkingSpot.zone === 'F');
 
-  let zoneASpots = zoneA.length;
-  let zoneBSpots = zoneB.length;
-  let zoneCSpots = zoneC.length;
-  let zoneDSpots = zoneD.length;
-  let zoneESpots = zoneE.length;
-  let zoneFSpots = zoneF.length;
+  const zonesSpots = {
+    zoneASpots: zoneA.length,
+    zoneBSpots: zoneB.length,
+    zoneCSpots: zoneC.length,
+    zoneDSpots: zoneD.length,
+    zoneESpots: zoneE.length,
+    zoneFSpots: zoneF.length,
+  };
 
-  if (parkingLotData.data.services.length > 0) {
-    parkingLotData.data.services.forEach((record) => {
-      switch (true) {
-        case zoneA.some((spot) => spot.id === record.ParkingLotID):
-          zoneASpots--;
-          break;
-        case zoneB.some((spot) => spot.Id === record.ParkingLotID):
-          zoneBSpots--;
-          break;
-        case zoneC.some((spot) => spot.id === record.ParkingLotID):
-          zoneCSpots--;
-          break;
-        case zoneD.some((spot) => spot.id === record.ParkingLotID):
-          zoneDSpots--;
-          break;
-        case zoneE.some((spot) => spot.id === record.ParkingLotID):
-          zoneESpots--;
-          break;
-        case zoneF.some((spot) => spot.id === record.ParkingLotID):
-          zoneFSpots--;
-          break;
-        default:
-          break;
-      }
-    });
-  }
+  // if (parkingLotData.data.services.length > 0) {
+  //   parkingLotData.data.services.forEach((record) => {
+  //     switch (true) {
+  //       case zoneA.some((spot) => spot.id === record.ParkingLotID):
+  //         zoneASpots -= 1;
+  //         break;
+  //       case zoneB.some((spot) => spot.Id === record.ParkingLotID):
+  //         zoneBSpots -= 1;
+  //         break;
+  //       case zoneC.some((spot) => spot.id === record.ParkingLotID):
+  //         zoneCSpots -= 1;
+  //         break;
+  //       case zoneD.some((spot) => spot.id === record.ParkingLotID):
+  //         zoneDSpots -= 1;
+  //         break;
+  //       case zoneE.some((spot) => spot.id === record.ParkingLotID):
+  //         zoneESpots -= 1;
+  //         break;
+  //       case zoneF.some((spot) => spot.id === record.ParkingLotID):
+  //         zoneFSpots -= 1;
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   });
+  // }
   function checkSpace(zone) {
     if (zone.length === 0) {
       return 'noSpace';
@@ -52,14 +55,15 @@ function ParkingZones(parkingLotData) {
     }
     return 'freeSpace';
   }
-  const zoneStatus = checkSpace(zoneA);
+
+  // const zoneStatus = checkSpace(zoneASpots);
 
   // finding a free parking spot, returns with the parking spot ID
   function getParkingSpotID(zone) {
     const zoneSpots = [...zone];
     const result = zoneSpots.find((spot) => {
-      if (parkingLotData.data.services.length > 0) {
-        return !parkingLotData.data.services.some((record) => record.ParkingLotID === spot.id);
+      if (services.length > 0) {
+        return !services.some((record) => record.ParkingLotID === spot.id);
       }
       return true;
     });
@@ -79,36 +83,50 @@ function ParkingZones(parkingLotData) {
         <span>Shuttle</span>
       </div>
 
-      <a href="/" className="zone-A">
-        <div className={`${zoneStatus} zone-btn`} onClick={() => getParkingSpotID(zoneA)}>
-          <span>Zone A</span>
-        </div>
-      </a>
-      <a href="/" className="zone-B" onClick={() => getParkingSpotID(zoneA)}>
-        <div className={`${zoneStatus} zone-btn`}>
-          <span>Zone B</span>
-        </div>
-      </a>
-      <a href="/" className="zone-C" onClick={() => getParkingSpotID(zoneA)}>
-        <div className={`${zoneStatus} zone-btn`}>
-          <span>Zone C</span>
-        </div>
-      </a>
-      <a href="/" className="zone-D" onClick={() => getParkingSpotID(zoneA)}>
-        <div className={`${zoneStatus} zone-btn`}>
-          <span>Zone D</span>
-        </div>
-      </a>
-      <a href="/" className="zone-E" onClick={() => getParkingSpotID(zoneA)}>
-        <div className={`${zoneStatus} zone-btn`}>
-          <span>Zone E</span>
-        </div>
-      </a>
-      <a href="/" className="zone-F" onClick={() => getParkingSpotID(zoneA)}>
-        <div className={`${zoneStatus} zone-btn`}>
-          <span>Zone F</span>
-        </div>
-      </a>
+      <button
+        type="button"
+        className={`${checkSpace(zonesSpots.zoneASpots)} zone-btn zone-A`}
+        onClick={() => getParkingSpotID(zoneA)}
+      >
+        Zone A
+      </button>
+
+      <button
+        type="button"
+        className={`${checkSpace(zonesSpots.zoneBSpots)} zone-btn zone-B`}
+        onClick={() => getParkingSpotID(zoneA)}
+      >
+        Zone B
+      </button>
+
+      <button
+        type="button"
+        className={`${checkSpace(zonesSpots.zoneCSpots)} zone-btn zone-C`}
+        onClick={() => getParkingSpotID(zoneA)}
+      >
+        Zone C
+      </button>
+      <button
+        type="button"
+        className={`${checkSpace(zonesSpots.zoneDSpots)} zone-btn zone-D`}
+        onClick={() => getParkingSpotID(zoneA)}
+      >
+        Zone D
+      </button>
+      <button
+        type="button"
+        className={`${checkSpace(zonesSpots.zoneESpots)} zone-btn zone-E`}
+        onClick={() => getParkingSpotID(zoneA)}
+      >
+        Zone E
+      </button>
+      <button
+        type="button"
+        className={`${checkSpace(zonesSpots.zoneFSpots)} zone-btn zone-F`}
+        onClick={() => getParkingSpotID(zoneA)}
+      >
+        Zone F
+      </button>
     </div>
   );
 }

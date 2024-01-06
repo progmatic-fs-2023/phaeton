@@ -16,13 +16,9 @@
     justify-content: center;
     align-content: center;
     font-weight: bold;
-        font-size: 1.5em;
+    font-size: 1.5em;
 }
-.zones-grid a{
-    margin-right: 90px;
-    text-decoration: none;
-    color: black;
-}
+
 .zones-grid div {
     display: flex;
     justify-content: center;
@@ -33,14 +29,17 @@
 
 
 /*zone "button" config */
-.zone-btn{
-    height: 230px;
-    background-color: skyblue;
-}
 .zone-btn {
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    margin-right: 90px;
     background-color: var(--secondary-color);
     opacity: 0.8;
     transition: 0.5s;
+    cursor: pointer;
+    height: 230px;
+    background-color: skyblue;
 }
 
 .noSpace:hover {
@@ -54,9 +53,7 @@
     background-color: greenyellow;
 }
 
-a text {
-    cursor: pointer;
-}
+
 .shuttle-div { 
     grid-area: 3 / 1 / 5 / 2;
     margin-left: 20px;
