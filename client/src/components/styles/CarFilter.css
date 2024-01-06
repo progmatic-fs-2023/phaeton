@@ -26,6 +26,14 @@
     flex-direction: column;
 }
 
+.filter-item-label-text {
+    display: flex;
+    align-items: center;
+}
+.filter-item-label-text span {
+    font-size: 1rem;
+}
+
 .filter-items label {
     display: flex;
     gap: 10px;

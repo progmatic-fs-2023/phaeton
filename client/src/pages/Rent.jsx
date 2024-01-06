@@ -14,14 +14,25 @@ function Rent() {
   const [endDate, setEndDate] = useState(null);
   const [originalCarsData, setOriginalCarsData] = useState([]);
   const [carsData, setCarsData] = useState([]);
-  const [fuelFilter, setFuelFilter] = useState(null);
-  const [seatFilter, setSeatFilter] = useState(null);
   const [serviceData, setServiceData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const dieselRef = useRef(null);
   const petrolRef = useRef(null);
   const electricRef = useRef(null);
+  const seatsAbove4Ref = useRef(null);
+  const seatsAbove6Ref = useRef(null);
+  const luggageAbove4Ref = useRef(null);
+  const luggageAbove6Ref = useRef(null);
+  const manualRef = useRef(null);
+  const automaticRef = useRef(null);
+  const powerAbove75KwRef = useRef(null);
+  const powerAbove100KwRef = useRef(null);
+  const powerAbove125KwRef = useRef(null);
+  const powerAbove150KwRef = useRef(null);
+  const pricefrom0to12000Ref = useRef(null);
+  const pricefrom12000to15000Ref = useRef(null);
+  const pricefrom15000Ref = useRef(null);
 
   useEffect(() => {
     if (startDate && endDate) {
@@ -82,10 +93,9 @@ function Rent() {
     (car) => !serviceData.some((service) => service.CarID === car.id),
   );
 
-  useEffect(() => {
+  function filteringCars() {
     let filteredCars = [...originalCarsData];
 
-    // Apply fuel filter
     if (dieselRef.current.checked || petrolRef.current.checked || electricRef.current.checked) {
       filteredCars = filteredCars.filter(
         (car) =>
@@ -95,60 +105,64 @@ function Rent() {
       );
     }
 
-    // Apply seats filter
-    if (seatFilter) {
-      filteredCars = filteredCars.filter((car) => seatFilter[0] <= car.seats && car.seats <= seatFilter[1]);
+    if (seatsAbove4Ref.current.checked || seatsAbove6Ref.current.checked) {
+      filteredCars = filteredCars.filter(
+        (car) =>
+          (seatsAbove4Ref.current.checked && car.seats >= 4) ||
+          (seatsAbove6Ref.current.checked && car.seats >= 6),
+      );
     }
 
-    // ... apply other filters ...
+    if (luggageAbove4Ref.current.checked || luggageAbove6Ref.current.checked) {
+      filteredCars = filteredCars.filter(
+        (car) =>
+          (luggageAbove4Ref.current.checked && car.trunkCapacity >= 4) ||
+          (luggageAbove6Ref.current.checked && car.trunkCapacity >= 6),
+      );
+    }
+
+    if (manualRef.current.checked || automaticRef.current.checked) {
+      filteredCars = filteredCars.filter(
+        (car) =>
+          (manualRef.current.checked && car.transmission === 'M') ||
+          (automaticRef.current.checked && car.transmission === 'A'),
+      );
+    }
+
+    if (
+      powerAbove75KwRef.current.checked ||
+      powerAbove100KwRef.current.checked ||
+      powerAbove125KwRef.current.checked ||
+      powerAbove150KwRef.current.checked
+    ) {
+      filteredCars = filteredCars.filter(
+        (car) =>
+          (powerAbove75KwRef.current.checked && car.power >= 75) ||
+          (powerAbove100KwRef.current.checked && car.power >= 100) ||
+          (powerAbove125KwRef.current.checked && car.power >= 125) ||
+          (powerAbove150KwRef.current.checked && car.power >= 150),
+      );
+    }
+
+    if (
+      pricefrom0to12000Ref.current.checked ||
+      pricefrom12000to15000Ref.current.checked ||
+      pricefrom15000Ref.current.checked
+    ) {
+      filteredCars = filteredCars.filter(
+        (car) =>
+          (pricefrom0to12000Ref.current.checked && car.price <= 12000) ||
+          (pricefrom12000to15000Ref.current.checked && car.price >= 12000 && car.price <= 15000) ||
+          (pricefrom15000Ref.current.checked && car.price >= 15000),
+      );
+    }
 
     setCarsData(filteredCars);
-  }, [fuelFilter, seatFilter /* ... other filters ... */]);
+  }
 
-  // function filteringCars(data) {
-  //   let filteredCars = [...originalCarsData];
-
-  //   // Apply fuel filter
-  //   if (dieselRef.current.checked || petrolRef.current.checked || electricRef.current.checked) {
-  //     filteredCars = filteredCars.filter(
-  //       (car) =>
-  //         (dieselRef.current.checked && car.fuel === 'Diesel') ||
-  //         (petrolRef.current.checked && car.fuel === 'Petrol') ||
-  //         (electricRef.current.checked && car.fuel === 'Electric'),
-  //     );
-  //   }
-
-  //   // Apply seats filter
-  //   if (data[2] === 'seats') {
-  //     filteredCars = filteredCars.filter((car) => data[0] <= car.seats && car.seats <= data[1]);
-  //   }
-
-  //   // Apply price filter
-  //   if (data[2] === 'price') {
-  //     filteredCars = filteredCars.filter((car) => data[0] <= car.price && car.price <= data[1]);
-  //   }
-
-  //   // Apply trunk filter
-  //   if (data[2] === 'trunk') {
-  //     filteredCars = filteredCars.filter(
-  //       (car) => data[0] <= car.trunkCapacity && car.trunkCapacity <= data[1],
-  //     );
-  //   }
-
-  //   // Apply power filter
-  //   if (data[2] === 'power') {
-  //     filteredCars = filteredCars.filter((car) => data[0] <= car.power && car.power <= data[1]);
-  //   }
-
-  //   setCarsData(filteredCars);
-  // }
-
-  const handleFilteringCars = useCallback(
-    (data) => {
-      filteringCars(data);
-    },
-    [filteringCars],
-  );
+  const handleFilteringCars = useCallback(() => {
+    filteringCars();
+  }, [filteringCars]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -164,6 +178,12 @@ function Rent() {
       </div>
     );
   }
+  const differenceInTime = endDate.getTime() - startDate.getTime();
+  let differenceInDays = Math.round(differenceInTime / (1000 * 3600 * 24));
+  if (differenceInDays < 1) {
+    differenceInDays = 1;
+  }
+
   // Page with the date values
   return (
     <div className="rent-container">
@@ -174,10 +194,22 @@ function Rent() {
             dieselRef={dieselRef}
             petrolRef={petrolRef}
             electricRef={electricRef}
+            seatsAbove4Ref={seatsAbove4Ref}
+            seatsAbove6Ref={seatsAbove6Ref}
+            luggageAbove4Ref={luggageAbove4Ref}
+            luggageAbove6Ref={luggageAbove6Ref}
+            manualRef={manualRef}
+            automaticRef={automaticRef}
+            powerAbove75KwRef={powerAbove75KwRef}
+            powerAbove100KwRef={powerAbove100KwRef}
+            powerAbove125KwRef={powerAbove125KwRef}
+            powerAbove150KwRef={powerAbove150KwRef}
+            pricefrom0to12000Ref={pricefrom0to12000Ref}
+            pricefrom12000to15000Ref={pricefrom12000to15000Ref}
+            pricefrom15000Ref={pricefrom15000Ref}
             filteringCars={handleFilteringCars}
-            onChange={console.log('asd')}
           />
-          <Cars data={filteredCarsData} />
+          <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
         </div>
       </BackGroundContext.Provider>
     </div>

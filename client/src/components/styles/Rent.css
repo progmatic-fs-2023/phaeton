@@ -55,13 +55,29 @@
 .car-info-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0px 15px;
 }
 
 .title-and-info-container {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  margin-right: 15px;
+}
+
+.price-label {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.price-label-title {
+  font-size: smaller;
+}
+
+.price-label-price {
+  font-weight: bold;
+  font-size: larger;
 }
 
 .rent-button {

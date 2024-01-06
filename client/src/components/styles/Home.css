@@ -90,11 +90,11 @@
 }
 
 .rental {
-  background-image: URL('../../../public/home_page_nav_pictures/rentalpic.jpg');
+  background-image: URL('../../../home_page_nav_pictures/rentalpic.jpg');
 }
 
 .parking {
-  background-image: URL('../../../public/home_page_nav_pictures/parkingpic.jpg');
+  background-image: URL('../../../home_page_nav_pictures/parkingpic.jpg');
 }
 
 .shuttle {
