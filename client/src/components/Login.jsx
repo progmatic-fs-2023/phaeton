@@ -24,7 +24,6 @@ function Login() {
     });
 
     const data = await response.json();
-    console.log(data);
     if (!response.ok) {
       setMessage(data.message);
     } else if (response.ok) {
@@ -46,7 +45,7 @@ function Login() {
       setMessage('The passwords do not match.');
       return;
     }
-    let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/g;
+    const check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/g;
     if (!password.match(check)) {
       setMessage(
         'A password should be 8 characters long and include uppercase and lowercase letters as well as numbers ',
