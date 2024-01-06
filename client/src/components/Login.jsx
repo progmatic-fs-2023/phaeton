@@ -87,6 +87,7 @@ function Login() {
 
   const handleSignUpClick = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
+    setMessage('');
   };
   // pressing Escape button to close dialog box eventhandler
   useEffect(() => {
