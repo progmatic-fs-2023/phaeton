@@ -6,12 +6,19 @@
   align-items: center;
 }
 .car-container {
-  margin: 50px;
   display: flex;
   flex-direction: column;
   align-content: space-around;
   gap: 20px;
 }
+
+.sortby-and-car-container {
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  gap: 20px;
+}
+
 
 .car-service-container {
   display: flex;
@@ -109,7 +116,7 @@
 }
 
 @media only screen and (max-width: 1250px) {
-  .car-container {
+  .sortby-and-car-container {
     margin: 25px;
   }
 

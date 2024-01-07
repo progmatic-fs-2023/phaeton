@@ -189,7 +189,7 @@ function CarFilter({
         </div>
       </div>
       <div className="filter-container seats">
-        <h3>Power</h3>
+        <h3>Engine Power</h3>
         <div className="filter-items">
           <label htmlFor="powerAbove75Kw">
             <input

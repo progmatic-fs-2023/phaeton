@@ -14,10 +14,11 @@ function DatePicker({ getStartDate, getEndDate }) {
     getEndDate: PropTypes.func.isRequired,
   };
   const current = new Date();
-  const followingDay = new Date(current.getTime() + 172800000);
+  const followingDay = new Date(current.getTime() + 86400000);
+  const followingDay2 = new Date(current.getTime() + 172800000);
 
   const [fromValue, setFromValue] = useState(current);
-  const [toValue, setToValue] = useState(followingDay);
+  const [toValue, setToValue] = useState(followingDay2);
   const [option, setOption] = useState('');
 
   const parkingBg = useContext(BackGroundContext);
@@ -38,6 +39,10 @@ function DatePicker({ getStartDate, getEndDate }) {
   }
 
   function onSearch() {
+    if (fromValue > toValue) {
+      setFromValue(current);
+      setToValue(followingDay);
+    }
     getStartDate(fromValue);
     getEndDate(toValue);
   }

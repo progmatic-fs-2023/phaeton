@@ -6,6 +6,7 @@ import Cars from '../components/Cars';
 import CarFilter from '../components/CarFilter';
 import useDocumentTitle from '../components/useDocumentTitle';
 import LoadingScreen from '../components/LoadingScreen';
+import SortBy from '../components/SortBy';
 
 function Rent() {
   useDocumentTitle('Phaeton · Rent');
@@ -163,7 +164,42 @@ function Rent() {
   const handleFilteringCars = useCallback(() => {
     filteringCars();
   }, [filteringCars]);
+  
+  function sortingFunction(event) {
+    const sortByTarget = event.target.value;
+    const sortedCars = [...carsData]
 
+    if (sortByTarget === 'cheapest') {
+      sortedCars.sort((a, b) => a.price - b.price);
+    } else if (sortByTarget === 'most-expensive') {
+      sortedCars.sort((a, b) => b.price - a.price);
+    } else if (sortByTarget === 'name-a-z') {
+      sortedCars.sort((a, b) => a.model.localeCompare(b.model));
+    } else if (sortByTarget === 'name-z-a') {
+      sortedCars.sort((a, b) => b.model.localeCompare(a.model));
+    } else if (sortByTarget === 'least-seats') {
+      sortedCars.sort((a, b) => a.seats - b.seats);
+    } else if (sortByTarget === 'most-seats') {
+      sortedCars.sort((a, b) => b.seats - a.seats);
+    } else if (sortByTarget === 'least-luaggage') {
+      sortedCars.sort((a, b) => a.trunkCapacity - b.trunkCapacity);
+    } else if (sortByTarget === 'most-luaggage') {
+      sortedCars.sort((a, b) => b.trunkCapacity - a.trunkCapacity);
+    } else if (sortByTarget === 'least-power') {
+      sortedCars.sort((a, b) => a.power - b.power);
+    } else if (sortByTarget === 'most-power') {
+      sortedCars.sort((a, b) => b.power - a.power);
+    }
+    setCarsData(sortedCars)
+  }
+
+  const handleSortingFunction = useCallback(
+    (event) => {
+      sortingFunction(event);
+    },
+    [sortingFunction],
+  );
+  
 
   if (!startDate && !endDate) {
     return (
@@ -189,27 +225,32 @@ function Rent() {
         {isLoading ? (
           <LoadingScreen />
         ) : (
-          <div className="car-service-container">
-            <CarFilter
-              dieselRef={dieselRef}
-              petrolRef={petrolRef}
-              electricRef={electricRef}
-              seatsAbove4Ref={seatsAbove4Ref}
-              seatsAbove6Ref={seatsAbove6Ref}
-              luggageAbove4Ref={luggageAbove4Ref}
-              luggageAbove6Ref={luggageAbove6Ref}
-              manualRef={manualRef}
-              automaticRef={automaticRef}
-              powerAbove75KwRef={powerAbove75KwRef}
-              powerAbove100KwRef={powerAbove100KwRef}
-              powerAbove125KwRef={powerAbove125KwRef}
-              powerAbove150KwRef={powerAbove150KwRef}
-              pricefrom0to12000Ref={pricefrom0to12000Ref}
-              pricefrom12000to15000Ref={pricefrom12000to15000Ref}
-              pricefrom15000Ref={pricefrom15000Ref}
-              filteringCars={handleFilteringCars}
-            />
-            <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
+          <div>
+            <div className="car-service-container">        
+              <CarFilter
+                dieselRef={dieselRef}
+                petrolRef={petrolRef}
+                electricRef={electricRef}
+                seatsAbove4Ref={seatsAbove4Ref}
+                seatsAbove6Ref={seatsAbove6Ref}
+                luggageAbove4Ref={luggageAbove4Ref}
+                luggageAbove6Ref={luggageAbove6Ref}
+                manualRef={manualRef}
+                automaticRef={automaticRef}
+                powerAbove75KwRef={powerAbove75KwRef}
+                powerAbove100KwRef={powerAbove100KwRef}
+                powerAbove125KwRef={powerAbove125KwRef}
+                powerAbove150KwRef={powerAbove150KwRef}
+                pricefrom0to12000Ref={pricefrom0to12000Ref}
+                pricefrom12000to15000Ref={pricefrom12000to15000Ref}
+                pricefrom15000Ref={pricefrom15000Ref}
+                filteringCars={handleFilteringCars}
+              />
+              <div className='sortby-and-car-container'>
+              <SortBy className='sort-by-cars' handleSortingFunction={handleSortingFunction} />
+              <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
+              </div>
+            </div>
           </div>
         )}
       </BackGroundContext.Provider>
