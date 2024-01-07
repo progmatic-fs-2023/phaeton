@@ -164,9 +164,6 @@ function Rent() {
     filteringCars();
   }, [filteringCars]);
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
 
   if (!startDate && !endDate) {
     return (
@@ -189,28 +186,32 @@ function Rent() {
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">
         <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
-        <div className="car-service-container">
-          <CarFilter
-            dieselRef={dieselRef}
-            petrolRef={petrolRef}
-            electricRef={electricRef}
-            seatsAbove4Ref={seatsAbove4Ref}
-            seatsAbove6Ref={seatsAbove6Ref}
-            luggageAbove4Ref={luggageAbove4Ref}
-            luggageAbove6Ref={luggageAbove6Ref}
-            manualRef={manualRef}
-            automaticRef={automaticRef}
-            powerAbove75KwRef={powerAbove75KwRef}
-            powerAbove100KwRef={powerAbove100KwRef}
-            powerAbove125KwRef={powerAbove125KwRef}
-            powerAbove150KwRef={powerAbove150KwRef}
-            pricefrom0to12000Ref={pricefrom0to12000Ref}
-            pricefrom12000to15000Ref={pricefrom12000to15000Ref}
-            pricefrom15000Ref={pricefrom15000Ref}
-            filteringCars={handleFilteringCars}
-          />
-          <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
-        </div>
+        {isLoading ? (
+          <LoadingScreen />
+        ) : (
+          <div className="car-service-container">
+            <CarFilter
+              dieselRef={dieselRef}
+              petrolRef={petrolRef}
+              electricRef={electricRef}
+              seatsAbove4Ref={seatsAbove4Ref}
+              seatsAbove6Ref={seatsAbove6Ref}
+              luggageAbove4Ref={luggageAbove4Ref}
+              luggageAbove6Ref={luggageAbove6Ref}
+              manualRef={manualRef}
+              automaticRef={automaticRef}
+              powerAbove75KwRef={powerAbove75KwRef}
+              powerAbove100KwRef={powerAbove100KwRef}
+              powerAbove125KwRef={powerAbove125KwRef}
+              powerAbove150KwRef={powerAbove150KwRef}
+              pricefrom0to12000Ref={pricefrom0to12000Ref}
+              pricefrom12000to15000Ref={pricefrom12000to15000Ref}
+              pricefrom15000Ref={pricefrom15000Ref}
+              filteringCars={handleFilteringCars}
+            />
+            <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
+          </div>
+        )}
       </BackGroundContext.Provider>
     </div>
   );
