@@ -1,37 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles/Login.css';
+import PropTypes from 'prop-types';
 import loginButton from '../assets/login_button/login_button.svg';
 
-function Login() {
-  const [isLogin, setIsLogin] = useState(true);
+function Login({ handleLogin, errorMsg }) {
+  Login.propTypes = {
+    handleLogin: PropTypes.func.isRequired,
+    errorMsg: PropTypes.string.isRequired,
+  };
   const dialogRef = useRef(null);
   const dialog2Ref = useRef(null);
+  const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [message, setMessage] = useState('');
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const response = await fetch('http://localhost:3000/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      setMessage(data.message);
-    } else if (response.ok) {
-      setEmail('');
-      dialogRef.current.close();
-      setPassword('');
-    }
-  };
 
   const openDialog2 = () => {
     dialog2Ref.current.showModal();
@@ -75,7 +60,12 @@ function Login() {
       }
     }
   };
-
+  // HandleLogin ----
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    setMessage(errorMsg);
+    handleLogin(email, password);
+  };
   const openDialog = () => {
     dialogRef.current.showModal();
   };
@@ -156,7 +146,7 @@ function Login() {
                 </a>
               </div>
               <div>
-                <button className="submit-btn" type="submit" onClick={handleLogin}>
+                <button className="submit-btn" type="submit" onClick={handleLoginSubmit}>
                   Login
                 </button>
               </div>
