@@ -1,9 +1,8 @@
 import React from 'react';
-// import ParkingZone from './ParkingZone';
 import '../styles/ParkingZones.css';
 
-function ParkingZones(parkingLotData) {
-  const { data } = parkingLotData;
+function ParkingZones(ParkingData) {
+  const { data } = ParkingData;
   const { parkings, services } = data;
   const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
   const zoneB = parkings.filter((parkingSpot) => parkingSpot.zone === 'B');

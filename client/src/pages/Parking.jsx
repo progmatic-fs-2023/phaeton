@@ -1,15 +1,15 @@
 import { useCallback, useState, useEffect } from 'react';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
-import ParkingZones from '../components/Parking/ParkingZones';
 import '../components/styles/Parking.css';
+import ParkingBooking from '../components/Parking/ParkingBooking';
 
 function Parking() {
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [parkingLotData, setParkingLotData] = useState([]);
-  
+
   function getStartDate(data) {
     setStartDate(data);
   }
@@ -56,10 +56,12 @@ function Parking() {
           setParkingLotData(data);
           setIsLoading(false);
         })
-        .catch((error) => <div>{`There has been a problem with your fetch operation: ${error}`}</div>);
+        .catch((error) => (
+          <div>{`There has been a problem with your fetch operation: ${error}`}</div>
+        ));
     }
   }, [startDate, endDate]);
-  
+
   if (!startDate && !endDate) {
     return (
       <div>
@@ -77,13 +79,7 @@ function Parking() {
       {isLoading || !parkingLotData || parkingLotData.length === 0 ? (
         <p>Loading...</p>
       ) : (
-        <div className="parking-zones-container">
-          <div className="parking-text-container">
-            <h1>Your vehicle is safe and secure with us.</h1>
-            <h2>Select a parking zone </h2>
-          </div>
-          <ParkingZones data={parkingLotData} />
-        </div>
+        <ParkingBooking data={parkingLotData} />
       )}
     </div>
   );
