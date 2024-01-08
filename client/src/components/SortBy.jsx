@@ -1,38 +1,100 @@
-import React from "react"
-import './styles/SortBy.css'
+import React from 'react';
+import './styles/SortBy.css';
 import PropTypes from 'prop-types';
 
-function SortBy( {handleSortingFunction} ) {
+function SortBy({ handleSortingFunction }) {
   SortBy.propTypes = {
-    handleSortingFunction: PropTypes.func.isRequired
-  }
-    return(
-        <label htmlFor="sortby" className="sortby">
-        <div><span className="material-symbols-outlined">sort</span> Sort by</div>
-        <select name="sortby" id="sortby" onChange={handleSortingFunction}>
-        <optgroup label="Name">
-            <option value="name-a-z">Name A-Z</option>
-            <option value="name-z-a">Name Z-A</option>
-          </optgroup>
-          <optgroup label="Price">
-            <option value="cheapest">Price lowest first</option>
-            <option value="most-expensive">Price highest first</option>
-          </optgroup>
-          <optgroup label="Seat quantity">
-            <option value="least-seats">Seat quantity lowest first</option>
-            <option value="most-seats">Seat quantity highest first</option>
-          </optgroup>
-          <optgroup label="Trunk capacity">
-            <option value="least-luaggage">Trunk capacity Lowest first</option>
-            <option value="most-luaggage">Trunk capacity highest first</option>
-          </optgroup>
-          <optgroup label="Engine Power">
-            <option value="least-power">Engine Power Lowest first</option>
-            <option value="most-power">Engine Power highest first</option>
-          </optgroup>
-        </select>
-      </label>
-    )
+    handleSortingFunction: PropTypes.func.isRequired,
+  };
+
+  const handleListItemClick = (value) => {
+    handleSortingFunction(value); // Pass the selected value to the sorting function
+    document.getElementById('myDropdown').classList.remove('show'); // Close the dropdown
+  };
+
+  return (
+    <div className="dropdown">
+      <button
+        type="button"
+        onClick={() => document.getElementById('myDropdown').classList.toggle('show')}
+        className="dropbtn"
+      >
+        <span className="material-symbols-outlined">sort</span> Sort by
+      </button>
+      <div id="myDropdown" className="dropdown-content">
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('name-a-z')}
+        >
+          Name A-Z
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('name-z-a')}
+        >
+          Name Z-A
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('cheapest')}
+        >
+          Price lowest first
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('most-expensive')}
+        >
+          Price highest first
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('least-seats')}
+        >
+          Seat quantity lowest first
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('most-seats')}
+        >
+          Seat quantity highest first
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('least-luggage')}
+        >
+          Trunk capacity Lowest first
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('most-luggage')}
+        >
+          Trunk capacity highest first
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('least-power')}
+        >
+          Engine Power Lowest first
+        </button>
+        <button
+          className="sortByElem"
+          type="button"
+          onClick={() => handleListItemClick('most-power')}
+        >
+          Engine Power highest first
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default SortBy
+export default SortBy;

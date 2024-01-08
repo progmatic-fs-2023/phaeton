@@ -165,8 +165,7 @@ function Rent() {
     filteringCars();
   }, [filteringCars]);
   
-  function sortingFunction(event) {
-    const sortByTarget = event.target.value;
+  function sortingFunction(sortByTarget) {
     const sortedCars = [...carsData]
 
     if (sortByTarget === 'cheapest') {
@@ -181,9 +180,9 @@ function Rent() {
       sortedCars.sort((a, b) => a.seats - b.seats);
     } else if (sortByTarget === 'most-seats') {
       sortedCars.sort((a, b) => b.seats - a.seats);
-    } else if (sortByTarget === 'least-luaggage') {
+    } else if (sortByTarget === 'least-luggage') {
       sortedCars.sort((a, b) => a.trunkCapacity - b.trunkCapacity);
-    } else if (sortByTarget === 'most-luaggage') {
+    } else if (sortByTarget === 'most-luggage') {
       sortedCars.sort((a, b) => b.trunkCapacity - a.trunkCapacity);
     } else if (sortByTarget === 'least-power') {
       sortedCars.sort((a, b) => a.power - b.power);
