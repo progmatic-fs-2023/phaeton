@@ -1,7 +1,11 @@
 import React from "react"
 import './styles/SortBy.css'
+import PropTypes from 'prop-types';
 
 function SortBy( {handleSortingFunction} ) {
+  SortBy.propTypes = {
+    handleSortingFunction: PropTypes.func.isRequired
+  }
     return(
         <label htmlFor="sortby" className="sortby">
         <div><span className="material-symbols-outlined">sort</span> Sort by</div>
