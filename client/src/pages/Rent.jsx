@@ -164,9 +164,9 @@ function Rent() {
   const handleFilteringCars = useCallback(() => {
     filteringCars();
   }, [filteringCars]);
-  
+
   function sortingFunction(sortByTarget) {
-    const sortedCars = [...carsData]
+    const sortedCars = [...carsData];
 
     if (sortByTarget === 'cheapest') {
       sortedCars.sort((a, b) => a.price - b.price);
@@ -189,7 +189,7 @@ function Rent() {
     } else if (sortByTarget === 'most-power') {
       sortedCars.sort((a, b) => b.power - a.power);
     }
-    setCarsData(sortedCars)
+    setCarsData(sortedCars);
   }
 
   const handleSortingFunction = useCallback(
@@ -198,7 +198,6 @@ function Rent() {
     },
     [sortingFunction],
   );
-  
 
   if (!startDate && !endDate) {
     return (
@@ -225,7 +224,7 @@ function Rent() {
           <LoadingScreen />
         ) : (
           <div>
-            <div className="car-service-container">        
+            <div className="car-service-container">
               <CarFilter
                 dieselRef={dieselRef}
                 petrolRef={petrolRef}
@@ -245,9 +244,9 @@ function Rent() {
                 pricefrom15000Ref={pricefrom15000Ref}
                 filteringCars={handleFilteringCars}
               />
-              <div className='sortby-and-car-container'>
-              <SortBy className='sort-by-cars' handleSortingFunction={handleSortingFunction} />
-              <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
+              <div className="sortby-and-car-container">
+                <SortBy className="sort-by-cars" handleSortingFunction={handleSortingFunction} />
+                <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
               </div>
             </div>
           </div>

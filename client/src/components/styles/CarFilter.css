@@ -1,45 +1,45 @@
-@import url("variables.css");
+@import url('variables.css');
 
 .filter-main-container {
-    background-color: white;
-    border: 1px solid silver;
-    box-shadow: var(--main-box-shadow);
-    border-radius: 5px;
-    margin: 50px 0px;
-    padding: 10px;
-    width: 300px;
+  background-color: white;
+  border: 1px solid silver;
+  box-shadow: var(--main-box-shadow);
+  border-radius: 5px;
+  margin: 50px 0px;
+  padding: 10px;
+  width: 300px;
 }
 
 .filter-container {
-    border-top: 1px solid silver;
-    padding: 5px 5px 15px 5px;
+  border-top: 1px solid silver;
+  padding: 5px 5px 15px 5px;
 }
 .filter-main-container-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
 }
 
 .filter-items {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-item-label-text {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .filter-item-label-text span {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 .filter-items label {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .filter-items input {
-    height: 20px;
-    width: 20px;
+  height: 20px;
+  width: 20px;
 }
