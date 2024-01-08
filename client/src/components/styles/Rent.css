@@ -130,6 +130,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    min-width: 145px;
   }
 
   .title-and-info-container {
