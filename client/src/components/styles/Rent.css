@@ -19,7 +19,6 @@
   gap: 10px;
 }
 
-
 .car-service-container {
   display: flex;
   align-items: flex-start;
@@ -115,9 +114,27 @@
   opacity: 0.6;
 }
 
-@media only screen and (max-width: 1250px) {
+.sortby-and-mobile-filter-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.car-filter-mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 1270px) {
   .sortby-and-car-container {
     margin: 25px;
+  }
+
+  .car-filter {
+    display: none;
+  }
+
+  .car-filter-mobile {
+    display: contents;
   }
 
   .car-service-container {

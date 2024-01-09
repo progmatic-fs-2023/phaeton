@@ -59,11 +59,27 @@ function CarFilter({
     filteringCars: PropTypes.func.isRequired,
   };
 
+  function clearAllFilters(event) {
+    document.querySelectorAll('input[type=checkbox]').forEach((element) => {
+      const checkbox = element;
+      checkbox.checked = false;
+    });
+    filteringCars(event);
+  }
   return (
     <div className="filter-main-container">
-      <div className="filter-main-container-title">
-        <h2>Filters</h2>
-        <span className="material-symbols-outlined">tune</span>
+      <div className="filter-main-container-title-div">
+        <div className="filter-main-container-title">
+          <h2>Filters</h2>
+          <span className="material-symbols-outlined">tune</span>
+        </div>
+        <button
+          className="filter-main-container-title-clear-filter-button"
+          type="button"
+          onClick={clearAllFilters}
+        >
+          Clear All
+        </button>
       </div>
       <div className="filter-container fuel-type">
         <h3>Fuel-type</h3>

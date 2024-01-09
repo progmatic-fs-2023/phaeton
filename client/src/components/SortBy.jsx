@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './styles/SortBy.css';
 import PropTypes from 'prop-types';
 
@@ -7,21 +7,44 @@ function SortBy({ handleSortingFunction }) {
     handleSortingFunction: PropTypes.func.isRequired,
   };
 
+  const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
+
   const handleListItemClick = (value) => {
-    handleSortingFunction(value); // Pass the selected value to the sorting function
-    document.getElementById('myDropdown').classList.remove('show'); // Close the dropdown
+    handleSortingFunction(value);
+    dropdownRef.current.classList.remove('show');
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        dropdownRef.current.classList.remove('show');
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className="dropdown">
       <button
+        ref={buttonRef}
         type="button"
-        onClick={() => document.getElementById('myDropdown').classList.toggle('show')}
+        onClick={() => dropdownRef.current.classList.toggle('show')}
         className="dropbtn"
       >
         <span className="material-symbols-outlined">sort</span> Sort by
       </button>
-      <div id="myDropdown" className="dropdown-content">
+      <div ref={dropdownRef} id="myDropdown" className="dropdown-content">
         <button
           className="sortByElem"
           type="button"

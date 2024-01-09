@@ -7,6 +7,7 @@ import CarFilter from '../components/CarFilter';
 import useDocumentTitle from '../components/useDocumentTitle';
 import LoadingScreen from '../components/LoadingScreen';
 import SortBy from '../components/SortBy';
+import CarFilterMobile from '../components/CarFilterMobile';
 
 function Rent() {
   useDocumentTitle('Phaeton · Rent');
@@ -94,7 +95,8 @@ function Rent() {
     (car) => !serviceData.some((service) => service.CarID === car.id),
   );
 
-  function filteringCars() {
+  function filteringCars(event) {
+    event.stopPropagation();
     let filteredCars = [...originalCarsData];
 
     if (dieselRef.current.checked || petrolRef.current.checked || electricRef.current.checked) {
@@ -161,9 +163,12 @@ function Rent() {
     setCarsData(filteredCars);
   }
 
-  const handleFilteringCars = useCallback(() => {
-    filteringCars();
-  }, [filteringCars]);
+  const handleFilteringCars = useCallback(
+    (event) => {
+      filteringCars(event);
+    },
+    [filteringCars],
+  );
 
   function sortingFunction(sortByTarget) {
     const sortedCars = [...carsData];
@@ -225,6 +230,7 @@ function Rent() {
         ) : (
           <div>
             <div className="car-service-container">
+              <div className='car-filter'>
               <CarFilter
                 dieselRef={dieselRef}
                 petrolRef={petrolRef}
@@ -244,8 +250,32 @@ function Rent() {
                 pricefrom15000Ref={pricefrom15000Ref}
                 filteringCars={handleFilteringCars}
               />
+              </div>
               <div className="sortby-and-car-container">
-                <SortBy className="sort-by-cars" handleSortingFunction={handleSortingFunction} />
+                <div className="sortby-and-mobile-filter-container">
+                  <div className='car-filter-mobile'>
+                  <CarFilterMobile
+                    dieselRef={dieselRef}
+                    petrolRef={petrolRef}
+                    electricRef={electricRef}
+                    seatsAbove4Ref={seatsAbove4Ref}
+                    seatsAbove6Ref={seatsAbove6Ref}
+                    luggageAbove4Ref={luggageAbove4Ref}
+                    luggageAbove6Ref={luggageAbove6Ref}
+                    manualRef={manualRef}
+                    automaticRef={automaticRef}
+                    powerAbove75KwRef={powerAbove75KwRef}
+                    powerAbove100KwRef={powerAbove100KwRef}
+                    powerAbove125KwRef={powerAbove125KwRef}
+                    powerAbove150KwRef={powerAbove150KwRef}
+                    pricefrom0to12000Ref={pricefrom0to12000Ref}
+                    pricefrom12000to15000Ref={pricefrom12000to15000Ref}
+                    pricefrom15000Ref={pricefrom15000Ref}
+                    filteringCars={handleFilteringCars}
+                  />
+                  </div>
+                  <SortBy className="sort-by-cars" handleSortingFunction={handleSortingFunction} />
+                </div>
                 <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
               </div>
             </div>
