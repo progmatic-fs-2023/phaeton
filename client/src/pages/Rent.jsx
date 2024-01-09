@@ -18,6 +18,7 @@ function Rent() {
   const [carsData, setCarsData] = useState([]);
   const [serviceData, setServiceData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const dieselRef = useRef(null);
   const petrolRef = useRef(null);
@@ -204,6 +205,12 @@ function Rent() {
     [sortingFunction],
   );
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   if (!startDate && !endDate) {
     return (
       // Component with the background
@@ -230,31 +237,9 @@ function Rent() {
         ) : (
           <div>
             <div className="car-service-container">
-              <div className='car-filter'>
-              <CarFilter
-                dieselRef={dieselRef}
-                petrolRef={petrolRef}
-                electricRef={electricRef}
-                seatsAbove4Ref={seatsAbove4Ref}
-                seatsAbove6Ref={seatsAbove6Ref}
-                luggageAbove4Ref={luggageAbove4Ref}
-                luggageAbove6Ref={luggageAbove6Ref}
-                manualRef={manualRef}
-                automaticRef={automaticRef}
-                powerAbove75KwRef={powerAbove75KwRef}
-                powerAbove100KwRef={powerAbove100KwRef}
-                powerAbove125KwRef={powerAbove125KwRef}
-                powerAbove150KwRef={powerAbove150KwRef}
-                pricefrom0to12000Ref={pricefrom0to12000Ref}
-                pricefrom12000to15000Ref={pricefrom12000to15000Ref}
-                pricefrom15000Ref={pricefrom15000Ref}
-                filteringCars={handleFilteringCars}
-              />
-              </div>
-              <div className="sortby-and-car-container">
-                <div className="sortby-and-mobile-filter-container">
-                  <div className='car-filter-mobile'>
-                  <CarFilterMobile
+              {windowWidth >= 1270 && (
+                <div className="car-filter">
+                  <CarFilter
                     dieselRef={dieselRef}
                     petrolRef={petrolRef}
                     electricRef={electricRef}
@@ -273,7 +258,33 @@ function Rent() {
                     pricefrom15000Ref={pricefrom15000Ref}
                     filteringCars={handleFilteringCars}
                   />
-                  </div>
+                </div>
+              )}
+              <div className="sortby-and-car-container">
+                <div className="sortby-and-mobile-filter-container">
+                  {windowWidth < 1270 && (
+                    <div className="car-filter-mobile">
+                      <CarFilterMobile
+                        dieselRef={dieselRef}
+                        petrolRef={petrolRef}
+                        electricRef={electricRef}
+                        seatsAbove4Ref={seatsAbove4Ref}
+                        seatsAbove6Ref={seatsAbove6Ref}
+                        luggageAbove4Ref={luggageAbove4Ref}
+                        luggageAbove6Ref={luggageAbove6Ref}
+                        manualRef={manualRef}
+                        automaticRef={automaticRef}
+                        powerAbove75KwRef={powerAbove75KwRef}
+                        powerAbove100KwRef={powerAbove100KwRef}
+                        powerAbove125KwRef={powerAbove125KwRef}
+                        powerAbove150KwRef={powerAbove150KwRef}
+                        pricefrom0to12000Ref={pricefrom0to12000Ref}
+                        pricefrom12000to15000Ref={pricefrom12000to15000Ref}
+                        pricefrom15000Ref={pricefrom15000Ref}
+                        filteringCars={handleFilteringCars}
+                      />
+                    </div>
+                  )}
                   <SortBy className="sort-by-cars" handleSortingFunction={handleSortingFunction} />
                 </div>
                 <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
