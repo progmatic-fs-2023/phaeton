@@ -120,6 +120,7 @@
   justify-content: flex-end;
   gap: 10px;
 }
+
 .car-filter-mobile {
   display: none;
 }
