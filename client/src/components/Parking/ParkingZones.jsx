@@ -1,8 +1,7 @@
 import React from 'react';
 import '../styles/ParkingZones.css';
 
-function ParkingZones(ParkingData) {
-  const { data } = ParkingData;
+function ParkingZones({ data, parkingID }) {
   const { parkings, services } = data;
   const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
   const zoneB = parkings.filter((parkingSpot) => parkingSpot.zone === 'B');
@@ -69,7 +68,8 @@ function ParkingZones(ParkingData) {
     });
 
     if (result) {
-      return result.id;
+      parkingID(result);
+      return;
     }
     return null;
   }
@@ -94,7 +94,7 @@ function ParkingZones(ParkingData) {
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneBSpots)} zone-btn zone-B`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneB)}
       >
         Zone B
       </button>
@@ -102,28 +102,28 @@ function ParkingZones(ParkingData) {
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneCSpots)} zone-btn zone-C`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneC)}
       >
         Zone C
       </button>
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneDSpots)} zone-btn zone-D`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneD)}
       >
         Zone D
       </button>
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneESpots)} zone-btn zone-E`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneE)}
       >
         Zone E
       </button>
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneFSpots)} zone-btn zone-F`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneF)}
       >
         Zone F
       </button>

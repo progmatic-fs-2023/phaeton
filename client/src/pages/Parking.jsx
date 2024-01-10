@@ -79,7 +79,7 @@ function Parking() {
       {isLoading || !parkingLotData || parkingLotData.length === 0 ? (
         <p>Loading...</p>
       ) : (
-        <ParkingBooking data={parkingLotData} />
+        <ParkingBooking data={parkingLotData} bookDate={{ startDate, endDate }} />
       )}
     </div>
   );
