@@ -78,3 +78,14 @@ export const login = async (req, res) => {
     });
   }
 };
+
+export const check = (req, res) => {
+  try {
+    const decoded = jwt.verify(req.body.token, process.env.JWT_SECRET);
+    if (decoded) {
+      res.status(201).json(decoded);
+    }
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
