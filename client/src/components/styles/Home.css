@@ -2,7 +2,7 @@
 
 @media only screen and (max-width: 600px) {
   .home-page-list {
-    max-width: 600px;;
+    max-width: 600px;
   }
 }
 
@@ -60,7 +60,7 @@
 }
 
 .home-page-list-elem::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
@@ -90,13 +90,13 @@
 }
 
 .rental {
-  background-image: URL('../../../public/home_page_nav_pictures/rentalpic.jpg');
+  background-image: URL('../../../home_page_nav_pictures/rentalpic.jpg');
 }
 
 .parking {
-  background-image: URL('../../../public/home_page_nav_pictures/parkingpic.jpg');
+  background-image: URL('../../../home_page_nav_pictures/parkingpic.jpg');
 }
 
 .shuttle {
-  background-image: URL('../../../public/home_page_nav_pictures/shuttlepic.jpg');
+  background-image: URL('../../../home_page_nav_pictures/shuttlepic.jpg');
 }
