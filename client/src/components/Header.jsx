@@ -23,6 +23,7 @@ function Header() {
       setErrorMsg(data.message);
     } else if (response.ok) {
       userCtx.setUser(data.user);
+      localStorage.setItem('token', data.token);
     }
   };
   return (
