@@ -36,7 +36,7 @@ function Profile({ userCtx }) {
             Welcome! {userCtx.user.firstName} {userCtx.user.lastName}
           </h3>
           <h4 className="welcome-msg">E-mail: {userCtx.user.email}</h4>
-          <button onClick={handleLogOut} className="log-out-btn">
+          <button type="button" onClick={handleLogOut} className="log-out-btn">
             <p>Log out</p>
           </button>
           <button type="button" className="log-out-btn">
