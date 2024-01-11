@@ -1,12 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import './styles/Header.css';
 import phaetonlogo from '../assets/header_pictures/phaetonlogo.png';
 import Login from './Login';
 import Profile from './Profile';
 import HeaderNav from './HeaderNav';
+import HeaderMobileNav from './HeaderMobileNav';
 import UserContext from '../contexts/UserContext';
 
 function Header() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [errorMsg, setErrorMsg] = useState('');
   const userCtx = useContext(UserContext);
   const handleLogin = async (email, password) => {
@@ -26,11 +29,21 @@ function Header() {
       localStorage.setItem('token', data.token);
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  if(windowWidth >= 1270) {
   return (
     <header className="header">
       <div className="logo-container">
-        {/* <a href="HOME PAGE"> */}
+      <NavLink className="mobile-header-nav-elem" to="/">         
         <img src={phaetonlogo} alt="Logo" className="logo" />
+            </NavLink>
       </div>
       <div className="navigation-container">
         <HeaderNav />
@@ -43,6 +56,26 @@ function Header() {
         )}
       </div>
     </header>
+  );
+}
+  return (
+    <header className="header">
+    <div className="navigation-container">
+      <HeaderMobileNav />
+    </div>
+    <div className="logo-container">
+    <NavLink className="mobile-header-nav-elem" to="/">         
+      <img src={phaetonlogo} alt="Logo" className="logo" />
+          </NavLink>
+    </div>
+    <div className="login-container">
+      {userCtx.user ? (
+        <Profile userCtx={userCtx} />
+      ) : (
+        <Login handleLogin={handleLogin} errorMsg={errorMsg} />
+      )}
+    </div>
+  </header>
   );
 }
 
