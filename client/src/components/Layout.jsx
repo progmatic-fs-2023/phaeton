@@ -7,6 +7,7 @@ import Footer from './Footer';
 import Rent from '../pages/Rent';
 import Parking from '../pages/Parking';
 import Shuttle from '../pages/Shuttle';
+import Profile from '../pages/ProfilePage';
 
 function Layout() {
   return (
@@ -19,6 +20,7 @@ function Layout() {
         <Route path="parking" element={<Parking />} />
         <Route path="shuttle" element={<Shuttle />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
       <Footer />
     </div>
