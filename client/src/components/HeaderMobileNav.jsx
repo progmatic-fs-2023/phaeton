@@ -1,29 +1,15 @@
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import './styles/HeaderMobileNav.css';
 
 function HeaderMobileNav() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  let sideNavWidth;
-
-  if (windowWidth > 600) {
-    sideNavWidth = '250px';
-  } else {
-    sideNavWidth = '180px';
-  }
-
-  const dropdownRef = useRef(null);
+  const sidenavRef = useRef(null);
   const buttonRef = useRef(null);
 
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const closeNav = useCallback(() => {
-    document.getElementById('mySidenav').style.width = '0';
+    sidenavRef.current.classList.remove('show-sidenav')
     setTimeout(() => {
       document.getElementById('overlay').style.display = 'none';
     }, 200);
@@ -32,7 +18,7 @@ function HeaderMobileNav() {
   function openNav() {
     // I don't know why, but with the 0ms setTimeout function the effect works
     setTimeout(() => {
-      document.getElementById('mySidenav').style.width = sideNavWidth;
+      sidenavRef.current.classList.toggle('show-sidenav')
     }, 0);
     document.getElementById('overlay').style.display = 'block';
   }
@@ -40,8 +26,8 @@ function HeaderMobileNav() {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) &&
+        sidenavRef.current &&
+        !sidenavRef.current.contains(event.target) &&
         buttonRef.current &&
         !buttonRef.current.contains(event.target)
       ) {
@@ -59,7 +45,7 @@ function HeaderMobileNav() {
   return (
     <div>
       <div id="overlay">
-        <div ref={dropdownRef} id="mySidenav" className="sidenav">
+        <div ref={sidenavRef}  className="sidenav">
           <button type="button" className="mobile-nav-button" onClick={closeNav}>
             &times;
           </button>
