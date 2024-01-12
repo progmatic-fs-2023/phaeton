@@ -1,16 +1,18 @@
 import React from 'react';
 import './styles/Profile.css';
+import { NavLink , useNavigate } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
 function Profile({ userCtx }) {
   Profile.propTypes = { userCtx: PropTypes.arrayOf(PropTypes.arrayOf).isRequired };
-
+  const navigate = useNavigate();
   const openProfile = () => {
     document.getElementById('myDropdown').classList.toggle('show');
   };
   window.onclick = function myFn(event) {
     if (!event.target.matches('.profile-dropbtn')) {
-      const dropdowns = document.getElementsByClassName('dropdown-content');
+      const dropdowns = document.getElementsByClassName('profile-dropdown-content');
       let i;
       for (i = 0; i < dropdowns.length; i += 1) {
         const openDropdown = dropdowns[i];
@@ -23,6 +25,7 @@ function Profile({ userCtx }) {
   const handleLogOut = () => {
     localStorage.removeItem('token');
     userCtx.setUser(null);
+    navigate('/');
   };
   return (
     <div className="profile-dropdown">
@@ -39,9 +42,11 @@ function Profile({ userCtx }) {
           <button type="button" onClick={handleLogOut} className="log-out-btn">
             <p>Log out</p>
           </button>
-          <button type="button" className="log-out-btn">
-            <p>Settings</p>
-          </button>
+          <NavLink to="/profile">
+            <button type="button" className="log-out-btn">
+              <p>Profile</p>
+            </button>
+          </NavLink>
         </div>
       </div>
     </div>

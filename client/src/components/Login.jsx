@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles/Login.css';
 import PropTypes from 'prop-types';
-import loginButton from '../assets/login_button/login_button.svg';
 
 function Login({ handleLogin, errorMsg }) {
   Login.propTypes = {
@@ -110,7 +109,8 @@ function Login({ handleLogin, errorMsg }) {
   return (
     <>
       <button id="login-button" type="button" onClick={openDialog}>
-        <img src={loginButton} alt="login" />
+        <span className="material-symbols-outlined">account_circle</span>
+
         <span>Login</span>
       </button>
       <dialog className="login-modal" ref={dialogRef}>
