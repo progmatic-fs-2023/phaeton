@@ -75,3 +75,13 @@
   height: 20px;
   width: 20px;
 }
+
+
+@media only screen and (max-width: 600px) {
+  .mobile-filter-main-container {
+    width: 300px;
+    padding: 10px 0px;
+  }
+
+ 
+}

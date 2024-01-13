@@ -55,7 +55,7 @@
   flex-direction: column;
   width: 100%;
   text-align: left;
-  width: 200px;
+
 }
 
 /* Change color of dropdown links on hover */
@@ -66,4 +66,16 @@
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
   display: block;
+}
+
+
+@media only screen and (max-width: 600px) {
+.dropbtn {
+  width: 300px;
+}
+
+.dropdown-content {
+  width: 290px;
+  left: 0;
+}
 }
