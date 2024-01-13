@@ -19,16 +19,16 @@ export async function userIdValidatorInBody(req, res, next) {
   if (!isValidCUID(req.body.userID)) {
     idError(res, 'UserID is invalid');
   } else {
-    const userCheck = await prisma.Users.findUnique({
+    const user = await prisma.Users.findUnique({
       where: {
         id: req.body.userID,
       },
     });
-    if (userCheck) {
+    if (user) {
       // eslint-disable-next-line prefer-destructuring
-      const length = Object.keys(userCheck).length;
+      const length = Object.keys(user).length;
       if (length > 0) {
-        if (userCheck.userID == null) {
+        if (user.userID == null) {
           next();
         } else {
           idError(res, 'Already taken');
@@ -46,14 +46,14 @@ export async function userIdValidatorInParams(req, res, next) {
   if (!isValidCUID(req.params.userID)) {
     idError(res, 'UserID is invalid');
   } else {
-    const userCheck = await prisma.Users.findUnique({
+    const user = await prisma.Users.findUnique({
       where: {
         id: req.params.userID,
       },
     });
-    if (userCheck) {
-      if (Object.keys(userCheck).length) {
-        if (userCheck.userID == null) {
+    if (user) {
+      if (Object.keys(user).length) {
+        if (user.userID == null) {
           next();
         } else {
           idError(res, 'UserID is invalid');
