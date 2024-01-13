@@ -8,6 +8,8 @@ import Rent from '../pages/Rent';
 import Parking from '../pages/Parking';
 import Shuttle from '../pages/Shuttle';
 import Profile from '../pages/ProfilePage';
+import Booking from '../pages/Booking';
+import ParkingZonesPage from '../pages/ParkingZonesPage';
 
 function Layout() {
   return (
@@ -15,12 +17,19 @@ function Layout() {
       <Header />
       <Routes>
         {/* change components if ready :) 🥨 */}
-        <Route path="*" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="rental" element={<Rent />} />
+        <Route path="rental/:startDate/:endDate" element={<Booking />} />
         <Route path="parking" element={<Parking />} />
+        <Route path="parking/from/:startDate/end/:endDate" element={<ParkingZonesPage />} />
+        <Route
+          path="parking/from/:startDate/end/:endDate/zone/:zone"
+          element={<Booking service="parking" />}
+        />
         <Route path="shuttle" element={<Shuttle />} />
         <Route path="contact" element={<Contact />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="*" element={<h1>error 404</h1>} />
       </Routes>
       <Footer />
     </div>

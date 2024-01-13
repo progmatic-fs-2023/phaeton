@@ -1,9 +1,13 @@
 import React from 'react';
-// import ParkingZone from './ParkingZone';
-import '../styles/ParkingZones.css';
+import '../styles/Parking/ParkingZones.css';
+import PropTypes from 'prop-types';
 
-function ParkingZones(parkingLotData) {
-  const { data } = parkingLotData;
+function ParkingZones({ data, parkingID }) {
+  ParkingZones.propTypes = {
+    data: PropTypes.func.isRequired,
+    parkingID: PropTypes.func.isRequired,
+  };
+
   const { parkings, services } = data;
   const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
   const zoneB = parkings.filter((parkingSpot) => parkingSpot.zone === 'B');
@@ -70,9 +74,8 @@ function ParkingZones(parkingLotData) {
     });
 
     if (result) {
-      return result.id;
+      parkingID(result);
     }
-    return null;
   }
 
   return (
@@ -95,7 +98,7 @@ function ParkingZones(parkingLotData) {
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneBSpots)} zone-btn zone-B`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneB)}
       >
         Zone B
       </button>
@@ -103,28 +106,28 @@ function ParkingZones(parkingLotData) {
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneCSpots)} zone-btn zone-C`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneC)}
       >
         Zone C
       </button>
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneDSpots)} zone-btn zone-D`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneD)}
       >
         Zone D
       </button>
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneESpots)} zone-btn zone-E`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneE)}
       >
         Zone E
       </button>
       <button
         type="button"
         className={`${checkSpace(zonesSpots.zoneFSpots)} zone-btn zone-F`}
-        onClick={() => getParkingSpotID(zoneA)}
+        onClick={() => getParkingSpotID(zoneF)}
       >
         Zone F
       </button>

@@ -7,7 +7,7 @@ router.get('/', parkingController.list);
 
 router.get('/:id', parkingController.listById);
 
-router.get('/date', parkingController.listByDate);
+router.post('/date', parkingController.listByDate);
 
 router.post('/date/:id', parkingController.book);
 export default router;

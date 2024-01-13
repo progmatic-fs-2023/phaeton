@@ -1,4 +1,4 @@
-@import url('variables.css');
+@import url('../variables.css');
 
 .zones-grid{
     background-image: url("/parking_pictures/parkingBG.jpg");
@@ -56,7 +56,7 @@
 
 .shuttle-div { 
     grid-area: 3 / 1 / 5 / 2;
-    margin-left: 20px;
+    margin: 70px 0px 20px 20px;
     width: 100px;
     background-color: greenyellow;
 }
