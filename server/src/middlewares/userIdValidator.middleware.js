@@ -52,9 +52,7 @@ export async function userIdValidatorInParams(req, res, next) {
       },
     });
     if (userCheck) {
-      // eslint-disable-next-line prefer-destructuring
-      const length = Object.keys(userCheck).length;
-      if (length > 0) {
+      if (Object.keys(userCheck).length) {
         if (userCheck.userID == null) {
           next();
         } else {
