@@ -5,6 +5,8 @@ import {
   getParkingAndServicesByDate,
 } from '../services/parking.services';
 
+import dateFormatter from '../middlewares/dateFormatter.middleware';
+
 export const list = async (req, res) => {
   try {
     const parkingLots = await getAllParkingLot();
@@ -20,12 +22,17 @@ export const list = async (req, res) => {
 export const listByDate = async (req, res) => {
   try {
     const { ServiceStartDate, ServiceEndDate } = req.body;
+    const formattedServiceStartDate = dateFormatter(ServiceStartDate);
+    const formattedServiceEndDate = dateFormatter(ServiceEndDate);
     if (new Date(ServiceStartDate) > new Date(ServiceEndDate)) {
       throw new Error('The Start date is greater than the End Date');
     } else if (ServiceStartDate === ServiceEndDate) {
       throw new Error('The minimum book time is 1 day');
     } else {
-      const result = await getParkingAndServicesByDate(ServiceStartDate, ServiceEndDate);
+      const result = await getParkingAndServicesByDate(
+        formattedServiceStartDate,
+        formattedServiceEndDate,
+      );
       res.json(result);
     }
   } catch (err) {
@@ -57,11 +64,13 @@ export const listById = async (req, res) => {
 export const book = async (req, res) => {
   try {
     const { userID, ServiceStartDate, ServiceEndDate } = req.body;
+    const formattedServiceStartDate = dateFormatter(ServiceStartDate);
+    const formattedServiceEndDate = dateFormatter(ServiceEndDate);
     const booked = await bookParkingLotById(
       req.params.id,
       userID,
-      ServiceStartDate,
-      ServiceEndDate,
+      formattedServiceStartDate,
+      formattedServiceEndDate,
     );
     res.json({ message: 'Parking lot rented successfully', booked });
   } catch (err) {

@@ -1,7 +1,13 @@
 import React from 'react';
-import '../styles/ParkingZones.css';
+import '../styles/Parking/ParkingZones.css';
+import PropTypes from 'prop-types';
 
 function ParkingZones({ data, parkingID }) {
+  ParkingZones.propTypes = {
+    data: PropTypes.func.isRequired,
+    parkingID: PropTypes.func.isRequired,
+  };
+
   const { parkings, services } = data;
   const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
   const zoneB = parkings.filter((parkingSpot) => parkingSpot.zone === 'B');
@@ -69,9 +75,7 @@ function ParkingZones({ data, parkingID }) {
 
     if (result) {
       parkingID(result);
-      return;
     }
-    return null;
   }
 
   return (

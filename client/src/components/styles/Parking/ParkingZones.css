@@ -1,4 +1,4 @@
-@import url('variables.css');
+@import url('../variables.css');
 
 .zones-grid{
     background-image: url("/parking_pictures/parkingBG.jpg");

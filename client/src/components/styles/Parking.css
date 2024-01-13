@@ -6,14 +6,4 @@
   align-items: center;
 }
 
-.parking-text-container{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  gap: 50px;
-  padding: 30px;
-}
-
-
-
 

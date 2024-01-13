@@ -1,14 +1,13 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 import '../components/styles/Parking.css';
-import ParkingBooking from '../components/Parking/ParkingBooking';
 
 function Parking() {
-  const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [parkingLotData, setParkingLotData] = useState([]);
+  const navigate = useNavigate();
 
   function getStartDate(data) {
     setStartDate(data);
@@ -31,58 +30,30 @@ function Parking() {
     },
     [getEndDate],
   );
+  function formatDate(date) {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
 
-  // fetching data
-  useEffect(() => {
-    if (startDate && endDate) {
-      setIsLoading(true);
-      fetch('http://localhost:3000/parking/date', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ServiceStartDate: startDate,
-          ServiceEndDate: endDate,
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setParkingLotData(data);
-          setIsLoading(false);
-        })
-        .catch((error) => (
-          <div>{`There has been a problem with your fetch operation: ${error}`}</div>
-        ));
-    }
-  }, [startDate, endDate]);
+    return `${day}${month}${year}`;
+  }
 
+  const dateParametersOnSearch = (date1, date2) => {
+    const formattedStartDate = formatDate(date1);
+    const formattedEndDate = formatDate(date2);
+    navigate(`/parking/from/${formattedStartDate}/end/${formattedEndDate}`);
+  };
   if (!startDate && !endDate) {
     return (
       <div>
         <BackGroundContext.Provider value="component-background parking-bg">
+          <h1>Parking Page</h1>
           <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
         </BackGroundContext.Provider>
       </div>
     );
   }
-  return (
-    <div>
-      <BackGroundContext.Provider value="opened">
-        <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
-      </BackGroundContext.Provider>
-      {isLoading || !parkingLotData || parkingLotData.length === 0 ? (
-        <p>Loading...</p>
-      ) : (
-        <ParkingBooking data={parkingLotData} bookDate={{ startDate, endDate }} />
-      )}
-    </div>
-  );
+  return <div>{dateParametersOnSearch(startDate, endDate)}</div>;
 }
 
 export default Parking;

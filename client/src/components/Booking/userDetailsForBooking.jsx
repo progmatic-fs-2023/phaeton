@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
 const userDetailsForBooking = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = false;
   const userData = {
     firstName: 'John',
     lastName: 'Doe',

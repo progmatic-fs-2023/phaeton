@@ -1,9 +1,9 @@
-/* @import url("variables.css");
+@import url("../variables.css");
 .booking-container{
   margin:150px;
 }
 
-.guest-user-booking{
+.user-booking{
   margin: auto;
   padding: 50px;
   width: 600px;
@@ -17,4 +17,4 @@
 }
 .guest-user-inputs input{
   margin-bottom: 20px;
-} */
+}
