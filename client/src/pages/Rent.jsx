@@ -216,6 +216,8 @@ function Rent() {
       // Component with the background
       <div>
         <BackGroundContext.Provider value="component-background rental-bg">
+        <h1 className='page-title mobile'>Car Rental</h1>
+        <h1 className='page-title desktop'>Car Rental - Choose a Car for Your Needs</h1>
           <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
         </BackGroundContext.Provider>
       </div>
