@@ -9,8 +9,14 @@ function idError(res, message) {
   });
 }
 
+function isValidCUID(str) {
+  const CUID_REGEX = /^[0-9a-zA-Z]{25}$/;
+  return CUID_REGEX.test(str);
+}
+
+
 export async function userIdValidatorInBody(req, res, next) {
-  if (req.body.userID.length !== 25) {
+  if (!isValidCUID(req.body.userID)) {
     idError(res, 'UserID is invalid');
   } else {
     const userCheck = await prisma.Users.findUnique({
@@ -37,7 +43,7 @@ export async function userIdValidatorInBody(req, res, next) {
 }
 
 export async function userIdValidatorInParams(req, res, next) {
-  if (req.params.userID.length !== 25) {
+  if (!isValidCUID(req.params.userID)) {
     idError(res, 'UserID is invalid');
   } else {
     const userCheck = await prisma.Users.findUnique({
