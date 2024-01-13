@@ -168,6 +168,11 @@
   .car-card {
     width: auto;
   }
+  .sortby-and-mobile-filter-container {
+    flex-direction: column;
+    max-width: 100vw;
+    align-items: center;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -181,21 +186,14 @@
   .photo-and-info-container {
     flex-direction: column;
     align-items: center;
-    gap: 0px
+    gap: 0px;
   }
 
   .price-label {
     text-align: left;
   }
 
-  .sortby-and-mobile-filter-container {
-    flex-direction: column;
-    max-width: 100vw;
-    align-items: center;
-  }
-  
   .sortby-and-car-container {
     max-width: 350px;
   }
 }
-

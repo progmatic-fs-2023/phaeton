@@ -19,6 +19,8 @@ function Rent() {
   const [serviceData, setServiceData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [lastSortBy, setLastSorby] = useState('name-a-z');
+  const [filtered, setFiltered] = useState(null);
 
   const dieselRef = useRef(null);
   const petrolRef = useRef(null);
@@ -162,6 +164,7 @@ function Rent() {
     }
 
     setCarsData(filteredCars);
+    setFiltered(true);
   }
 
   const handleFilteringCars = useCallback(
@@ -172,6 +175,7 @@ function Rent() {
   );
 
   function sortingFunction(sortByTarget) {
+    setLastSorby(sortByTarget);
     const sortedCars = [...carsData];
 
     if (sortByTarget === 'cheapest') {
@@ -198,6 +202,11 @@ function Rent() {
     setCarsData(sortedCars);
   }
 
+  if (filtered) {
+    sortingFunction(lastSortBy);
+    setFiltered(null);
+  }
+
   const handleSortingFunction = useCallback(
     (event) => {
       sortingFunction(event);
@@ -216,8 +225,8 @@ function Rent() {
       // Component with the background
       <div>
         <BackGroundContext.Provider value="component-background rental-bg">
-        <h1 className='page-title mobile'>Car Rental</h1>
-        <h1 className='page-title desktop'>Car Rental - Choose a Car for Your Needs</h1>
+          <h1 className="page-title mobile">Car Rental</h1>
+          <h1 className="page-title desktop">Car Rental - Choose a Car for Your Needs</h1>
           <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
         </BackGroundContext.Provider>
       </div>
