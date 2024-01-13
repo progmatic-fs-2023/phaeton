@@ -101,11 +101,10 @@
   background-image: URL('../../../home_page_nav_pictures/shuttlepic.jpg');
 }
 
-
 @media only screen and (max-width: 800px) {
   .home-page-list {
     margin: 5px;
-    gap: 5px
+    gap: 5px;
   }
 
   .home-page-list-elem {

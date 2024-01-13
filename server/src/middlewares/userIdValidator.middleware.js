@@ -14,7 +14,6 @@ function isValidCUID(str) {
   return CUID_REGEX.test(str);
 }
 
-
 export async function userIdValidatorInBody(req, res, next) {
   if (!isValidCUID(req.body.userID)) {
     idError(res, 'UserID is invalid');
