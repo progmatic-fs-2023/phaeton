@@ -8,7 +8,7 @@
   font-size: 16px;
   border: none;
   cursor: pointer;
-  min-width: 100px;
+  min-width: 200px;
 }
 
 /* Dropdown button on hover & focus */
@@ -55,7 +55,6 @@
   flex-direction: column;
   width: 100%;
   text-align: left;
-  width: 200px;
 }
 
 /* Change color of dropdown links on hover */
@@ -66,4 +65,27 @@
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
   display: block;
+}
+
+@media only screen and (max-width: 1270px) {
+  .dropbtn {
+    width: 700px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .dropbtn {
+    width: 500px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .dropbtn {
+    width: 300px;
+  }
+
+  .dropdown-content {
+    width: 290px;
+    left: 0;
+  }
 }

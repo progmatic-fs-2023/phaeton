@@ -9,6 +9,10 @@ function Cars({ data, differenceInDays }) {
     differenceInDays: PropTypes.number.isRequired,
   };
 
+  function numberWithSpaces(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
   if (data.length > 0) {
     return (
       <div className="car-container">
@@ -57,7 +61,7 @@ function Cars({ data, differenceInDays }) {
               <div>
                 <div className="price-label">
                   <span className="price-label-title">{`Price for ${differenceInDays} days:`}</span>
-                  <span className="price-label-price">{`${differenceInDays * car.price} HUF`}</span>
+                  <span className="price-label-price">{`${numberWithSpaces(differenceInDays * car.price)} HUF`}</span>
                 </div>
                 <button type="button" className="rent-button">
                   Rent

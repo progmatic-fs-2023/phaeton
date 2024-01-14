@@ -46,6 +46,8 @@ function Parking() {
   if (!startDate && !endDate) {
     return (
       <div>
+        <h1 className='page-title mobile'>Parking</h1>
+        <h1 className='page-title desktop'>Parking - Secure your Car While You&apos;re Away</h1>
         <BackGroundContext.Provider value="component-background parking-bg">
           <h1>Parking Page</h1>
           <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />

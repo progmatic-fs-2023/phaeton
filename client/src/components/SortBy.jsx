@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './styles/SortBy.css';
 import PropTypes from 'prop-types';
 
@@ -7,12 +7,15 @@ function SortBy({ handleSortingFunction }) {
     handleSortingFunction: PropTypes.func.isRequired,
   };
 
+  const [currentSortByValue, setCurrentSortByValue] = useState('Name A-Z');
+
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const handleListItemClick = (value) => {
+  const handleListItemClick = (event, value) => {
     handleSortingFunction(value);
     dropdownRef.current.classList.remove('show');
+    setCurrentSortByValue(event.target.innerHTML);
   };
 
   useEffect(() => {
@@ -42,76 +45,76 @@ function SortBy({ handleSortingFunction }) {
         onClick={() => dropdownRef.current.classList.toggle('show')}
         className="dropbtn"
       >
-        <span className="material-symbols-outlined">sort</span> Sort by
+        <span className="material-symbols-outlined">sort</span> {`Sort by (${currentSortByValue})`}
       </button>
       <div ref={dropdownRef} id="myDropdown" className="dropdown-content">
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('name-a-z')}
+          onClick={(event) => handleListItemClick(event, 'name-a-z')}
         >
           Name A-Z
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('name-z-a')}
+          onClick={(event) => handleListItemClick(event, 'name-z-a')}
         >
           Name Z-A
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('cheapest')}
+          onClick={(event) => handleListItemClick(event, 'cheapest')}
         >
           Price lowest first
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('most-expensive')}
+          onClick={(event) => handleListItemClick(event, 'most-expensive')}
         >
           Price highest first
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('least-seats')}
+          onClick={(event) => handleListItemClick(event, 'least-seats')}
         >
           Seat quantity lowest first
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('most-seats')}
+          onClick={(event) => handleListItemClick(event, 'most-seats')}
         >
           Seat quantity highest first
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('least-luggage')}
+          onClick={(event) => handleListItemClick(event, 'least-luggage')}
         >
           Trunk capacity Lowest first
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('most-luggage')}
+          onClick={(event) => handleListItemClick(event, 'most-luggage')}
         >
           Trunk capacity highest first
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('least-power')}
+          onClick={(event) => handleListItemClick(event, 'least-power')}
         >
           Engine Power Lowest first
         </button>
         <button
           className="sortByElem"
           type="button"
-          onClick={() => handleListItemClick('most-power')}
+          onClick={(event) => handleListItemClick(event, 'most-power')}
         >
           Engine Power highest first
         </button>

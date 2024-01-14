@@ -9,20 +9,25 @@ function idError(res, message) {
   });
 }
 
+function isValidCUID(str) {
+  const CUID_REGEX = /^[0-9a-zA-Z]{25}$/;
+  return CUID_REGEX.test(str);
+}
+
 export async function userIdValidatorInBody(req, res, next) {
-  if (req.body.userID.length !== 25) {
+  if (!isValidCUID(req.body.userID)) {
     idError(res, 'UserID is invalid');
   } else {
-    const userCheck = await prisma.Users.findUnique({
+    const user = await prisma.Users.findUnique({
       where: {
         id: req.body.userID,
       },
     });
-    if (userCheck) {
+    if (user) {
       // eslint-disable-next-line prefer-destructuring
-      const length = Object.keys(userCheck).length;
+      const length = Object.keys(user).length;
       if (length > 0) {
-        if (userCheck.userID == null) {
+        if (user.userID == null) {
           next();
         } else {
           idError(res, 'Already taken');
@@ -37,19 +42,17 @@ export async function userIdValidatorInBody(req, res, next) {
 }
 
 export async function userIdValidatorInParams(req, res, next) {
-  if (req.params.userID.length !== 25) {
+  if (!isValidCUID(req.params.userID)) {
     idError(res, 'UserID is invalid');
   } else {
-    const userCheck = await prisma.Users.findUnique({
+    const user = await prisma.Users.findUnique({
       where: {
         id: req.params.userID,
       },
     });
-    if (userCheck) {
-      // eslint-disable-next-line prefer-destructuring
-      const length = Object.keys(userCheck).length;
-      if (length > 0) {
-        if (userCheck.userID == null) {
+    if (user) {
+      if (Object.keys(user).length) {
+        if (user.userID == null) {
           next();
         } else {
           idError(res, 'UserID is invalid');
