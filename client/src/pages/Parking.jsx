@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
@@ -30,6 +30,15 @@ function Parking() {
     },
     [getEndDate],
   );
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const formattedStartDate = formatDate(startDate);
+      const formattedEndDate = formatDate(endDate);
+      navigate(`/parking/from/${formattedStartDate}/end/${formattedEndDate}`);
+    }
+  }, [startDate, endDate, navigate]);
+
   function formatDate(date) {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -38,11 +47,6 @@ function Parking() {
     return `${day}${month}${year}`;
   }
 
-  const dateParametersOnSearch = (date1, date2) => {
-    const formattedStartDate = formatDate(date1);
-    const formattedEndDate = formatDate(date2);
-    navigate(`/parking/from/${formattedStartDate}/end/${formattedEndDate}`);
-  };
   if (!startDate && !endDate) {
     return (
       <div>
@@ -55,7 +59,8 @@ function Parking() {
       </div>
     );
   }
-  return <div>{dateParametersOnSearch(startDate, endDate)}</div>;
+
+  return <div>Loading...</div>;
 }
 
 export default Parking;

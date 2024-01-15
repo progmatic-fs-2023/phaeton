@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 function ParkingZones({ data, parkingID }) {
   ParkingZones.propTypes = {
-    data: PropTypes.func.isRequired,
-    parkingID: PropTypes.func.isRequired,
+    data: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
+    parkingID: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
   };
 
   const { parkings, services } = data;
