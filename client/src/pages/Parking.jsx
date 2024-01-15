@@ -58,8 +58,6 @@ function Parking() {
       </div>
     );
   }
-
-  return <div>Loading...</div>;
 }
 
 export default Parking;
