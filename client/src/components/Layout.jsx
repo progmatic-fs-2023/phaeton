@@ -10,6 +10,7 @@ import Shuttle from '../pages/Shuttle';
 import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/ParkingZonesPage';
+import RentalPage from '../pages/RentalPage';
 
 function Layout() {
   return (
@@ -19,7 +20,8 @@ function Layout() {
         {/* change components if ready :) 🥨 */}
         <Route path="/" element={<Home />} />
         <Route path="rental" element={<Rent />} />
-        <Route path="rental/:startDate/:endDate" element={<Booking />} />
+        <Route path="rental/from/:startDate/end/:endDate" element={<RentalPage />} />
+        <Route path="rental/from/:startDate/end/:endDate" element={<RentalPage />} />
         <Route path="parking" element={<Parking />} />
         <Route path="parking/from/:startDate/end/:endDate" element={<ParkingZonesPage />} />
         <Route

@@ -1,6 +1,8 @@
 import React, { useState, useContext, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
+import { useParams } from 'react-router-dom';
+import dateFormatter from '../hooks/dateFormatter';
 import BackGroundContext from '../contexts/BackgroundContext';
 import 'react-calendar/dist/Calendar.css';
 import './styles/DatePicker.css';
@@ -14,13 +16,28 @@ function DatePicker({ getStartDate, getEndDate }) {
     getEndDate: PropTypes.func.isRequired,
   };
   const current = new Date();
+  function dateFormatter2(value) {
+    const newValue = new Date(value);
+    const date = [
+      newValue.getDate(),
+      newValue.toLocaleString('default', { month: 'short' }),
+      newValue.getFullYear(),
+    ].join(' ');
+
+    return date;
+  }
   const followingDay = new Date(current.getTime() + 86400000);
   const followingDay2 = new Date(current.getTime() + 172800000);
+  const { startDate, endDate } = useParams();
 
-  const [fromValue, setFromValue] = useState(current);
-  const [toValue, setToValue] = useState(followingDay2);
+  const [fromValue, setFromValue] = useState(
+    !startDate ? current : dateFormatter2(dateFormatter(startDate)),
+  );
+
+  const [toValue, setToValue] = useState(
+    !startDate ? followingDay2 : dateFormatter2(dateFormatter(endDate)),
+  );
   const [option, setOption] = useState('');
-
   const parkingBg = useContext(BackGroundContext);
   const calendarDialog = useRef(null);
 
@@ -47,15 +64,6 @@ function DatePicker({ getStartDate, getEndDate }) {
     getEndDate(toValue);
   }
 
-  function dateFormatter(value) {
-    const date = [
-      value.getDate(),
-      value.toLocaleString('default', { month: 'short' }),
-      value.getFullYear(),
-    ].join(' ');
-    return date;
-  }
-
   const HandleEndDateChange = useCallback(
     (date) => {
       onDateChange(date);
@@ -75,7 +83,7 @@ function DatePicker({ getStartDate, getEndDate }) {
             <p>Departure</p>
             <div>
               <img src={calendarSVG} alt="calendar" />
-              {dateFormatter(fromValue)}
+              {dateFormatter2(fromValue)}
             </div>
           </button>
           <img src={arrow} className="arrow" alt="arrow" />
@@ -87,7 +95,7 @@ function DatePicker({ getStartDate, getEndDate }) {
             <p>Return</p>
             <div>
               <img src={calendarSVG} alt="calendar" />
-              {dateFormatter(toValue)}
+              {dateFormatter2(toValue)}
             </div>
           </button>
           <button type="button" className="button search-button" onClick={onSearch}>

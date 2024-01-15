@@ -10,8 +10,8 @@ function Cars({ data, differenceInDays }) {
   };
 
   function numberWithSpaces(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  }
 
   if (data.length > 0) {
     return (
@@ -24,10 +24,10 @@ function Cars({ data, differenceInDays }) {
                 <div className="car-photo-container">
                   <LazyLoadImage
                     effect="blur"
-                    src={`../../cars/${car.imageUrl}`}
+                    src={`http://localhost:5173/cars/${car.imageUrl}`}
                     className="car-photo"
                     alt={car.model}
-                    placeholderSrc={`../../cars/${splittedImageUrl[0]}_lazy.jpg`}
+                    placeholderSrc={`http://localhost:5173/cars/${splittedImageUrl[0]}_lazy.jpg`}
                   />
                 </div>
                 <div className="title-and-info-container">
@@ -61,7 +61,9 @@ function Cars({ data, differenceInDays }) {
               <div>
                 <div className="price-label">
                   <span className="price-label-title">{`Price for ${differenceInDays} days:`}</span>
-                  <span className="price-label-price">{`${numberWithSpaces(differenceInDays * car.price)} HUF`}</span>
+                  <span className="price-label-price">{`${numberWithSpaces(
+                    differenceInDays * car.price,
+                  )} HUF`}</span>
                 </div>
                 <button type="button" className="rent-button">
                   Rent
