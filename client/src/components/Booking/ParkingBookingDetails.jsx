@@ -10,7 +10,7 @@ function ParkingBookingDetails() {
     const month = inputDate.substring(2, 4);
     const year = inputDate.substring(4, 8);
 
-    return `${day}-${month}-${year}`;
+    return `${year}-${month}-${day}`;
   }
 
   const formattedStartDate = formatDateString(startDate);
@@ -18,11 +18,11 @@ function ParkingBookingDetails() {
 
   return (
     <div className="end-booking-details">
-        <h2>Confirm your booking:</h2>
-        <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
-        <div>{`One spot in zone: ${zone}`}</div>
-        <button type="submit">Book Now</button>
-      </div>
+      <h2>Confirm your booking:</h2>
+      <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
+      <div>{`One spot in zone: ${zone}`}</div>
+      <button type="submit">Book Now</button>
+    </div>
   );
 }
 export default ParkingBookingDetails;
