@@ -39,7 +39,6 @@
     transition: 0.5s;
     cursor: pointer;
     height: 230px;
-    background-color: skyblue;
 }
 
 .noSpace:hover {
@@ -53,7 +52,7 @@
     background-color: greenyellow;
 }
 
-
+/* Grid area setting */
 .shuttle-div { 
     grid-area: 3 / 1 / 5 / 2;
     margin: 70px 0px 20px 20px;
@@ -75,3 +74,26 @@
 .zone-E { grid-area: 4 / 2 / 5 / 3; }
 .zone-F { grid-area: 4 / 3 / 5 / 4; }
 
+#parking{
+    width: 30px;
+    padding-left: 25px;
+    text-align: center;
+}
+.parkingzones-input-container{
+background-color: var(--main-color);
+color:#fff;
+width: 600px;
+letter-spacing: 2px;
+font-weight: bold;
+font-size: 1.3rem;
+gap: 80px;
+margin-top: 50px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20px;
+border-radius: 5px;
+}
+/* .parkingzones-input-container label{
+    padding: 20px;
+} */

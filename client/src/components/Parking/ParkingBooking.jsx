@@ -9,7 +9,7 @@ function ParkingBooking(parkingLotData) {
   const { data: parkingData } = parkingLotData;
 
   function getParkingID(parking) {
-    navigate(`/parking/from/${startDate}/end/${endDate}/zone/${parking.zone}`);
+    navigate(`/parking/from/${startDate}/end/${endDate}/zone/${parking[0].zone}`);
   }
   const handleGetParkingID = useCallback(
     (parking) => {

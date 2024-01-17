@@ -4,7 +4,7 @@ import '../styles/Booking/ParkingBookingDetails.css';
 function ParkingBookingDetails() {
   const { startDate, endDate, zone } = useParams();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // formatting date to DD-MM-YYYY
   function formatDateString(inputDate) {
@@ -12,25 +12,26 @@ function ParkingBookingDetails() {
     const month = inputDate.substring(2, 4);
     const year = inputDate.substring(4, 8);
 
-    return `${day}-${month}-${year}`;
+    return `${year}-${month}-${day}`;
   }
 
   const formattedStartDate = formatDateString(startDate);
   const formattedEndDate = formatDateString(endDate);
 
   function onBook(event) {
-    event.preventDefault()
-    navigate(`/parking/from/${startDate}/end/${endDate}/zone/${zone}/form`)
-    
+    event.preventDefault();
+    navigate(`/parking/from/${startDate}/end/${endDate}/zone/${zone}/form`);
   }
 
   return (
     <div className="end-booking-details">
-        <h2>Confirm your booking:</h2>
-        <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
-        <div>{`One spot in zone: ${zone}`}</div>
-        <button type="submit" onClick={onBook}>Book Now</button>
-      </div>
+      <h2>Confirm your booking:</h2>
+      <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
+      <div>{`One spot in zone: ${zone}`}</div>
+      <button type="submit" onClick={onBook}>
+        Book Now
+      </button>
+    </div>
   );
 }
 export default ParkingBookingDetails;
