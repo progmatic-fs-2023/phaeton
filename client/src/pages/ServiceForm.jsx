@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react';
-import UserContext from '../contexts/UserContext';
 import PhoneInput from 'react-phone-number-input';
+import UserContext from '../contexts/UserContext';
 import 'react-phone-number-input/style.css';
 import '../components/styles/ServiceForm.css';
 
 function ServiceForm() {
-    
   const userCtx = useContext(UserContext);
   const { user } = userCtx;
 
@@ -20,14 +19,13 @@ function ServiceForm() {
   function getSomeYearsAgo(number) {
     const date = new Date();
     date.setFullYear(date.getFullYear() - number);
-  
+
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-  
+
     return `${year}-${month}-${day}`;
   }
-
 
   return (
     <label id="serviceform-container" htmlFor="serviceform">
@@ -45,7 +43,7 @@ function ServiceForm() {
               setEmail(event.target.value);
             }}
             value={email}
-            className={isLoggedIn ? "logged-in" : ""}
+            className={isLoggedIn ? 'logged-in' : ''}
           />
         </label>
         <label htmlFor="first-name">
@@ -60,7 +58,7 @@ function ServiceForm() {
               setFirstName(event.target.value);
             }}
             value={firstName}
-            className={isLoggedIn ? "logged-in" : ""}
+            className={isLoggedIn ? 'logged-in' : ''}
           />
         </label>
         <label htmlFor="last-name">
@@ -75,7 +73,7 @@ function ServiceForm() {
               setLastName(event.target.value);
             }}
             value={lastName}
-            className={isLoggedIn ? "logged-in" : ""}
+            className={isLoggedIn ? 'logged-in' : ''}
           />
         </label>
         <label htmlFor="date-of-birth">
@@ -93,7 +91,7 @@ function ServiceForm() {
             value={dateOfBirth}
           />
         </label>
-        <label htmlFor="phone-number">
+        <div className='fake-label' htmlFor="phone-number">
           Phone Number (optional)
           <PhoneInput
             international
@@ -105,7 +103,7 @@ function ServiceForm() {
             value={phoneNumber}
             onChange={setPhoneNumber}
           />
-        </label>
+        </div>
         <button type="submit">Submit</button>
       </form>
     </label>

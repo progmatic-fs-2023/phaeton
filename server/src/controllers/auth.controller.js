@@ -88,6 +88,6 @@ export const check = (req, res) => {
       res.status(201).json(decoded);
     }
   } catch (err) {
-    res.status(400).json("GuestUser");
+    res.status(400).json('GuestUser');
   }
 };
