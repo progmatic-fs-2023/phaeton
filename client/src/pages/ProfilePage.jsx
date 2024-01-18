@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import LoadingScreen from '../components/LoadingScreen';
+
 import UserContext from '../contexts/UserContext';
 import '../components/styles/ProfilePage.css';
 
 function Profile() {
   const userCtx = useContext(UserContext);
-  if (!userCtx.user) {
-    return <LoadingScreen />;
+  if (userCtx.user === 'GuestUser') {
+    return <div>GOHOME</div>;
   }
   return (
     <div className="profile-page-container">

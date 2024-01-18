@@ -1,11 +1,11 @@
 import React from 'react';
 import './styles/Profile.css';
-import { NavLink , useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
 function Profile({ userCtx }) {
-  Profile.propTypes = { userCtx: PropTypes.arrayOf(PropTypes.arrayOf).isRequired };
+  Profile.propTypes = { userCtx: PropTypes.oneOfType([PropTypes.object]).isRequired };
   const navigate = useNavigate();
   const openProfile = () => {
     document.getElementById('myDropdown').classList.toggle('show');
@@ -25,6 +25,7 @@ function Profile({ userCtx }) {
   const handleLogOut = () => {
     localStorage.removeItem('token');
     userCtx.setUser(null);
+    window.location.reload(false)
     navigate('/');
   };
   return (

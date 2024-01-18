@@ -1,0 +1,73 @@
+@import url('./variables.css');
+
+/* Main container */
+#serviceform-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid grey;
+  margin: 50px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: var(--main-box-shadow);
+  min-width: 300px;
+  max-width: 800px;
+}
+
+/* Inputs */
+
+#serviceform label,
+.fake-label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#serviceform input {
+  max-width: 500px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid silver;
+}
+
+#date-of-birth {
+  width: 100px;
+}
+
+.PhoneInputInput {
+  flex: none;
+  width: 150px;
+}
+
+.logged-in {
+  background-color: #f9f086;
+}
+
+/* Submit button */
+
+#serviceform button {
+  background-color: var(--main-color);
+  color: white;
+  margin-top: 30px;
+  border: 0;
+  font-size: 1.5rem;
+  padding: 5px 10px;
+}
+
+#serviceform button:hover {
+  background-color: #031533;
+}
+
+#serviceform button:active {
+  background-color: var(--secondary-color);
+}
+
+@media only screen and (max-width: 500px) {
+  #serviceform-container {
+    margin: 0;
+    border-radius: 0;
+    border: 0;
+  }
+}

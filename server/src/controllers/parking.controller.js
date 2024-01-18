@@ -74,6 +74,6 @@ export const book = async (req, res) => {
     );
     res.json({ message: 'Parking lot rented successfully', booked });
   } catch (err) {
-    res.status(400).json({ error: 'Internal server error coe: 400', message: err.message });
+    res.status(400).json({ error: 'Internal server error code: 400', message: err.message });
   }
 };
