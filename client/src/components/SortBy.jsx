@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './styles/SortBy.css';
 import PropTypes from 'prop-types';
+import { useSearchParams } from 'react-router-dom';
 
 function SortBy({ handleSortingFunction }) {
   SortBy.propTypes = {
@@ -12,11 +13,20 @@ function SortBy({ handleSortingFunction }) {
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const handleListItemClick = (event, value) => {
     handleSortingFunction(value);
     dropdownRef.current.classList.remove('show');
     setCurrentSortByValue(event.target.innerHTML);
+    setSearchParams({ sort: value });
   };
+
+  useEffect(() => {
+    if (searchParams.get('sort')) {
+      handleSortingFunction(searchParams.get('sort'));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
