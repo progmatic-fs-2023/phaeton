@@ -10,8 +10,10 @@ import Shuttle from '../pages/Shuttle';
 import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/ParkingZonesPage';
-import ServiceForm from '../pages/ServiceForm';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+import RentalPage from '../pages/RentalPage';
+import ServiceForm from '../pages/ServiceForm'
+
 
 function Layout() {
   const [parkingData, setParkingData] = useState(null);
@@ -46,7 +48,6 @@ function Layout() {
           <Route path="*" element={<h1>error 404</h1>} />
         </Routes>
       </ParkingDetailsContext.Provider>
-
       <Footer />
     </div>
   );

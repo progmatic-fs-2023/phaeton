@@ -1,35 +1,10 @@
-import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 import '../components/styles/Parking.css';
 
 function Parking() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   const navigate = useNavigate();
-
-  function getStartDate(data) {
-    setStartDate(data);
-  }
-
-  function getEndDate(data) {
-    setEndDate(data);
-  }
-
-  const handleGetStartDate = useCallback(
-    (data) => {
-      getStartDate(data);
-    },
-    [getStartDate],
-  );
-
-  const handleGetEndDate = useCallback(
-    (data) => {
-      getEndDate(data);
-    },
-    [getEndDate],
-  );
 
   function formatDate(date) {
     const day = date.getDate().toString().padStart(2, '0');
@@ -38,7 +13,7 @@ function Parking() {
 
     return `${day}${month}${year}`;
   }
-  useEffect(() => {
+  const onSearchFn = (startDate, endDate) => {
     if (startDate && endDate) {
       const formattedStartDate = formatDate(startDate);
       const formattedEndDate = formatDate(endDate);
