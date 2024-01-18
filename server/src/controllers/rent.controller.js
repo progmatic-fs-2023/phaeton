@@ -5,6 +5,8 @@ import {
   rentCarById,
 } from '../services/rent.service';
 
+import dateFormatter from '../middlewares/dateFormatter.middleware';
+
 export const list = async (_, res) => {
   const result = await getAllCars();
   res.json(result);
@@ -13,12 +15,17 @@ export const list = async (_, res) => {
 export const listByDate = async (req, res) => {
   try {
     const { ServiceStartDate, ServiceEndDate } = req.body;
+    const formattedServiceStartDate = dateFormatter(ServiceStartDate);
+    const formattedServiceEndDate = dateFormatter(ServiceEndDate);
     if (new Date(ServiceStartDate) > new Date(ServiceEndDate)) {
       throw new Error('The Start date is greater than the End Date');
     } else if (ServiceStartDate === ServiceEndDate) {
       throw new Error('The minimum rent time is 24 hours');
     } else {
-      const result = await getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate);
+      const result = await getCarsAndServicesByDate(
+        formattedServiceStartDate,
+        formattedServiceEndDate,
+      );
       res.json(result);
     }
   } catch (err) {
