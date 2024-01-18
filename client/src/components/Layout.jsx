@@ -46,7 +46,6 @@ function Layout() {
           <Route path="*" element={<h1>error 404</h1>} />
         </Routes>
       </ParkingDetailsContext.Provider>
-
       <Footer />
     </div>
   );
