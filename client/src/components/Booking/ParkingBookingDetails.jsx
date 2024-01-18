@@ -13,6 +13,7 @@ function ParkingBookingDetails() {
     const year = inputDate.substring(4, 8);
 
     return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`;
   }
 
   const formattedStartDate = formatDateString(startDate);
