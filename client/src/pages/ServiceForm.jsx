@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import UserContext from '../contexts/UserContext';
+// import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
 import '../components/styles/ServiceForm.css';
 
 function ServiceForm() {
   const userCtx = useContext(UserContext);
+  // const parkingCtx = useContext(ParkingDetailsContext);
+
   const { user } = userCtx;
-
   const [isLoggedIn] = useState(user !== 'GuestUser');
-
   const [email, setEmail] = useState(isLoggedIn ? user.email : '');
   const [firstName, setFirstName] = useState(isLoggedIn ? user.firstName : '');
   const [lastName, setLastName] = useState(isLoggedIn ? user.lastName : '');
@@ -91,7 +92,7 @@ function ServiceForm() {
             value={dateOfBirth}
           />
         </label>
-        <div className='fake-label' htmlFor="phone-number">
+        <div className="fake-label" htmlFor="phone-number">
           Phone Number (optional)
           <PhoneInput
             international
