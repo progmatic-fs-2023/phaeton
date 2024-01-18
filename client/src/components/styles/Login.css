@@ -27,7 +27,7 @@
   padding: 0 30px;
   margin-bottom: 90px;
 }
-input {
+.login-modal input {
   height: 40px;
   width: 300px;
   border-radius: 5px;

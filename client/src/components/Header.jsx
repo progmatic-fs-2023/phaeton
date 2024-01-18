@@ -27,6 +27,7 @@ function Header() {
     } else if (response.ok) {
       userCtx.setUser(data.user);
       localStorage.setItem('token', data.token);
+      window.location.reload(false)
     }
   };
 
@@ -35,7 +36,6 @@ function Header() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
 
   if(windowWidth >= 1270) {
   return (
@@ -49,10 +49,10 @@ function Header() {
         <HeaderNav />
       </div>
       <div className="login-container">
-        {userCtx.user ? (
-          <Profile userCtx={userCtx} />
-        ) : (
+        {userCtx.user === "GuestUser" ? (
           <Login handleLogin={handleLogin} errorMsg={errorMsg} />
+          ) : (
+          <Profile userCtx={userCtx} />
         )}
       </div>
     </header>
@@ -69,11 +69,11 @@ function Header() {
           </NavLink>
     </div>
     <div className="login-container">
-      {userCtx.user ? (
-        <Profile userCtx={userCtx} />
-      ) : (
-        <Login handleLogin={handleLogin} errorMsg={errorMsg} />
-      )}
+    {userCtx.user === "GuestUser" ? (
+          <Login handleLogin={handleLogin} errorMsg={errorMsg} />
+          ) : (
+          <Profile userCtx={userCtx} />
+        )}
     </div>
   </header>
   );
