@@ -20,7 +20,7 @@ function Layout() {
         {/* change components if ready :) 🥨 */}
         <Route path="/" element={<Home />} />
         <Route path="rental" element={<Rent />} />
-        <Route path="rental/from/:startDate/end/:endDate" element={<RentalPage />} />
+        <Route path="rental/from/:startDate/end/:endDate/:category" element={<RentalPage />} />
         <Route path="rental/from/:startDate/end/:endDate" element={<RentalPage />} />
         <Route path="parking" element={<Parking />} />
         <Route path="parking/from/:startDate/end/:endDate" element={<ParkingZonesPage />} />

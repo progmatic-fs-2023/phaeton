@@ -10,11 +10,7 @@ import './styles/Calendar.css';
 import calendarSVG from '../assets/DatePicker/calendar.svg';
 import arrow from '../assets/DatePicker/arrow.svg';
 
-function DatePicker({ getStartDate, getEndDate }) {
-  DatePicker.propTypes = {
-    getStartDate: PropTypes.func.isRequired,
-    getEndDate: PropTypes.func.isRequired,
-  };
+function DatePicker({ onSearch }) {
   const current = new Date();
   function dateFormatter2(value) {
     const newValue = new Date(value);
@@ -30,13 +26,9 @@ function DatePicker({ getStartDate, getEndDate }) {
   const followingDay2 = new Date(current.getTime() + 172800000);
   const { startDate, endDate } = useParams();
 
-  const [fromValue, setFromValue] = useState(
-    !startDate ? current : dateFormatter2(dateFormatter(startDate)),
-  );
+  const [fromValue, setFromValue] = useState(!startDate ? current : dateFormatter(startDate));
 
-  const [toValue, setToValue] = useState(
-    !startDate ? followingDay2 : dateFormatter2(dateFormatter(endDate)),
-  );
+  const [toValue, setToValue] = useState(!startDate ? followingDay2 : dateFormatter(endDate));
   const [option, setOption] = useState('');
   const parkingBg = useContext(BackGroundContext);
   const calendarDialog = useRef(null);
@@ -53,15 +45,6 @@ function DatePicker({ getStartDate, getEndDate }) {
       setToValue(date);
     }
     calendarDialog.current.close();
-  }
-
-  function onSearch() {
-    if (fromValue > toValue) {
-      setFromValue(current);
-      setToValue(followingDay);
-    }
-    getStartDate(fromValue);
-    getEndDate(toValue);
   }
 
   const HandleEndDateChange = useCallback(
@@ -98,7 +81,17 @@ function DatePicker({ getStartDate, getEndDate }) {
               {dateFormatter2(toValue)}
             </div>
           </button>
-          <button type="button" className="button search-button" onClick={onSearch}>
+          <button
+            type="button"
+            className="button search-button"
+            onClick={() => {
+              if (fromValue > toValue) {
+                onSearch(current, followingDay);
+              } else {
+                onSearch(fromValue, toValue);
+              }
+            }}
+          >
             Search
           </button>
         </div>
@@ -113,5 +106,8 @@ function DatePicker({ getStartDate, getEndDate }) {
     </div>
   );
 }
+DatePicker.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default DatePicker;

@@ -1,6 +1,6 @@
 import '../components/styles/Rent.css';
 import React, { useCallback, useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import dateFormatter from '../hooks/dateFormatter';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
@@ -18,6 +18,8 @@ function RentalPage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [lastSortBy, setLastSorby] = useState('name-a-z');
   const [filtered, setFiltered] = useState(null);
+
+  const navigate = useNavigate();
 
   const { startDate, endDate } = useParams();
 
@@ -202,69 +204,95 @@ function RentalPage() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  function formatDate(date) {
+    if (typeof date === 'string') {
+      return date;
+    }
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${day}${month}${year}`;
+  }
+  const onSearchFn = (startDateOnSearch, endDateOnSearch) => {
+    if (startDateOnSearch && endDateOnSearch) {
+      const formattedStartDate = formatDate(startDateOnSearch);
+      const formattedEndDate = formatDate(endDateOnSearch);
+      navigate(`/rental/from/${formattedStartDate}/end/${formattedEndDate}`);
+    }
+  };
   return (
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">
-        <DatePicker />
         {isLoading ? (
           <LoadingScreen />
         ) : (
-          <div>
-            <div className="car-service-container">
-              {windowWidth >= 1270 && (
-                <div className="car-filter">
-                  <CarFilter
-                    dieselRef={dieselRef}
-                    petrolRef={petrolRef}
-                    electricRef={electricRef}
-                    seatsAbove4Ref={seatsAbove4Ref}
-                    seatsAbove6Ref={seatsAbove6Ref}
-                    luggageAbove4Ref={luggageAbove4Ref}
-                    luggageAbove6Ref={luggageAbove6Ref}
-                    manualRef={manualRef}
-                    automaticRef={automaticRef}
-                    powerAbove75KwRef={powerAbove75KwRef}
-                    powerAbove100KwRef={powerAbove100KwRef}
-                    powerAbove125KwRef={powerAbove125KwRef}
-                    powerAbove150KwRef={powerAbove150KwRef}
-                    pricefrom0to12000Ref={pricefrom0to12000Ref}
-                    pricefrom12000to15000Ref={pricefrom12000to15000Ref}
-                    pricefrom15000Ref={pricefrom15000Ref}
-                    filteringCars={handleFilteringCars}
-                  />
+          <>
+            <DatePicker
+              onSearch={(startDateOnSearch, endDateOnSearch) => {
+                onSearchFn(startDateOnSearch, endDateOnSearch);
+              }}
+            />
+            <div>
+              <div className="car-service-container">
+                {windowWidth >= 1270 && (
+                  <div className="car-filter">
+                    <CarFilter
+                      dieselRef={dieselRef}
+                      petrolRef={petrolRef}
+                      electricRef={electricRef}
+                      seatsAbove4Ref={seatsAbove4Ref}
+                      seatsAbove6Ref={seatsAbove6Ref}
+                      luggageAbove4Ref={luggageAbove4Ref}
+                      luggageAbove6Ref={luggageAbove6Ref}
+                      manualRef={manualRef}
+                      automaticRef={automaticRef}
+                      powerAbove75KwRef={powerAbove75KwRef}
+                      powerAbove100KwRef={powerAbove100KwRef}
+                      powerAbove125KwRef={powerAbove125KwRef}
+                      powerAbove150KwRef={powerAbove150KwRef}
+                      pricefrom0to12000Ref={pricefrom0to12000Ref}
+                      pricefrom12000to15000Ref={pricefrom12000to15000Ref}
+                      pricefrom15000Ref={pricefrom15000Ref}
+                      filteringCars={handleFilteringCars}
+                    />
+                  </div>
+                )}
+                <div className="sortby-and-car-container">
+                  <div className="sortby-and-mobile-filter-container">
+                    {windowWidth < 1270 && (
+                      <div className="car-filter-mobile">
+                        <CarFilterMobile
+                          dieselRef={dieselRef}
+                          petrolRef={petrolRef}
+                          electricRef={electricRef}
+                          seatsAbove4Ref={seatsAbove4Ref}
+                          seatsAbove6Ref={seatsAbove6Ref}
+                          luggageAbove4Ref={luggageAbove4Ref}
+                          luggageAbove6Ref={luggageAbove6Ref}
+                          manualRef={manualRef}
+                          automaticRef={automaticRef}
+                          powerAbove75KwRef={powerAbove75KwRef}
+                          powerAbove100KwRef={powerAbove100KwRef}
+                          powerAbove125KwRef={powerAbove125KwRef}
+                          powerAbove150KwRef={powerAbove150KwRef}
+                          pricefrom0to12000Ref={pricefrom0to12000Ref}
+                          pricefrom12000to15000Ref={pricefrom12000to15000Ref}
+                          pricefrom15000Ref={pricefrom15000Ref}
+                          filteringCars={handleFilteringCars}
+                        />
+                      </div>
+                    )}
+                    <SortBy
+                      className="sort-by-cars"
+                      handleSortingFunction={handleSortingFunction}
+                    />
+                  </div>
+                  <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
                 </div>
-              )}
-              <div className="sortby-and-car-container">
-                <div className="sortby-and-mobile-filter-container">
-                  {windowWidth < 1270 && (
-                    <div className="car-filter-mobile">
-                      <CarFilterMobile
-                        dieselRef={dieselRef}
-                        petrolRef={petrolRef}
-                        electricRef={electricRef}
-                        seatsAbove4Ref={seatsAbove4Ref}
-                        seatsAbove6Ref={seatsAbove6Ref}
-                        luggageAbove4Ref={luggageAbove4Ref}
-                        luggageAbove6Ref={luggageAbove6Ref}
-                        manualRef={manualRef}
-                        automaticRef={automaticRef}
-                        powerAbove75KwRef={powerAbove75KwRef}
-                        powerAbove100KwRef={powerAbove100KwRef}
-                        powerAbove125KwRef={powerAbove125KwRef}
-                        powerAbove150KwRef={powerAbove150KwRef}
-                        pricefrom0to12000Ref={pricefrom0to12000Ref}
-                        pricefrom12000to15000Ref={pricefrom12000to15000Ref}
-                        pricefrom15000Ref={pricefrom15000Ref}
-                        filteringCars={handleFilteringCars}
-                      />
-                    </div>
-                  )}
-                  <SortBy className="sort-by-cars" handleSortingFunction={handleSortingFunction} />
-                </div>
-                <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
               </div>
             </div>
-          </div>
+          </>
         )}
       </BackGroundContext.Provider>
     </div>

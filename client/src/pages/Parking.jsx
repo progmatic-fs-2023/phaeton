@@ -1,35 +1,10 @@
-import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from '../components/DatePicker';
 import BackGroundContext from '../contexts/BackgroundContext';
 import '../components/styles/Parking.css';
 
 function Parking() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   const navigate = useNavigate();
-
-  function getStartDate(data) {
-    setStartDate(data);
-  }
-
-  function getEndDate(data) {
-    setEndDate(data);
-  }
-
-  const handleGetStartDate = useCallback(
-    (data) => {
-      getStartDate(data);
-    },
-    [getStartDate],
-  );
-
-  const handleGetEndDate = useCallback(
-    (data) => {
-      getEndDate(data);
-    },
-    [getEndDate],
-  );
 
   function formatDate(date) {
     const day = date.getDate().toString().padStart(2, '0');
@@ -38,26 +13,28 @@ function Parking() {
 
     return `${day}${month}${year}`;
   }
-  useEffect(() => {
+  const onSearchFn = (startDate, endDate) => {
     if (startDate && endDate) {
       const formattedStartDate = formatDate(startDate);
       const formattedEndDate = formatDate(endDate);
       navigate(`/parking/from/${formattedStartDate}/end/${formattedEndDate}`);
     }
-  }, [startDate, endDate, navigate]);
+  };
 
-  if (!startDate && !endDate) {
-    return (
-      <div>
-        <h1 className="page-title mobile">Parking</h1>
-        <h1 className="page-title desktop">Parking - Secure your Car While You&apos;re Away</h1>
-        <BackGroundContext.Provider value="component-background parking-bg">
-          <h1>Parking Page</h1>
-          <DatePicker getStartDate={handleGetStartDate} getEndDate={handleGetEndDate} />
-        </BackGroundContext.Provider>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1 className="page-title mobile">Parking</h1>
+      <h1 className="page-title desktop">Parking - Secure your Car While You&apos;re Away</h1>
+      <BackGroundContext.Provider value="component-background parking-bg">
+        <h1>Parking Page</h1>
+        <DatePicker
+          onSearch={(startDate, endDate) => {
+            onSearchFn(startDate, endDate);
+          }}
+        />
+      </BackGroundContext.Provider>
+    </div>
+  );
 }
 
 export default Parking;
