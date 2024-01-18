@@ -1,10 +1,10 @@
-import { useParams, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Booking/ParkingBookingDetails.css';
 
 function ParkingBookingDetails() {
-  const { startDate, endDate, zone } = useParams();
-
   const navigate = useNavigate();
+  const { startDate, endDate, zone, parkings } = useParams();
 
   // formatting date to DD-MM-YYYY
   function formatDateString(inputDate) {
@@ -20,14 +20,16 @@ function ParkingBookingDetails() {
 
   function onBook(event) {
     event.preventDefault();
-    navigate(`/parking/from/${startDate}/end/${endDate}/zone/${zone}/form`);
+    navigate(
+      `/parking/from/${startDate}/end/${endDate}/zone/${zone}/parkings/${parkings.length}/form`,
+    );
   }
 
   return (
     <div className="end-booking-details">
       <h2>Confirm your booking:</h2>
       <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
-      <div>{`One spot in zone: ${zone}`}</div>
+      <div>{`${parkings} spot in zone: ${zone}`}</div>
       <button type="submit" onClick={onBook}>
         Book Now
       </button>
