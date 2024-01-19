@@ -1,7 +1,7 @@
 import '../components/styles/Pages/Contact.css';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import useDocumentTitle from '../components/useDocumentTitle';
+import useDocumentTitle from '../components/ReusableComponents/useDocumentTitle';
 import mapIcon from '../assets/footer/map.svg';
 import mailIcon from '../assets/footer/mail.svg';
 import phoneIcon from '../assets/footer/phone.svg';

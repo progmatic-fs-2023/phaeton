@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState, useMemo } from 'react';
 import Layout from './components/Layout';
 import UserContext from './contexts/UserContext';
-import LoadingScreen from './components/LoadingScreen';
+import LoadingScreen from './components/ReusableComponents/LoadingScreen';
 
 function App() {
   const [user, setUser] = useState(null);

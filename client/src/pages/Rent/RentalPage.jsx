@@ -2,11 +2,11 @@ import '../../components/styles/Rent/Rent.css';
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import dateFormatter from '../../hooks/dateFormatter';
-import DatePicker from '../../components/DatePicker';
+import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
 import Cars from '../../components/Rent/Cars';
 import CarFilter from '../../components/Rent/CarFilter';
-import LoadingScreen from '../../components/LoadingScreen';
+import LoadingScreen from '../../components/ReusableComponents/LoadingScreen';
 import SortBy from '../../components/Rent/SortBy';
 import CarFilterMobile from '../../components/Rent/CarFilterMobile';
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
-import LoadingScreen from '../../components/LoadingScreen';
+import LoadingScreen from '../../components/ReusableComponents/LoadingScreen';
 import ParkingBooking from '../../components/Parking/ParkingBooking';
-import DatePicker from '../../components/DatePicker';
+import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
 
 function ParkingZonesPage() {

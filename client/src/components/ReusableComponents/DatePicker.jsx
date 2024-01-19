@@ -2,13 +2,13 @@ import React, { useState, useContext, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
 import { useParams } from 'react-router-dom';
-import dateFormatter from '../hooks/dateFormatter';
-import BackGroundContext from '../contexts/BackgroundContext';
+import dateFormatter from '../../hooks/dateFormatter';
+import BackGroundContext from '../../contexts/BackgroundContext';
 import 'react-calendar/dist/Calendar.css';
-import './styles/ReusableComponents/DatePicker.css';
-import './styles/ReusableComponents/Calendar.css';
-import calendarSVG from '../assets/DatePicker/calendar.svg';
-import arrow from '../assets/DatePicker/arrow.svg';
+import '../styles/ReusableComponents/DatePicker.css';
+import '../styles/ReusableComponents/Calendar.css';
+import calendarSVG from '../../assets/DatePicker/calendar.svg';
+import arrow from '../../assets/DatePicker/arrow.svg';
 
 function DatePicker({ onSearch }) {
   const current = new Date();

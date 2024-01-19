@@ -1,6 +1,6 @@
 import shuttlePic from '../assets/shuttle/shuttlepic.jpg';
 import '../components/styles/Pages/shuttle.css';
-import useDocumentTitle from '../components/useDocumentTitle';
+import useDocumentTitle from '../components/ReusableComponents/useDocumentTitle';
 
 export const phoneNumber = '+1234567890';
 

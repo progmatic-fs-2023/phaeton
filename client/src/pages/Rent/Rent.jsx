@@ -1,8 +1,8 @@
 import '../../components/styles/Rent/Rent.css';
 import { useNavigate } from 'react-router-dom';
-import DatePicker from '../../components/DatePicker';
+import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
-import useDocumentTitle from '../../components/useDocumentTitle';
+import useDocumentTitle from '../../components/ReusableComponents/useDocumentTitle';
 
 function Rent() {
   useDocumentTitle('Phaeton · Rent');
