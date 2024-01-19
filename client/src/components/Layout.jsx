@@ -13,6 +13,7 @@ import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
 import ServiceForm from '../pages/ServiceForm';
 import CarContext from '../contexts/CarContext';
+import PageNotFound from '../pages/PageNotFound';
 
 function Layout() {
   const [carData, setCarData] = useState(null);
@@ -28,7 +29,7 @@ function Layout() {
           <Route path="shuttle" element={<Shuttle />} />
           <Route path="contact" element={<Contact />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<h1>error 404</h1>} />
+          <Route path="*" element={<PageNotFound />} />
           {/* Rent */}
           <Route path="rental" element={<Rent />} />
           <Route path="rental/from/:startDate/end/:endDate/:category" element={<RentalPage />} />

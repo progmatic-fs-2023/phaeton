@@ -1,0 +1,25 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0px;
+  font-size: larger;
+  gap: 20px;
+}
+
+.not-found-container h1,
+.not-found-container h2,
+.not-found-container p {
+  margin: 0px;
+}
+
+.not-found-container img {
+  max-width: 100vw;
+  max-height: 60vh;
+  border-radius: 50%;
+}
+
+.not-found-container-error-message {
+  text-align: center;
+  margin-bottom: 20px;
+}

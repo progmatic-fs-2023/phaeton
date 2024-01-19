@@ -18,7 +18,7 @@ function RentBookingDetails() {
     const month = inputDate.substring(2, 4);
     const year = inputDate.substring(4, 8);
 
-    return `${day}-${month}-${year}`;
+    return `${day}.${month}.${year}`;
   }
 
   const formattedStartDate = formatDateString(startDate);
@@ -31,7 +31,7 @@ function RentBookingDetails() {
 
   const splittedImageUrl = carData.imageUrl.split('.');
   return (
-    <div className="end-booking-details">
+    <div className="end-booking-details-rent">
       <h2>Confirm your booking:</h2>
       <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
       <div className="car-container">
