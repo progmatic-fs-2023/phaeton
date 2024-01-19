@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useParams } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
 import UserContext from '../contexts/UserContext';
 // import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
@@ -9,12 +10,24 @@ function ServiceForm() {
   const userCtx = useContext(UserContext);
   // const parkingCtx = useContext(ParkingDetailsContext);
 
+  const { startDate, endDate, carId } = useParams();
+
+  function dateFormatter(value) {
+    const date = new Date(value);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
   const { user } = userCtx;
   const [isLoggedIn] = useState(user !== 'GuestUser');
   const [email, setEmail] = useState(isLoggedIn ? user.email : '');
   const [firstName, setFirstName] = useState(isLoggedIn ? user.firstName : '');
   const [lastName, setLastName] = useState(isLoggedIn ? user.lastName : '');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(isLoggedIn ? dateFormatter(user.dateOfBirth) : '');
   const [phoneNumber, setPhoneNumber] = useState();
 
   function getSomeYearsAgo(number) {
@@ -28,10 +41,78 @@ function ServiceForm() {
     return `${year}-${month}-${day}`;
   }
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (isLoggedIn) {
+      fetch(`http://localhost:3000/rental/date/${carId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: userCtx.user.id,
+          ServiceStartDate: startDate,
+          ServiceEndDate: endDate,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('a regisztráció volt szar');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('nice');
+          console.log(data);
+        })
+        .catch((error) => {
+          <div>{`There has been a problem with your fetch operation: ${error}`}</div>;
+        });
+    } else {
+      fetch('http://localhost:3000/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName, email, password: 'Password123' }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('ide eljutott');
+          fetch(`http://localhost:3000/rental/date/${carId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userID: data.user.id,
+              ServiceStartDate: startDate,
+              ServiceEndDate: endDate,
+            }),
+          })
+            .then((res) => {
+              console.log('ide is');
+              if (!res.ok) {
+                console.log(res);
+                throw new Error('a bérlés volt szar');
+              }
+              return res.json();
+            })
+            .then((data) => {
+              console.log('nice');
+              console.log(data);
+            })
+            .catch((error) => {
+              <div>{`There has been a problem with your fetch operation: ${error}`}</div>;
+            });
+        });
+    }
+  };
+
   return (
     <label id="serviceform-container" htmlFor="serviceform">
       <h2>Driver Details</h2>
-      <form id="serviceform" name="serviceform">
+      <form id="serviceform" name="serviceform" onSubmit={(event) => onSubmit(event)}>
         <label htmlFor="email">
           E-mail address*
           <input
@@ -90,6 +171,8 @@ function ServiceForm() {
               setDateOfBirth(event.target.value);
             }}
             value={dateOfBirth}
+            readOnly={isLoggedIn}
+            className={isLoggedIn ? 'logged-in' : ''}
           />
         </label>
         <div className="fake-label" htmlFor="phone-number">

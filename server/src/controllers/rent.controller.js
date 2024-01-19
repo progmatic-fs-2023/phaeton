@@ -4,8 +4,8 @@ import {
   getCarById,
   rentCarById,
 } from '../services/rent.service';
-
 import dateFormatter from '../middlewares/dateFormatter.middleware';
+
 
 export const list = async (_, res) => {
   const result = await getAllCars();
@@ -58,7 +58,11 @@ export const listById = async (req, res) => {
 export const rent = async (req, res) => {
   try {
     const { userID, ServiceStartDate, ServiceEndDate } = req.body;
-    const result = await rentCarById(req.params.id, userID, ServiceStartDate, ServiceEndDate);
+
+    const formattedServiceStartDate = dateFormatter(ServiceStartDate)
+    const formattedServiceEndDate = dateFormatter(ServiceEndDate)
+
+    const result = await rentCarById(req.params.id, userID, formattedServiceStartDate, formattedServiceEndDate);
     res.json({
       message: 'Car rented successfully',
       result,

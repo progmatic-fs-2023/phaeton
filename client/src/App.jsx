@@ -29,6 +29,7 @@ function App() {
       });
   }, []);
 
+
   const userContextValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   if (isLoading) {
     return <LoadingScreen />;

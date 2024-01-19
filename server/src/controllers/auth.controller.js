@@ -54,11 +54,14 @@ export const login = async (req, res) => {
         delete user.password;
 
         const payload = {
+          id: user.id,
           email: user.email,
           role: user.role,
           lastName: user.lastName,
           firstName: user.firstName,
+          dateOfBirth: user.DateOfBirth
         };
+
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
 
         res.status(200).json({

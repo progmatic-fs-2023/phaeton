@@ -16,12 +16,15 @@ export async function findUserByEmail(email) {
     },
     // returns with selected columns
     select: {
+      id: true,
       firstName: true,
       lastName: true,
       email: true,
       password: true,
       role: true,
+      DateOfBirth: true
     },
   });
+  console.log(user)
   return user;
 }
