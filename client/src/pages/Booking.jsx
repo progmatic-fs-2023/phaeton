@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ParkingBookingDetails from '../components/Booking/ParkingBookingDetails';
+import RentBookingDetails from '../components/Rent/RentBookinDetails';
 
 function Booking({ service }) {
   Booking.propTypes = {
@@ -10,11 +11,8 @@ function Booking({ service }) {
     return <ParkingBookingDetails />;
   }
   if (service === 'rental') {
-    // rental optimalization
-    // return <BookingDetails details="rentalDetails" />;
+    return <RentBookingDetails />
   }
-
-  return <h1>Hello kusztomer</h1>;
 }
 
 export default Booking;

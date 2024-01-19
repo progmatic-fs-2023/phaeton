@@ -3,7 +3,7 @@ import PhoneInput from 'react-phone-number-input';
 import UserContext from '../contexts/UserContext';
 // import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
-import '../components/styles/ServiceForm.css';
+import '../components/styles/Booking/ServiceForm.css';
 
 function ServiceForm() {
   const userCtx = useContext(UserContext);
