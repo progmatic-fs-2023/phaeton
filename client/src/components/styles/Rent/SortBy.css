@@ -1,0 +1,91 @@
+@import url("../variables.css");
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #1f74ad;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: #16547c;
+}
+
+.dropbtn:active {
+  opacity: 0.8;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid silver;
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: var(--main-box-shadow);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  font-size: 1rem;
+  background-color: white;
+  color: black;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
+@media only screen and (max-width: 1270px) {
+  .dropbtn {
+    width: 700px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .dropbtn {
+    width: 500px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .dropbtn {
+    width: 300px;
+  }
+
+  .dropdown-content {
+    width: 290px;
+    left: 0;
+  }
+}

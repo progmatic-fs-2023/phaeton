@@ -1,16 +1,16 @@
 import shuttlePic from '../assets/shuttle/shuttlepic.jpg';
-import '../components/styles/shuttle.css';
-import useDocumentTitle from '../components/useDocumentTitle';
+import '../components/styles/Pages/shuttle.css';
+import useDocumentTitle from '../components/ReusableComponents/useDocumentTitle';
 
 export const phoneNumber = '+1234567890';
 
 function Shuttle() {
-  useDocumentTitle('Phaeton · Shuttle')
+  useDocumentTitle('Phaeton · Shuttle');
 
   return (
     <div className="shuttle-container">
       <img className="shuttle-pic" src={shuttlePic} alt="shuttlepic" />
-      <div className='shuttle-information-container'>
+      <div className="shuttle-information-container">
         <h2 className="shuttle-title">Information about the Airport Shuttle</h2>
         <p>
           It is a convenient, cost-effective and fast connection between the airport and our

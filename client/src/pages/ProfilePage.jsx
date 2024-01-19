@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import UserContext from '../contexts/UserContext';
-import '../components/styles/ProfilePage.css';
+import '../components/styles/Pages/ProfilePage.css';
 
 function Profile() {
   const userCtx = useContext(UserContext);
