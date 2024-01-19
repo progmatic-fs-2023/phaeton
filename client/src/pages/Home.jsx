@@ -2,7 +2,7 @@
 import { NavLink } from 'react-router-dom';
 import useDocumentTitle from '../components/useDocumentTitle';
 
-import '../components/styles/Home.css';
+import '../components/styles/Pages/Home.css';
 
 function Home() {
   useDocumentTitle('Phaeton · Home');

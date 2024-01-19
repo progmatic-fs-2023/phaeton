@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ParkingZones from './ParkingZones';
-import '../styles/Parking/ParkingBooking.css';
+import '../styles/Booking/ParkingBooking.css';
 
 function ParkingBooking(parkingLotData) {
   const navigate = useNavigate();

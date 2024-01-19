@@ -1,0 +1,86 @@
+@import url("../variables.css");
+
+
+.profile-dropbtn {
+  background-color: var(--main-color);
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 40px;
+  border: white 1px solid;
+  border-radius: 10px;
+}
+.log-out-btn {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border: white 1px solid;
+  border-radius: 10px;
+  width: 100%;
+}
+.log-out-btn:hover,
+.log-out-btn:active {
+  background-color: var(--secondary-color);
+}
+/* Dropdown button on hover & focus */
+.profile-dropbtn:hover,
+.profile-dropbtn:focus {
+  background-color: var(--secondary-color);
+  color: black;
+  border: black 1px solid;
+}
+.btn:hover,
+.btn:active {
+  background-color: black;
+}
+/* The container <div> - needed to position the dropdown content */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.profile-dropdown-content {
+  display: none;
+  padding: 10px;
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  min-width: 20rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  right: 0.5rem;
+}
+
+/* Links inside the dropdown */
+.dropdown-content {
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block;
+}
+
+.btn {
+  padding: 0;
+  margin: 0;
+}
+
+.welcome-msg {
+  color: black;
+}
+.profile-container-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

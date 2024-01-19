@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 import dateFormatter from '../hooks/dateFormatter';
 import BackGroundContext from '../contexts/BackgroundContext';
 import 'react-calendar/dist/Calendar.css';
-import './styles/DatePicker.css';
-import './styles/Calendar.css';
+import './styles/ReusableComponents/DatePicker.css';
+import './styles/ReusableComponents/Calendar.css';
 import calendarSVG from '../assets/DatePicker/calendar.svg';
 import arrow from '../assets/DatePicker/arrow.svg';
 

@@ -2,16 +2,16 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 import Home from '../pages/Home';
 import Contact from '../pages/Contact';
-import Header from './Header';
-import Footer from './Footer';
-import Rent from '../pages/Rent';
-import Parking from '../pages/Parking';
+import Header from './Header-Footer/Header';
+import Footer from './Header-Footer/Footer';
+import Rent from '../pages/Rent/Rent';
+import Parking from '../pages/Parking/Parking';
 import Shuttle from '../pages/Shuttle';
 import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
-import ParkingZonesPage from '../pages/ParkingZonesPage';
+import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 
-import RentalPage from '../pages/RentalPage';
+import RentalPage from '../pages/Rent/RentalPage';
 
 import ServiceForm from '../pages/ServiceForm'
 

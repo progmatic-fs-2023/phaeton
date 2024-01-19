@@ -1,5 +1,5 @@
 import CircularProgress from '@mui/joy/CircularProgress';
-import './styles/LoadingScreen.css';
+import './styles/ReusableComponents/LoadingScreen.css';
 
 function LoadingScreen() {
   return (
