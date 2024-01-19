@@ -1,15 +1,28 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ParkingZones from './ParkingZones';
 import '../styles/Booking/ParkingBooking.css';
+import ParkingDetailsContext from '../../contexts/ParkingDetailsContext';
 
 function ParkingBooking(parkingLotData) {
   const navigate = useNavigate();
+  const parkingCtx = useContext(ParkingDetailsContext);
   const { startDate, endDate } = useParams();
   const { data: parkingData } = parkingLotData;
 
   function getParkingID(parking) {
-    navigate(`/parking/from/${startDate}/end/${endDate}/zone/${parking.zone}`);
+    // when breaks needs useEffect
+
+    // useEffect(() => {
+    //   parkingCtx.setParkingData(parking);
+    // }, [parking]);
+
+    parkingCtx.setParkingData(parking);
+
+    navigate(
+      `/parking/from/${startDate}/end/${endDate}/zone/${parking[0].zone}/parkings/${parking.length}`,
+      { state: parking },
+    );
   }
   const handleGetParkingID = useCallback(
     (parking) => {
