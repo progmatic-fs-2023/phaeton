@@ -2,8 +2,8 @@ import React, { useCallback, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ParkingZones from './ParkingZones';
 import ParkingDetailsContext from '../../contexts/ParkingDetailsContext';
-import '../styles/Parking/ParkingBooking.css';
-
+// There is no ParkingBooking.css Dunno what happen
+// import '../styles/Parking/ParkingBooking.css';
 
 function ParkingBooking(parkingLotData) {
   const navigate = useNavigate();
