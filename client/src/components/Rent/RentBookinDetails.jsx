@@ -10,7 +10,7 @@ function RentBookingDetails() {
 
   const carCtx = useContext(CarContext);
   const { carData } = carCtx;
-  console.log(carData);
+
 
   // formatting date to DD-MM-YYYY
   function formatDateString(inputDate) {

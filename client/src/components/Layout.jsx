@@ -12,9 +12,9 @@ import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
 import ServiceForm from '../pages/ServiceForm'
-import ServiceForm from '../pages/ServiceForm';
 import CarContext from '../contexts/CarContext';
 import PageNotFound from '../pages/PageNotFound';
+import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 
 
 function Layout() {
@@ -54,13 +54,12 @@ function Layout() {
           <Route path="parking" element={<Parking />} />
           <Route path="parking/from/:startDate/end/:endDate" element={<ParkingZonesPage />} />
           <Route
-            path="parking/from/:startDate/end/:endDate/zone/:zone"
+            path="parking/from/:startDate/end/:endDate/zone/:zone/parkings/:parkings"
             element={<Booking service="parking" />}
           />
           <Route
-            path="parking/from/:startDate/end/:endDate/zone/:zone/form"
-            element={<ServiceForm />}
-          />
+            path="parking/from/:startDate/end/:endDate/zone/:zone/parkings/:parkings/form"
+            element={<ServiceForm />} /> 
         </Routes>
       </CarContext.Provider>
       </ParkingDetailsContext.Provider>
