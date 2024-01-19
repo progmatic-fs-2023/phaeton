@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Parking/ParkingZones.css';
 import PropTypes from 'prop-types';
+import NumberPicker from './NumberPicker';
 
 function ParkingZones({ data, parkingID }) {
-  ParkingZones.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
-    parkingID: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
-  };
+  // input value for multiple reservations, stored in useState
+  const [numberOfSpots, setNumberOfSpots] = useState(1);
 
   const { parkings, services } = data;
   const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
@@ -25,6 +24,7 @@ function ParkingZones({ data, parkingID }) {
     zoneFSpots: zoneF.length,
   };
 
+  // checking the free spaces, record parking id checks the spot id, if matching -1 free space
   if (services.length > 0) {
     services.forEach((record) => {
       switch (true) {
@@ -52,86 +52,105 @@ function ParkingZones({ data, parkingID }) {
     });
   }
   function checkSpace(zone) {
-    if (zone.length === 0) {
+    if (zone === 0) {
       return 'noSpace';
     }
-    if (zone.length > 0 && zone.length <= 10) {
+    if (zone > 0 && zone <= 10) {
       return 'fewSpots';
     }
     return 'freeSpace';
   }
 
-  // const zoneStatus = checkSpace(zoneASpots);
-
-  // finding a free parking spot, returns with the parking spot ID
-  function getParkingSpotID(zone) {
+  // finding a free parking spot, returns with the parking spot object
+  function getParkingSpotID(zone, spotNum) {
     const zoneSpots = [...zone];
-    const result = zoneSpots.find((spot) => {
-      if (services.length > 0) {
-        return !services.some((record) => record.ParkingLotID === spot.id);
-      }
-      return true;
-    });
+    const freeSpots = [];
+    for (let i = 0; i < spotNum; i += 1) {
+      const result = zoneSpots.find((spot) => {
+        // checking the freeSpots array for duplicates
+        if (freeSpots.length > 0) {
+          return !freeSpots.some((record) => record.id === spot.id);
+        }
+        // checking if in services already present the spot.id
+        if (services.length > 0) {
+          return !services.some((record) => record.ParkingLotID === spot.id);
+        }
+        return true;
+      });
 
-    if (result) {
-      parkingID(result);
+      if (result) {
+        freeSpots.push(result);
+      }
     }
+    parkingID(freeSpots);
   }
 
+  const handleParkingSpotsNumberChange = (value) => {
+    setNumberOfSpots(value);
+  };
+
   return (
-    <div className="zones-grid">
-      <div className="office">
-        <span>Office</span>
+    <div>
+      <NumberPicker value={numberOfSpots} onChange={handleParkingSpotsNumberChange} />
+      <div className="zones-grid">
+        <div className="office">
+          <span>Office</span>
+        </div>
+        <div className="shuttle-div">
+          <span>Shuttle</span>
+        </div>
+
+        <button
+          type="button"
+          className={`${checkSpace(zonesSpots.zoneASpots)} zone-btn zone-A`}
+          onClick={() => getParkingSpotID(zoneA, numberOfSpots)}
+        >
+          Zone A
+        </button>
+
+        <button
+          type="button"
+          className={`${checkSpace(zonesSpots.zoneBSpots)} zone-btn zone-B`}
+          onClick={() => getParkingSpotID(zoneB, numberOfSpots)}
+        >
+          Zone B
+        </button>
+
+        <button
+          type="button"
+          className={`${checkSpace(zonesSpots.zoneCSpots)} zone-btn zone-C`}
+          onClick={() => getParkingSpotID(zoneC, numberOfSpots)}
+        >
+          Zone C
+        </button>
+        <button
+          type="button"
+          className={`${checkSpace(zonesSpots.zoneDSpots)} zone-btn zone-D`}
+          onClick={() => getParkingSpotID(zoneD, numberOfSpots)}
+        >
+          Zone D
+        </button>
+        <button
+          type="button"
+          className={`${checkSpace(zonesSpots.zoneESpots)} zone-btn zone-E`}
+          onClick={() => getParkingSpotID(zoneE, numberOfSpots)}
+        >
+          Zone E
+        </button>
+        <button
+          type="button"
+          className={`${checkSpace(zonesSpots.zoneFSpots)} zone-btn zone-F`}
+          onClick={() => getParkingSpotID(zoneF, numberOfSpots)}
+        >
+          Zone F
+        </button>
       </div>
-      <div className="shuttle-div">
-        <span>Shuttle</span>
-      </div>
-
-      <button
-        type="button"
-        className={`${checkSpace(zonesSpots.zoneASpots)} zone-btn zone-A`}
-        onClick={() => getParkingSpotID(zoneA)}
-      >
-        Zone A
-      </button>
-
-      <button
-        type="button"
-        className={`${checkSpace(zonesSpots.zoneBSpots)} zone-btn zone-B`}
-        onClick={() => getParkingSpotID(zoneB)}
-      >
-        Zone B
-      </button>
-
-      <button
-        type="button"
-        className={`${checkSpace(zonesSpots.zoneCSpots)} zone-btn zone-C`}
-        onClick={() => getParkingSpotID(zoneC)}
-      >
-        Zone C
-      </button>
-      <button
-        type="button"
-        className={`${checkSpace(zonesSpots.zoneDSpots)} zone-btn zone-D`}
-        onClick={() => getParkingSpotID(zoneD)}
-      >
-        Zone D
-      </button>
-      <button
-        type="button"
-        className={`${checkSpace(zonesSpots.zoneESpots)} zone-btn zone-E`}
-        onClick={() => getParkingSpotID(zoneE)}
-      >
-        Zone E
-      </button>
-      <button
-        type="button"
-        className={`${checkSpace(zonesSpots.zoneFSpots)} zone-btn zone-F`}
-        onClick={() => getParkingSpotID(zoneF)}
-      >
-        Zone F
-      </button>
     </div>
   );
 }
+ParkingZones.propTypes = {
+  data: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  parkingID: PropTypes.func.isRequired,
+};
+
 export default ParkingZones;
