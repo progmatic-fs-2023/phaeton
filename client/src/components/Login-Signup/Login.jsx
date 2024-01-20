@@ -42,7 +42,7 @@ function Login({ handleLogin, errorMsg }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth }),
+        body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth, IsGuestUser: false }),
       });
 
       const data = await response.json();

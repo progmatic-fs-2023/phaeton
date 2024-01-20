@@ -5,6 +5,7 @@ import UserContext from '../contexts/UserContext';
 // import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
 import '../components/styles/Booking/ServiceForm.css';
+import getSomeYearsAgo from '../hooks/getSomeYearsAgo';
 
 function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
@@ -12,7 +13,7 @@ function ServiceFormForRent() {
 
   const { startDate, endDate, carId } = useParams();
 
-  function dateFormatter(value) {
+  function dateFormatterWithHyphen(value) {
     const date = new Date(value);
 
     const year = date.getFullYear();
@@ -27,19 +28,11 @@ function ServiceFormForRent() {
   const [email, setEmail] = useState(isLoggedIn ? user.email : '');
   const [firstName, setFirstName] = useState(isLoggedIn ? user.firstName : '');
   const [lastName, setLastName] = useState(isLoggedIn ? user.lastName : '');
-  const [dateOfBirth, setDateOfBirth] = useState(isLoggedIn ? dateFormatter(user.dateOfBirth) : '');
+  const [dateOfBirth, setDateOfBirth] = useState(
+    isLoggedIn ? dateFormatterWithHyphen(user.dateOfBirth) : '',
+  );
   const [phoneNumber, setPhoneNumber] = useState();
-
-  function getSomeYearsAgo(number) {
-    const date = new Date();
-    date.setFullYear(date.getFullYear() - number);
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  }
+  console.log(dateOfBirth);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -74,11 +67,19 @@ function ServiceFormForRent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ firstName, lastName, email, password: 'Password123' }),
+        body: JSON.stringify({
+          email,
+          password: 'GuestUser',
+          firstName,
+          lastName,
+          dateOfBirth,
+          IsGuestUser: true,
+        }),
       })
         .then((response) => response.json())
         .then((data) => {
           console.log('ide eljutott');
+          console.log(data);
           fetch(`http://localhost:3000/rental/date/${carId}`, {
             method: 'PATCH',
             headers: {
@@ -88,6 +89,7 @@ function ServiceFormForRent() {
               userID: data.user.id,
               ServiceStartDate: startDate,
               ServiceEndDate: endDate,
+              PhoneNumber: phoneNumber,
             }),
           })
             .then((res) => {

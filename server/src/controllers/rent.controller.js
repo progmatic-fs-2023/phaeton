@@ -57,12 +57,12 @@ export const listById = async (req, res) => {
 
 export const rent = async (req, res) => {
   try {
-    const { userID, ServiceStartDate, ServiceEndDate } = req.body;
+    const { userID, ServiceStartDate, ServiceEndDate, PhoneNumber } = req.body;
 
     const formattedServiceStartDate = dateFormatter(ServiceStartDate)
     const formattedServiceEndDate = dateFormatter(ServiceEndDate)
 
-    const result = await rentCarById(req.params.id, userID, formattedServiceStartDate, formattedServiceEndDate);
+    const result = await rentCarById(req.params.id, userID, formattedServiceStartDate, formattedServiceEndDate, PhoneNumber);
     res.json({
       message: 'Car rented successfully',
       result,
