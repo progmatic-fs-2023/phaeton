@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Login-Signup/Login.css';
 import PropTypes from 'prop-types';
+import getSomeYearsAgo from '../../hooks/getSomeYearsAgo';
 
 function Login({ handleLogin, errorMsg }) {
   Login.propTypes = {
@@ -12,6 +13,7 @@ function Login({ handleLogin, errorMsg }) {
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -40,7 +42,7 @@ function Login({ handleLogin, errorMsg }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, firstName, lastName }),
+        body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth }),
       });
 
       const data = await response.json();
@@ -53,6 +55,7 @@ function Login({ handleLogin, errorMsg }) {
         setEmail('');
         setFirstName('');
         setLastName('');
+        setDateOfBirth('')
         setPassword('');
         setPasswordConfirm('');
         setMessage('');
@@ -194,6 +197,26 @@ function Login({ handleLogin, errorMsg }) {
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
+                  <input
+                    type="date"
+                    id="date-of-birth"
+                    name="date-of-birth"
+                    placeholder="Date of Birth"
+                    onFocus={(e) => {
+                      e.target.type = 'date';
+                    }}
+                    onBlur={(e) => {
+                      e.target.type = 'text';
+                    }}
+                    min={getSomeYearsAgo(99)}
+                    max={getSomeYearsAgo(18)}
+                    required
+                    onChange={(event) => {
+                      setDateOfBirth(event.target.value);
+                    }}
+                    value={dateOfBirth}
+                  />
+
                   <div className="flex-row">
                     <input
                       type="password"

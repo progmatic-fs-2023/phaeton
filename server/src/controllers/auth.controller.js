@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 // user registration
 export const signUp = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, dateOfBirth, password } = req.body;
 
   try {
     const passwordHash = await bcrypt.hash(password, 10);
@@ -13,6 +13,7 @@ export const signUp = async (req, res) => {
       firstName,
       lastName,
       email,
+      DateOfBirth: new Date(dateOfBirth),
       password: passwordHash,
     });
 
