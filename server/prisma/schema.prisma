@@ -18,6 +18,7 @@ model Users {
   Service       Services[]
   IsGuestUser   Boolean    @default(false)
   DateOfBirth   DateTime?
+  Verified      Boolean   @default(false)
 }
 
 model Cars {
@@ -51,6 +52,7 @@ model Services {
   CarID            String?
   Cars             Cars?       @relation(fields: [CarID], references: [id])
   PhoneNumber      String?
+  IsActive          Boolean     @default(true)
 }
 
 enum Role {
