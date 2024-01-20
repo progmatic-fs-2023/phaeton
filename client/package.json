@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint src --ext .js",
-    "lint:fix": "eslint --fix src --ext .js",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext js,jsx --fix --report-unused-disable-directives --max-warnings 0",
     "format": "prettier \"{,!(dist)/**/}*.{js,jsx}\" --check",
     "format:fix": "prettier \"{,!(dist)/**/}*.{js,jsx}\" --write",
     "preview": "vite preview"
