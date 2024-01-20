@@ -10,7 +10,6 @@ import Shuttle from '../pages/Shuttle';
 import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
-import ServiceForm from '../pages/ServiceForm';
 import RentalPage from '../pages/Rent/RentalPage';
 import ServiceForm from '../pages/ServiceForm';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
