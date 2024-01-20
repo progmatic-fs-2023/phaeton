@@ -9,7 +9,7 @@
     "serve": "node -r dotenv/config dist/server.js",
     "lint": "eslint src --ext .js",
     "lint:fix": "eslint --fix src --ext .js",
-    "format": "prettier --check *js",
+    "format": "prettier --check \"{,!(node_modules)/**/}*.js\"",
     "format:fix": "prettier --write \"{,!(node_modules)/**/}*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
