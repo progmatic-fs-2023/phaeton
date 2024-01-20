@@ -1,5 +1,5 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-const BackGroundContext = createContext(null)
+const BackGroundContext = createContext(null);
 
-export default BackGroundContext
+export default BackGroundContext;

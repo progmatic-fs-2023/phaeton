@@ -11,10 +11,11 @@ import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
-import ServiceForm from '../pages/ServiceFormForRent'
+import ServiceFormForRent from '../pages/ServiceFormForRent'
 import CarContext from '../contexts/CarContext';
 import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+import ServiceForm from '../pages/ServiceForm';
 
 
 function Layout() {
@@ -24,8 +25,8 @@ function Layout() {
     [parkingData, setParkingData],
   );
   const [carData, setCarData] = useState(null);
-
   const CarContextValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData]);
+
 
   return (
     <div>
@@ -47,7 +48,7 @@ function Layout() {
             path="rental/from/:startDate/end/:endDate/carId/:carId"
           />
           <Route
-            element={<ServiceForm />}
+            element={<ServiceFormForRent />}
             path="rental/from/:startDate/end/:endDate/carId/:carId/form"
           />
           {/* Parking */}
