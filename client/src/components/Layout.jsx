@@ -11,11 +11,10 @@ import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
-import ServiceForm from '../pages/ServiceForm'
-import CarContext from '../contexts/CarContext';
-import PageNotFound from '../pages/PageNotFound';
+import ServiceForm from '../pages/ServiceForm';
+// import CarContext from '../contexts/CarContext';
+// import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
-
 
 function Layout() {
   const [parkingData, setParkingData] = useState(null);
@@ -23,21 +22,21 @@ function Layout() {
     () => ({ parkingData, setParkingData }),
     [parkingData, setParkingData],
   );
-  const [carData, setCarData] = useState(null);
+  // const [carData, setCarData] = useState(null);
 
-  const CarContextValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData]);
+  // const CarContextValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData]);
 
   return (
     <div>
       <Header />
       <ParkingDetailsContext.Provider value={parkingDetailsContextValue}>
-      <CarContext.Provider value={CarContextValue}>
+        {/* <CarContext.Provider value={CarContextValue}> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="shuttle" element={<Shuttle />} />
           <Route path="contact" element={<Contact />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<PageNotFound />} />
+          {/* <Route path="*" element={<PageNotFound />} /> */}
           {/* Rent */}
           <Route path="rental" element={<Rent />} />
           <Route path="rental/from/:startDate/end/:endDate/:category" element={<RentalPage />} />
@@ -59,9 +58,10 @@ function Layout() {
           />
           <Route
             path="parking/from/:startDate/end/:endDate/zone/:zone/parkings/:parkings/form"
-            element={<ServiceForm />} /> 
+            element={<ServiceForm />}
+          />
         </Routes>
-      </CarContext.Provider>
+        {/* </CarContext.Provider> */}
       </ParkingDetailsContext.Provider>
       <Footer />
     </div>
