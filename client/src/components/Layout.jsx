@@ -37,7 +37,6 @@ function Layout() {
           {/* <Route path="*" element={<PageNotFound />} /> */}
           {/* Rent */}
           <Route path="rental" element={<Rent />} />
-          <Route path="rental/from/:startDate/end/:endDate/:category" element={<RentalPage />} />
           <Route path="rental/from/:startDate/end/:endDate" element={<RentalPage />} />
           <Route
             element={<Booking service="rental" />}

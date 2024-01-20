@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { findUserByEmail } from './users.service';
 
 const prisma = new PrismaClient();
 
@@ -14,12 +15,12 @@ export async function getParkingAndServicesByDate(ServiceStartDate, ServiceEndDa
       AND: [
         {
           ServiceStartDate: {
-            lte: ServiceEndDate,
+            lte: ServiceStartDate,
           },
         },
         {
           ServiceEndDate: {
-            gte: ServiceStartDate,
+            gte: ServiceEndDate,
           },
         },
       ],
@@ -36,28 +37,35 @@ export async function getParkingLotById(id) {
   });
   return parkingLot;
 }
+export async function bookParkingLotById(parkingLot, userEmail, ServiceStartDate, ServiceEndDate) {
+  try {
+    let result;
+    const user = await findUserByEmail(userEmail);
+    const { id: userID } = user;
 
-export async function bookParkingLotById(ParkingLotID, userID, ServiceStartDate, ServiceEndDate) {
-  const parkingCheck = await getParkingLotById(ParkingLotID);
-  let result;
-  if (parkingCheck) {
     const dateCheck = await getParkingAndServicesByDate(ServiceStartDate, ServiceEndDate);
-    const filteredParkingLots = dateCheck.services.filter(
-      parking => parking.ParkingLotID === ParkingLotID,
-    );
-    if (filteredParkingLots.length === 0) {
-      result = await prisma.services.create({
-        data: {
+
+    // check for already taken parkings
+    const bookedParkingSpots = parkingLot.filter(parking => {
+      const isParkingBooked = dateCheck.services.some(record => record.ParkingLotID === parking.id);
+      return !isParkingBooked;
+    });
+    if (bookedParkingSpots.length === parkingLot.length) {
+      result = await prisma.services.createMany({
+        data: bookedParkingSpots.map(parking => ({
           ServiceStartDate,
           ServiceEndDate,
           userID,
-          ParkingLotID,
-        },
+          ParkingLotID: parking.id,
+        })),
       });
       return result;
     }
-    throw new Error('Parking lot is already taken');
-  } else {
-    throw new Error('Parking lot does not exist');
+    const error = new Error('Some parking lots are already taken');
+
+    return error;
+  } catch (err) {
+    console.error('Error in bookParkingLotById:', err);
+    return err;
   }
 }
