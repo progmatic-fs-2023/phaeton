@@ -6,7 +6,7 @@ import UserContext from '../contexts/UserContext';
 import 'react-phone-number-input/style.css';
 import '../components/styles/Booking/ServiceForm.css';
 
-function ServiceForm() {
+function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
   // const parkingCtx = useContext(ParkingDetailsContext);
 
@@ -194,4 +194,4 @@ function ServiceForm() {
   );
 }
 
-export default ServiceForm;
+export default ServiceFormForRent;
