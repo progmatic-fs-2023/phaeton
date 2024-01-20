@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { NavLink } from 'react-router-dom';
 import useDocumentTitle from '../components/ReusableComponents/useDocumentTitle';
 
@@ -21,7 +20,7 @@ function Home() {
           <NavLink className="home-page-list-link" to="/parking">
             <div>
               <h1>Parking</h1>
-              <p>Secure your Car While You're Away</p>
+              <p>Secure your Car While You&apos;re Away</p>
             </div>
           </NavLink>
         </div>
