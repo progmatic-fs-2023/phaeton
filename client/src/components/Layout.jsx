@@ -12,8 +12,6 @@ import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
 import ServiceForm from '../pages/ServiceForm';
-// import CarContext from '../contexts/CarContext';
-// import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 
 function Layout() {

@@ -27,7 +27,7 @@ function Header() {
     } else if (response.ok) {
       userCtx.setUser(data.user);
       localStorage.setItem('token', data.token);
-      window.location.reload(false)
+      window.location.reload(false);
     }
   };
 
@@ -37,45 +37,45 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  if(windowWidth >= 1270) {
+  if (windowWidth >= 1270) {
+    return (
+      <header className="header">
+        <div className="logo-container">
+          <NavLink className="mobile-header-nav-elem" to="/">
+            <img src={phaetonlogo} alt="Logo" className="logo" />
+          </NavLink>
+        </div>
+        <div className="navigation-container">
+          <HeaderNav />
+        </div>
+        <div className="login-container">
+          {userCtx.user === 'GuestUser' ? (
+            <Login handleLogin={handleLogin} errorMsg={errorMsg} />
+          ) : (
+            <Profile userCtx={userCtx} />
+          )}
+        </div>
+      </header>
+    );
+  }
   return (
     <header className="header">
-      <div className="logo-container">
-      <NavLink className="mobile-header-nav-elem" to="/">         
-        <img src={phaetonlogo} alt="Logo" className="logo" />
-            </NavLink>
-      </div>
       <div className="navigation-container">
-        <HeaderNav />
+        <HeaderMobileNav />
+      </div>
+      <div className="logo-container">
+        <NavLink className="mobile-header-nav-elem" to="/">
+          <img src={phaetonlogo} alt="Logo" className="logo" />
+        </NavLink>
       </div>
       <div className="login-container">
-        {userCtx.user === "GuestUser" ? (
+        {userCtx.user === 'GuestUser' ? (
           <Login handleLogin={handleLogin} errorMsg={errorMsg} />
-          ) : (
+        ) : (
           <Profile userCtx={userCtx} />
         )}
       </div>
     </header>
-  );
-}
-  return (
-    <header className="header">
-    <div className="navigation-container">
-      <HeaderMobileNav />
-    </div>
-    <div className="logo-container">
-    <NavLink className="mobile-header-nav-elem" to="/">         
-      <img src={phaetonlogo} alt="Logo" className="logo" />
-          </NavLink>
-    </div>
-    <div className="login-container">
-    {userCtx.user === "GuestUser" ? (
-          <Login handleLogin={handleLogin} errorMsg={errorMsg} />
-          ) : (
-          <Profile userCtx={userCtx} />
-        )}
-    </div>
-  </header>
   );
 }
 
