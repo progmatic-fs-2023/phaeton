@@ -59,11 +59,14 @@ function CarFilter({
     filteringCars: PropTypes.func.isRequired,
   };
 
+  // const [searchParamsFilter, setSearchParamsFilter] = useSearchParams();
+
   function clearAllFilters(event) {
     document.querySelectorAll('input[type=checkbox]').forEach((element) => {
       const checkbox = element;
       checkbox.checked = false;
     });
+
     filteringCars(event);
   }
   return (

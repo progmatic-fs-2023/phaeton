@@ -141,7 +141,6 @@ function RentalPage() {
           (pricefrom15000Ref.current.checked && car.price >= 15000),
       );
     }
-
     setCarsData(filteredCars);
     setFiltered(true);
   }
