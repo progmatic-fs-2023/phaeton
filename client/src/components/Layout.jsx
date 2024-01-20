@@ -15,6 +15,7 @@ import ServiceForm from '../pages/ServiceForm';
 // import CarContext from '../contexts/CarContext';
 // import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+import RentalPage from '../pages/RentalPage';
 
 function Layout() {
   const [parkingData, setParkingData] = useState(null);
