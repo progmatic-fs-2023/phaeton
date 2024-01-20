@@ -9,6 +9,7 @@ import CarFilter from '../../components/Rent/CarFilter';
 import LoadingScreen from '../../components/ReusableComponents/LoadingScreen';
 import SortBy from '../../components/Rent/SortBy';
 import CarFilterMobile from '../../components/Rent/CarFilterMobile';
+import formatDate from '../../hooks/formatDate';
 
 function RentalPage() {
   const [originalCarsData, setOriginalCarsData] = useState([]);
@@ -204,22 +205,10 @@ function RentalPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  function formatDate(date) {
-    if (typeof date === 'string') {
-      return date;
-    }
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-    return `${day}${month}${year}`;
-  }
-  const onSearchFn = (startDateOnSearch, endDateOnSearch) => {
-    if (startDateOnSearch && endDateOnSearch) {
-      const formattedStartDate = formatDate(startDateOnSearch);
-      const formattedEndDate = formatDate(endDateOnSearch);
-      navigate(`/rental/from/${formattedStartDate}/end/${formattedEndDate}`);
-    }
-  };
+  const onSearchFn = (startDate, endDate) =>
+    startDate &&
+    endDate &&
+    navigate(`/rental/from/${formatDate(startDate)}/end/${formatDate(endDate)}`);
   return (
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">

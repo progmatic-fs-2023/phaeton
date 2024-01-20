@@ -15,7 +15,6 @@ function Profile() {
       </div>
       <div className="profile-data-container">
         <h3>
-          {' '}
           <p>First name: </p> {userCtx.user.firstName}
         </h3>
         <h3>

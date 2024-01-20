@@ -2,24 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
 import '../../components/styles/Parking/Parking.css';
+import formatDate from '../../hooks/formatDate';
 
 function Parking() {
   const navigate = useNavigate();
 
-  function formatDate(date) {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-
-    return `${day}${month}${year}`;
-  }
-  const onSearchFn = (startDate, endDate) => {
-    if (startDate && endDate) {
-      const formattedStartDate = formatDate(startDate);
-      const formattedEndDate = formatDate(endDate);
-      navigate(`/parking/from/${formattedStartDate}/end/${formattedEndDate}`);
-    }
-  };
+  const onSearchFn = (startDate, endDate) =>
+    startDate &&
+    endDate &&
+    navigate(`/parking/from/${formatDate(startDate)}/end/${formatDate(endDate)}`);
 
   return (
     <div>

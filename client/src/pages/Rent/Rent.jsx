@@ -3,27 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
 import useDocumentTitle from '../../components/ReusableComponents/useDocumentTitle';
-
+import formatDate from '../../hooks/formatDate';
 function Rent() {
   useDocumentTitle('Phaeton · Rent');
 
   const navigate = useNavigate();
 
-  function formatDate(date) {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-
-    return `${day}${month}${year}`;
-  }
-
-  const onSearchFn = (startDate, endDate) => {
-    if (startDate && endDate) {
-      const formattedStartDate = formatDate(startDate);
-      const formattedEndDate = formatDate(endDate);
-      navigate(`/rental/from/${formattedStartDate}/end/${formattedEndDate}`);
-    }
-  };
+  const onSearchFn = (startDate, endDate) =>
+    startDate &&
+    endDate &&
+    navigate(`/rental/from/${formatDate(startDate)}/end/${formatDate(endDate)}`);
 
   return (
     // Component with the background
