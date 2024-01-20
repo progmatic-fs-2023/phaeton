@@ -205,10 +205,10 @@ function RentalPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const onSearchFn = (startDate, endDate) =>
-    startDate &&
-    endDate &&
-    navigate(`/rental/from/${formatDate(startDate)}/end/${formatDate(endDate)}`);
+  const onSearchFn = (startDateOnSearch, endDateOnSearch) =>
+    startDateOnSearch &&
+    endDateOnSearch &&
+    navigate(`/rental/from/${formatDate(startDateOnSearch)}/end/${formatDate(endDateOnSearch)}`);
   return (
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">

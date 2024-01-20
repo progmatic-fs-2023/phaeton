@@ -7,10 +7,10 @@ import formatDate from '../../hooks/formatDate';
 function Parking() {
   const navigate = useNavigate();
 
-  const onSearchFn = (startDate, endDate) =>
-    startDate &&
-    endDate &&
-    navigate(`/parking/from/${formatDate(startDate)}/end/${formatDate(endDate)}`);
+  const onSearchFn = (startDateOnSearch, endDateOnSearch) =>
+    startDateOnSearch &&
+    endDateOnSearch &&
+    navigate(`/parking/from/${formatDate(startDateOnSearch)}/end/${formatDate(endDateOnSearch)}`);
 
   return (
     <div>
@@ -18,8 +18,8 @@ function Parking() {
       <h1 className="page-title desktop">Parking - Secure your Car While You&apos;re Away</h1>
       <BackGroundContext.Provider value="component-background parking-bg">
         <DatePicker
-          onSearch={(startDate, endDate) => {
-            onSearchFn(startDate, endDate);
+          onSearch={(startDateOnSearch, endDateOnSearch) => {
+            onSearchFn(startDateOnSearch, endDateOnSearch);
           }}
         />
       </BackGroundContext.Provider>

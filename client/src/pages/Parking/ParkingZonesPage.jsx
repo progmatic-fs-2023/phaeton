@@ -41,10 +41,10 @@ function ParkingZonesPage() {
     }
   }, [startDate, endDate]);
 
-  const onSearchFn = (startDate, endDate) =>
-    startDate &&
-    endDate &&
-    navigate(`/parking/from/${formatDate(startDate)}/end/${formatDate(endDate)}`);
+  const onSearchFn = (startDateOnSearch, endDateOnSearch) =>
+    startDateOnSearch &&
+    endDateOnSearch &&
+    navigate(`/parking/from/${formatDate(startDateOnSearch)}/end/${formatDate(endDateOnSearch)}`);
   return (
     <div>
       <h1>ParkingZOnes</h1>
