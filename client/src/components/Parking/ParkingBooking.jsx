@@ -2,8 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ParkingZones from './ParkingZones';
 import ParkingDetailsContext from '../../contexts/ParkingDetailsContext';
-import '../styles/Parking/ParkingBooking.css';
-
+import '../styles/Booking/ParkingBooking.css';
 
 function ParkingBooking(parkingLotData) {
   const navigate = useNavigate();
