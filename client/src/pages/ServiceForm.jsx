@@ -1,15 +1,20 @@
 import React, { useState, useContext } from 'react';
 import PhoneInput from 'react-phone-number-input';
+import { useParams } from 'react-router';
 import UserContext from '../contexts/UserContext';
-// import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
 import '../components/styles/ServiceForm.css';
 
 function ServiceForm() {
-  const userCtx = useContext(UserContext);
-  // const parkingCtx = useContext(ParkingDetailsContext);
+  const { startDate, endDate } = useParams();
+  const [message, setMessage] = useState('');
 
+  const parkingCtx = useContext(ParkingDetailsContext);
+
+  const userCtx = useContext(UserContext);
   const { user } = userCtx;
+
   const [isLoggedIn] = useState(user !== 'GuestUser');
   const [email, setEmail] = useState(isLoggedIn ? user.email : '');
   const [firstName, setFirstName] = useState(isLoggedIn ? user.firstName : '');
@@ -28,10 +33,29 @@ function ServiceForm() {
     return `${year}-${month}-${day}`;
   }
 
+  const handleBooking = async (event, userObj, parking) => {
+    event.preventDefault();
+    // if (parkingCtx.parkingData !== null) {
+    const response = await fetch(`http://localhost:3000/parking/date/${startDate}/${endDate}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userObj, parking }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      setMessage(data.error);
+    } else if (response.ok) {
+      setMessage('Booking Done');
+    }
+  };
+  // };
+
   return (
     <label id="serviceform-container" htmlFor="serviceform">
       <h2>Driver Details</h2>
-      <form id="serviceform" name="serviceform">
+      <form id="serviceform" name="serviceform" action="POST">
         <label htmlFor="email">
           E-mail address*
           <input
@@ -104,8 +128,14 @@ function ServiceForm() {
             value={phoneNumber}
             onChange={setPhoneNumber}
           />
+          <p>{message || ''}</p>
         </div>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          onClick={(event) => handleBooking(event, user, parkingCtx.parkingData)}
+        >
+          Submit
+        </button>
       </form>
     </label>
   );
