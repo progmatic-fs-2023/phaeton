@@ -1,4 +1,4 @@
-import React /* useState, useMemo */ from 'react';
+import React, { useState, useMemo } from 'react';
 import { Route, Routes } from 'react-router';
 import Home from '../pages/Home';
 import Contact from '../pages/Contact';
@@ -11,37 +11,58 @@ import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
-import ServiceForm from '../pages/ServiceForm';
+import ServiceForm from '../pages/ServiceForm'
+import CarContext from '../contexts/CarContext';
+import PageNotFound from '../pages/PageNotFound';
+import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+
 
 function Layout() {
-  // const [parkingData, setParkingData] = useState(null);
-  // const parkingDetailsContextValue = useMemo(
-  //   () => ({ parkingData, setParkingData }),
-  //   [parkingData, setParkingData],
-  // );
+  const [parkingData, setParkingData] = useState(null);
+  const parkingDetailsContextValue = useMemo(
+    () => ({ parkingData, setParkingData }),
+    [parkingData, setParkingData],
+  );
+  const [carData, setCarData] = useState(null);
+
+  const CarContextValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData]);
 
   return (
     <div>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="rental" element={<Rent />} />
-        <Route path="rental/from/:startDate/end/:endDate" element={<RentalPage />} />
-        <Route path="parking" element={<Parking />} />
-        <Route path="parking/from/:startDate/end/:endDate" element={<ParkingZonesPage />} />
-        <Route
-          path="parking/from/:startDate/end/:endDate/zone/:zone"
-          element={<Booking service="parking" />}
-        />
-        <Route
-          path="parking/from/:startDate/end/:endDate/zone/:zone/form"
-          element={<ServiceForm />}
-        />
-        <Route path="shuttle" element={<Shuttle />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="*" element={<h1>error 404</h1>} />
-      </Routes>
+      <ParkingDetailsContext.Provider value={parkingDetailsContextValue}>
+      <CarContext.Provider value={CarContextValue}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="shuttle" element={<Shuttle />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="*" element={<PageNotFound />} />
+          {/* Rent */}
+          <Route path="rental" element={<Rent />} />
+          <Route path="rental/from/:startDate/end/:endDate/:category" element={<RentalPage />} />
+          <Route path="rental/from/:startDate/end/:endDate" element={<RentalPage />} />
+          <Route
+            element={<Booking service="rental" />}
+            path="rental/from/:startDate/end/:endDate/carId/:carId"
+          />
+          <Route
+            element={<ServiceForm />}
+            path="rental/from/:startDate/end/:endDate/carId/:carId/form"
+          />
+          {/* Parking */}
+          <Route path="parking" element={<Parking />} />
+          <Route path="parking/from/:startDate/end/:endDate" element={<ParkingZonesPage />} />
+          <Route
+            path="parking/from/:startDate/end/:endDate/zone/:zone/parkings/:parkings"
+            element={<Booking service="parking" />}
+          />
+          <Route
+            path="parking/from/:startDate/end/:endDate/zone/:zone/parkings/:parkings/form"
+            element={<ServiceForm />} /> 
+        </Routes>
+      </CarContext.Provider>
+      </ParkingDetailsContext.Provider>
       <Footer />
     </div>
   );
