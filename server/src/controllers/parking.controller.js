@@ -63,17 +63,20 @@ export const listById = async (req, res) => {
 
 export const book = async (req, res) => {
   try {
-    const { userID, ServiceStartDate, ServiceEndDate } = req.body;
-    const formattedServiceStartDate = dateFormatter(ServiceStartDate);
-    const formattedServiceEndDate = dateFormatter(ServiceEndDate);
-    const booked = await bookParkingLotById(
-      req.params.id,
-      userID,
+    const { userObj, parking } = req.body;
+    const { start, end } = req.params;
+    const formattedServiceStartDate = dateFormatter(start);
+    const formattedServiceEndDate = dateFormatter(end);
+    // returns with the number of reserved parking spots
+    const { count } = await bookParkingLotById(
+      parking,
+      userObj.email,
       formattedServiceStartDate,
       formattedServiceEndDate,
     );
-    res.json({ message: 'Parking lot rented successfully', booked });
+    res.status(201).json({ message: 'Parking lot rented successfully', count });
   } catch (err) {
+    console.log('book function error: ', err);
     res.status(400).json({ error: 'Internal server error code: 400', message: err.message });
   }
 };
