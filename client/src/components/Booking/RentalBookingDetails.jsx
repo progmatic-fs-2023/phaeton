@@ -1,4 +1,2 @@
-function ParkingBookingDetails() {
-  
-}
+function ParkingBookingDetails() {}
 export default ParkingBookingDetails;

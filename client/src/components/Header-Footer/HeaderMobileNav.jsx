@@ -3,13 +3,11 @@ import { NavLink } from 'react-router-dom';
 import '../styles/Header-Footer/HeaderMobileNav.css';
 
 function HeaderMobileNav() {
-
   const sidenavRef = useRef(null);
   const buttonRef = useRef(null);
 
-
   const closeNav = useCallback(() => {
-    sidenavRef.current.classList.remove('show-sidenav')
+    sidenavRef.current.classList.remove('show-sidenav');
     setTimeout(() => {
       document.getElementById('overlay').style.display = 'none';
     }, 200);
@@ -18,7 +16,7 @@ function HeaderMobileNav() {
   function openNav() {
     // I don't know why, but with the 0ms setTimeout function the effect works
     setTimeout(() => {
-      sidenavRef.current.classList.toggle('show-sidenav')
+      sidenavRef.current.classList.toggle('show-sidenav');
     }, 0);
     document.getElementById('overlay').style.display = 'block';
   }
@@ -45,7 +43,7 @@ function HeaderMobileNav() {
   return (
     <div>
       <div id="overlay">
-        <div ref={sidenavRef}  className="sidenav">
+        <div ref={sidenavRef} className="sidenav">
           <button type="button" className="mobile-nav-button" onClick={closeNav}>
             &times;
           </button>

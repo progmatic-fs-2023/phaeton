@@ -11,7 +11,7 @@ function Booking({ service }) {
     return <ParkingBookingDetails />;
   }
   if (service === 'rental') {
-    return <RentBookingDetails />
+    return <RentBookingDetails />;
   }
 }
 

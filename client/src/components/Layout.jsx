@@ -11,9 +11,7 @@ import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
-import ServiceForm from '../pages/ServiceForm'
-
-
+import ServiceForm from '../pages/ServiceForm';
 
 function Layout() {
   const [parkingData, setParkingData] = useState(null);

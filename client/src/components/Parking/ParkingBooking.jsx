@@ -4,7 +4,6 @@ import ParkingZones from './ParkingZones';
 import ParkingDetailsContext from '../../contexts/ParkingDetailsContext';
 import '../styles/Parking/ParkingBooking.css';
 
-
 function ParkingBooking(parkingLotData) {
   const navigate = useNavigate();
   const parkingCtx = useContext(ParkingDetailsContext);

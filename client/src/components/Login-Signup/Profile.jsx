@@ -25,7 +25,7 @@ function Profile({ userCtx }) {
   const handleLogOut = () => {
     localStorage.removeItem('token');
     userCtx.setUser(null);
-    window.location.reload(false)
+    window.location.reload(false);
     navigate('/');
   };
   return (
