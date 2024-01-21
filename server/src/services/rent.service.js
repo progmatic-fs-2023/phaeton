@@ -38,7 +38,7 @@ export async function getCarById(id) {
   return car;
 }
 
-export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDate) {
+export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDate, PhoneNumber) {
   const carCheck = await getCarById(CarID);
   let result;
   if (carCheck) {
@@ -51,6 +51,7 @@ export async function rentCarById(CarID, userID, ServiceStartDate, ServiceEndDat
           ServiceEndDate,
           userID,
           CarID,
+          PhoneNumber,
         },
       });
     } else {

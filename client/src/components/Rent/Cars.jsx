@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-function Cars({ data, differenceInDays }) {
+function Cars({ data, differenceInDays, onClickRent }) {
   Cars.propTypes = {
     data: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
     differenceInDays: PropTypes.number.isRequired,
+    onClickRent: PropTypes.func.isRequired,
   };
 
   function numberWithSpaces(number) {
@@ -65,7 +66,7 @@ function Cars({ data, differenceInDays }) {
                     differenceInDays * car.price,
                   )} HUF`}</span>
                 </div>
-                <button type="button" className="rent-button">
+                <button type="button" className="rent-button" onClick={() => onClickRent(car)}>
                   Rent
                 </button>
               </div>

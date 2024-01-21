@@ -18,7 +18,7 @@ function Header() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, IsGuestUser: false }),
     });
 
     const data = await response.json();
