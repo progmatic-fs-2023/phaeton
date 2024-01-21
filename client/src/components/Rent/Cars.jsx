@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import numberWithSpaces from '../../hooks/numberWithSpaces';
 
 function Cars({ data, differenceInDays, onClickRent }) {
   Cars.propTypes = {
@@ -10,9 +11,6 @@ function Cars({ data, differenceInDays, onClickRent }) {
     onClickRent: PropTypes.func.isRequired,
   };
 
-  function numberWithSpaces(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  }
 
   if (data.length > 0) {
     return (
