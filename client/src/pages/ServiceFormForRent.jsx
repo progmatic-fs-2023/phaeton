@@ -32,12 +32,20 @@ function ServiceFormForRent() {
     isLoggedIn ? dateFormatterWithHyphen(user.dateOfBirth) : '',
   );
   const [phoneNumber, setPhoneNumber] = useState();
-  console.log(dateOfBirth);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (isLoggedIn) {
-      fetch(`http://localhost:3000/rental/date/${carId}`, {
+    async function fetchWithCheck(url, options) {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error('Something went wrong');
+      }
+      return response.json();
+    }
+    
+    async function handleLoggedInUser(carId, startDate, endDate) {
+      const url = `http://localhost:3000/rental/date/${carId}`;
+      const options = {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -47,62 +55,66 @@ function ServiceFormForRent() {
           ServiceStartDate: startDate,
           ServiceEndDate: endDate,
         }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Something went wrong');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log('nice');
-          console.log(data);
-        })
-        .catch((error) => {
-          <div>{`There has been a problem with your fetch operation: ${error}`}</div>;
-        });
-    } else {
-      fetch('http://localhost:3000/users/signup', {
+      };
+      const userCarData = await fetchWithCheck(url, options);
+      console.log('nice');
+      console.log(userCarData);
+    }
+    
+    async function handleGuestUser(email, password, firstName, lastName, dateOfBirth, IsGuestUser, carId, startDate, endDate, phoneNumber) {
+      let userData;
+      const signupUrl = 'http://localhost:3000/users/signup';
+      const signupOptions = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          password: 'GuestUser',
+          password,
           firstName,
           lastName,
           dateOfBirth,
-          IsGuestUser: true,
+          IsGuestUser,
         }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          fetch(`http://localhost:3000/rental/date/${carId}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              userID: data.user.id,
-              ServiceStartDate: startDate,
-              ServiceEndDate: endDate,
-              PhoneNumber: phoneNumber,
-            }),
-          })
-            .then((res) => {
-              if (!res.ok) {
-                throw new Error('Something went wrong');
-              }
-              return res.json();
-            })
-            .then((carData) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              <div>{`There has been a problem with your fetch operation: ${error}`}</div>;
-            });
-        });
+      };
+      try {
+        userData = await fetchWithCheck(signupUrl, signupOptions);
+      } catch (error) {
+        console.log('User Used');
+        const loginUrl = 'http://localhost:3000/users/login';
+        const loginOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password, IsGuestUser }),
+        };
+        userData = await fetchWithCheck(loginUrl, loginOptions);
+      }
+      console.log('data');
+      console.log(userData);
+      const rentalUrl = `http://localhost:3000/rental/date/${carId}`;
+      const rentalOptions = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: userData.user.id,
+          ServiceStartDate: startDate,
+          ServiceEndDate: endDate,
+          PhoneNumber: phoneNumber,
+        }),
+      };
+      const carData = await fetchWithCheck(rentalUrl, rentalOptions);
+      console.log(carData);
+    }
+    
+    if (isLoggedIn) {
+      handleLoggedInUser(carId, startDate, endDate);
+    } else {
+      handleGuestUser(email, 'GuestUser', firstName, lastName, dateOfBirth, true, carId, startDate, endDate, phoneNumber);
     }
   };
 

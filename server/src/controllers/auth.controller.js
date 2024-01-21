@@ -31,7 +31,7 @@ export const signUp = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, IsGuestUser } = req.body;
 
   if (!email || !password) {
     res.status(400).json({
@@ -42,7 +42,7 @@ export const login = async (req, res) => {
   }
 
   try {
-    const user = await findUserByEmail(email); // getting the user from table by email
+    const user = await findUserByEmail(email, IsGuestUser); // getting the user from table by email
 
     if (!user) {
       res.status(401)({
