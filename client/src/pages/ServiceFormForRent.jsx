@@ -42,9 +42,9 @@ function ServiceFormForRent() {
       }
       return response.json();
     }
-    
-    async function handleLoggedInUser(carId, startDate, endDate) {
-      const url = `http://localhost:3000/rental/date/${carId}`;
+
+    async function handleLoggedInUser(carIdValue, startDateValue, endDateValue) {
+      const url = `http://localhost:3000/rental/date/${carIdValue}`;
       const options = {
         method: 'PATCH',
         headers: {
@@ -52,16 +52,27 @@ function ServiceFormForRent() {
         },
         body: JSON.stringify({
           userID: userCtx.user.id,
-          ServiceStartDate: startDate,
-          ServiceEndDate: endDate,
+          ServiceStartDate: startDateValue,
+          ServiceEndDate: endDateValue,
         }),
       };
       const userCarData = await fetchWithCheck(url, options);
       console.log('nice');
       console.log(userCarData);
     }
-    
-    async function handleGuestUser(email, password, firstName, lastName, dateOfBirth, IsGuestUser, carId, startDate, endDate, phoneNumber) {
+
+    async function handleGuestUser(
+      emailValue,
+      passwordValue,
+      firstNameValue,
+      lastNameValue,
+      dateOfBirthValue,
+      IsGuestUser,
+      carIdValue,
+      startDateValue,
+      endDateValue,
+      phoneNumberValue,
+    ) {
       let userData;
       const signupUrl = 'http://localhost:3000/users/signup';
       const signupOptions = {
@@ -70,11 +81,11 @@ function ServiceFormForRent() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
-          password,
-          firstName,
-          lastName,
-          dateOfBirth,
+          email: emailValue,
+          password: passwordValue,
+          firstName: firstNameValue,
+          lastName: lastNameValue,
+          dateOfBirth: dateOfBirthValue,
           IsGuestUser,
         }),
       };
@@ -88,13 +99,13 @@ function ServiceFormForRent() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password, IsGuestUser }),
+          body: JSON.stringify({ email: emailValue, password: passwordValue, IsGuestUser }),
         };
         userData = await fetchWithCheck(loginUrl, loginOptions);
       }
       console.log('data');
       console.log(userData);
-      const rentalUrl = `http://localhost:3000/rental/date/${carId}`;
+      const rentalUrl = `http://localhost:3000/rental/date/${carIdValue}`;
       const rentalOptions = {
         method: 'PATCH',
         headers: {
@@ -102,19 +113,30 @@ function ServiceFormForRent() {
         },
         body: JSON.stringify({
           userID: userData.user.id,
-          ServiceStartDate: startDate,
-          ServiceEndDate: endDate,
-          PhoneNumber: phoneNumber,
+          ServiceStartDate: startDateValue,
+          ServiceEndDate: endDateValue,
+          PhoneNumber: phoneNumberValue,
         }),
       };
       const carData = await fetchWithCheck(rentalUrl, rentalOptions);
       console.log(carData);
     }
-    
+
     if (isLoggedIn) {
       handleLoggedInUser(carId, startDate, endDate);
     } else {
-      handleGuestUser(email, 'GuestUser', firstName, lastName, dateOfBirth, true, carId, startDate, endDate, phoneNumber);
+      handleGuestUser(
+        email,
+        'GuestUser',
+        firstName,
+        lastName,
+        dateOfBirth,
+        true,
+        carId,
+        startDate,
+        endDate,
+        phoneNumber,
+      );
     }
   };
 
