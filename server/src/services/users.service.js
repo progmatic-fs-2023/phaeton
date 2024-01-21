@@ -13,6 +13,7 @@ export async function findUserByEmail(email) {
   const user = await prisma.users.findUnique({
     where: {
       email,
+      IsGuestUser: false,
     },
     // returns with selected columns
     select: {

@@ -50,7 +50,7 @@ function ServiceFormForRent() {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error('a regisztráció volt szar');
+            throw new Error('Something went wrong');
           }
           return response.json();
         })
@@ -78,8 +78,6 @@ function ServiceFormForRent() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log('ide eljutott');
-          console.log(data);
           fetch(`http://localhost:3000/rental/date/${carId}`, {
             method: 'PATCH',
             headers: {
@@ -93,15 +91,12 @@ function ServiceFormForRent() {
             }),
           })
             .then((res) => {
-              console.log('ide is');
               if (!res.ok) {
-                console.log(res);
-                throw new Error('a bérlés volt szar');
+                throw new Error('Something went wrong');
               }
               return res.json();
             })
-            .then((data) => {
-              console.log('nice');
+            .then((carData) => {
               console.log(data);
             })
             .catch((error) => {
