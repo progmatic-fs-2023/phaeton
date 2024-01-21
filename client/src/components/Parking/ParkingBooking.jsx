@@ -11,14 +11,7 @@ function ParkingBooking(parkingLotData) {
   const { data: parkingData } = parkingLotData;
 
   function getParkingID(parking) {
-    // when breaks needs useEffect
-
-    // useEffect(() => {
-    //   parkingCtx.setParkingData(parking);
-    // }, [parking]);
-
     parkingCtx.setParkingData(parking);
-
     navigate(
       `/parking/from/${startDate}/end/${endDate}/zone/${parking[0].zone}/spots/${parking.length}`,
       { state: parking },

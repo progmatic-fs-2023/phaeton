@@ -47,8 +47,6 @@ function ParkingZonesPage() {
     navigate(`/parking/from/${formatDate(startDateOnSearch)}/end/${formatDate(endDateOnSearch)}`);
   return (
     <div>
-      <h1>ParkingZOnes</h1>
-
       <BackGroundContext.Provider value="opened" />
       {isLoading || !parkingLotData || parkingLotData.length === 0 ? (
         <LoadingScreen />

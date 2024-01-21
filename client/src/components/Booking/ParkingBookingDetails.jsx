@@ -6,7 +6,7 @@ function ParkingBookingDetails() {
   const navigate = useNavigate();
   const { startDate, endDate, zone, spots } = useParams();
 
-  // formatting date to DD-MM-YYYY
+  // formatting date to YYYY-MM-DD
   function formatDateString(inputDate) {
     const day = inputDate.substring(0, 2);
     const month = inputDate.substring(2, 4);
@@ -28,7 +28,7 @@ function ParkingBookingDetails() {
       <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
       <div>{`${spots} spot in zone: ${zone}`}</div>
       <button type="submit" onClick={onBook}>
-        Book Now
+        Confirm
       </button>
     </div>
   );
