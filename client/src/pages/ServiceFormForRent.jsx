@@ -6,6 +6,7 @@ import UserContext from '../contexts/UserContext';
 import 'react-phone-number-input/style.css';
 import '../components/styles/Booking/ServiceForm.css';
 import getSomeYearsAgo from '../hooks/getSomeYearsAgo';
+import ServiceMessage from '../components/Booking/ServiceMessage';
 
 function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
@@ -14,6 +15,7 @@ function ServiceFormForRent() {
   const { startDate, endDate, carId } = useParams();
 
   const navigate = useNavigate();
+
 
   function dateFormatterWithHyphen(value) {
     const date = new Date(value);
@@ -34,6 +36,8 @@ function ServiceFormForRent() {
     isLoggedIn ? dateFormatterWithHyphen(user.dateOfBirth) : '',
   );
   const [phoneNumber, setPhoneNumber] = useState();
+  const [message, setMessage] = useState("")
+  const [IsVisible, setIsVisible] = useState("non-visible")
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -60,8 +64,9 @@ function ServiceFormForRent() {
       };
       await fetchWithCheck(url, options);
       // eslint-disable-next-line no-alert
-      alert('Car Rented Successfully');
-      navigate('/');
+      setIsVisible("visible")
+      setMessage('Car Rented Successfully')
+      setTimeout(() => {navigate('/')}, 3000);
     }
 
     async function handleGuestUser(
@@ -140,6 +145,7 @@ function ServiceFormForRent() {
   };
 
   return (
+    <div>
     <label id="serviceform-container" htmlFor="serviceform">
       <h2>Driver Details</h2>
       <form id="serviceform" name="serviceform" onSubmit={(event) => onSubmit(event)}>
@@ -221,6 +227,10 @@ function ServiceFormForRent() {
         <button type="submit">Submit</button>
       </form>
     </label>
+    <div className={IsVisible}>
+    <ServiceMessage message={message} />
+    </div>
+    </div>
   );
 }
 
