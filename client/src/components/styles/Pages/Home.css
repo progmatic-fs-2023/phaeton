@@ -90,15 +90,15 @@
 }
 
 .rental {
-  background-image: URL('../../../home_page_nav_pictures/rentalpic.jpg');
+  background-image: URL('/home_page_nav_pictures/rentalpic.jpg');
 }
 
 .parking {
-  background-image: URL('../../../home_page_nav_pictures/parkingpic.jpg');
+  background-image: URL('/home_page_nav_pictures/parkingpic.jpg');
 }
 
 .shuttle {
-  background-image: URL('../../../home_page_nav_pictures/shuttlepic.jpg');
+  background-image: URL('/home_page_nav_pictures/shuttlepic.jpg');
 }
 
 @media only screen and (max-width: 800px) {

@@ -9,12 +9,12 @@
 
 .parking-bg {
   padding-top: 20vh;
-  background-image: var(--main-linear-gradient), URL('../../../DatePicker/parking_bg.jpg');
+  background-image: var(--main-linear-gradient), URL('/DatePicker/parking_bg.jpg');
 }
 
 .rental-bg {
   padding-top: 20vh;
-  background-image: var(--main-linear-gradient), URL('../../../DatePicker/rental_bg.webp');
+  background-image: var(--main-linear-gradient), URL('/DatePicker/rental_bg.webp');
 }
 
 .opened {

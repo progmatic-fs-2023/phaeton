@@ -38,6 +38,7 @@ function ServiceFormForRent() {
   const [phoneNumber, setPhoneNumber] = useState();
   const [message, setMessage] = useState("")
   const [IsVisible, setIsVisible] = useState("non-visible")
+  const [isBlurred, setIsBlurred] = useState("")
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -65,6 +66,7 @@ function ServiceFormForRent() {
       await fetchWithCheck(url, options);
       // eslint-disable-next-line no-alert
       setIsVisible("visible")
+      setIsBlurred("blurred")
       setMessage('Car Rented Successfully')
       setTimeout(() => {navigate('/')}, 3000);
     }
@@ -146,7 +148,7 @@ function ServiceFormForRent() {
 
   return (
     <div>
-    <label id="serviceform-container" htmlFor="serviceform">
+    <label id="serviceform-container" className={isBlurred} htmlFor="serviceform">
       <h2>Driver Details</h2>
       <form id="serviceform" name="serviceform" onSubmit={(event) => onSubmit(event)}>
         <label htmlFor="email">
