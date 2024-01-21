@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/Booking/ServiceMessage.css'
+import '../styles/Booking/ServiceMessage.css';
 
 function ServiceMessage({ message }) {
   return (
-    <div className='service-message-container'>
+    <div className="service-message-container">
       <h2>{message}</h2>
       <p>Redirecting to the Homepage...</p>
     </div>

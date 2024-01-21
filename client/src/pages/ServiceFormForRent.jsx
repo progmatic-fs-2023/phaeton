@@ -16,7 +16,6 @@ function ServiceFormForRent() {
 
   const navigate = useNavigate();
 
-
   function dateFormatterWithHyphen(value) {
     const date = new Date(value);
 
@@ -36,9 +35,9 @@ function ServiceFormForRent() {
     isLoggedIn ? dateFormatterWithHyphen(user.dateOfBirth) : '',
   );
   const [phoneNumber, setPhoneNumber] = useState();
-  const [message, setMessage] = useState("")
-  const [IsVisible, setIsVisible] = useState("non-visible")
-  const [isBlurred, setIsBlurred] = useState("")
+  const [message, setMessage] = useState('');
+  const [IsVisible, setIsVisible] = useState('non-visible');
+  const [isBlurred, setIsBlurred] = useState('');
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -64,11 +63,13 @@ function ServiceFormForRent() {
         }),
       };
       await fetchWithCheck(url, options);
-      // eslint-disable-next-line no-alert
-      setIsVisible("visible")
-      setIsBlurred("blurred")
-      setMessage('Car Rented Successfully')
-      setTimeout(() => {navigate('/')}, 3000);
+
+      setIsVisible('visible');
+      setIsBlurred('blurred');
+      setMessage('Car Rented Successfully');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
     }
 
     async function handleGuestUser(
@@ -148,90 +149,90 @@ function ServiceFormForRent() {
 
   return (
     <div>
-    <label id="serviceform-container" className={isBlurred} htmlFor="serviceform">
-      <h2>Driver Details</h2>
-      <form id="serviceform" name="serviceform" onSubmit={(event) => onSubmit(event)}>
-        <label htmlFor="email">
-          E-mail address*
-          <input
-            type="email"
-            id="email"
-            name="email"
-            readOnly={isLoggedIn}
-            required
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-            value={email}
-            className={isLoggedIn ? 'logged-in' : ''}
-          />
-        </label>
-        <label htmlFor="first-name">
-          First Name*
-          <input
-            type="input"
-            id="first-name"
-            name="first-name"
-            readOnly={isLoggedIn}
-            required
-            onChange={(event) => {
-              setFirstName(event.target.value);
-            }}
-            value={firstName}
-            className={isLoggedIn ? 'logged-in' : ''}
-          />
-        </label>
-        <label htmlFor="last-name">
-          Last Name*
-          <input
-            type="input"
-            id="last-name"
-            name="last-name"
-            readOnly={isLoggedIn}
-            required
-            onChange={(event) => {
-              setLastName(event.target.value);
-            }}
-            value={lastName}
-            className={isLoggedIn ? 'logged-in' : ''}
-          />
-        </label>
-        <label htmlFor="date-of-birth">
-          Date of Birth*
-          <input
-            type="date"
-            id="date-of-birth"
-            name="date-of-birth"
-            min={getSomeYearsAgo(99)}
-            max={getSomeYearsAgo(18)}
-            required
-            onChange={(event) => {
-              setDateOfBirth(event.target.value);
-            }}
-            value={dateOfBirth}
-            readOnly={isLoggedIn}
-            className={isLoggedIn ? 'logged-in' : ''}
-          />
-        </label>
-        <div className="fake-label" htmlFor="phone-number">
-          Phone Number (optional)
-          <PhoneInput
-            international
-            id="phone-number"
-            name="phone-number"
-            placeholder="Enter phone number"
-            countryCallingCodeEditable={false}
-            defaultCountry="HU"
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </label>
-    <div className={IsVisible}>
-    <ServiceMessage message={message} />
-    </div>
+      <label id="serviceform-container" className={isBlurred} htmlFor="serviceform">
+        <h2>Driver Details</h2>
+        <form id="serviceform" name="serviceform" onSubmit={(event) => onSubmit(event)}>
+          <label htmlFor="email">
+            E-mail address*
+            <input
+              type="email"
+              id="email"
+              name="email"
+              readOnly={isLoggedIn}
+              required
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              value={email}
+              className={isLoggedIn ? 'logged-in' : ''}
+            />
+          </label>
+          <label htmlFor="first-name">
+            First Name*
+            <input
+              type="input"
+              id="first-name"
+              name="first-name"
+              readOnly={isLoggedIn}
+              required
+              onChange={(event) => {
+                setFirstName(event.target.value);
+              }}
+              value={firstName}
+              className={isLoggedIn ? 'logged-in' : ''}
+            />
+          </label>
+          <label htmlFor="last-name">
+            Last Name*
+            <input
+              type="input"
+              id="last-name"
+              name="last-name"
+              readOnly={isLoggedIn}
+              required
+              onChange={(event) => {
+                setLastName(event.target.value);
+              }}
+              value={lastName}
+              className={isLoggedIn ? 'logged-in' : ''}
+            />
+          </label>
+          <label htmlFor="date-of-birth">
+            Date of Birth*
+            <input
+              type="date"
+              id="date-of-birth"
+              name="date-of-birth"
+              min={getSomeYearsAgo(99)}
+              max={getSomeYearsAgo(18)}
+              required
+              onChange={(event) => {
+                setDateOfBirth(event.target.value);
+              }}
+              value={dateOfBirth}
+              readOnly={isLoggedIn}
+              className={isLoggedIn ? 'logged-in' : ''}
+            />
+          </label>
+          <div className="fake-label" htmlFor="phone-number">
+            Phone Number (optional)
+            <PhoneInput
+              international
+              id="phone-number"
+              name="phone-number"
+              placeholder="Enter phone number"
+              countryCallingCodeEditable={false}
+              defaultCountry="HU"
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </label>
+      <div className={IsVisible}>
+        <ServiceMessage message={message} />
+      </div>
     </div>
   );
 }

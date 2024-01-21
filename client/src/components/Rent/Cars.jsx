@@ -11,7 +11,6 @@ function Cars({ data, differenceInDays, onClickRent }) {
     onClickRent: PropTypes.func.isRequired,
   };
 
-
   if (data.length > 0) {
     return (
       <div className="car-container">

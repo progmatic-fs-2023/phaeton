@@ -81,7 +81,9 @@ function RentBookingDetails() {
                 </div>
               </div>
             </div>
-            <p>Price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price)} HUF</p>
+            <p>
+              Price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price)} HUF
+            </p>
           </div>
         </div>
       </div>
