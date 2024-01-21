@@ -23,7 +23,6 @@ function ServiceForm() {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [phoneNumber, setPhoneNumber] = useState();
 
-
   const handleBooking = async (event, userObj, parking) => {
     event.preventDefault();
     // if (parkingCtx.parkingData !== null) {

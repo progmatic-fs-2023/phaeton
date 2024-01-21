@@ -1,6 +1,6 @@
 import '../../components/styles/Rent/Rent.css';
 import React, { useCallback, useState, useEffect, useRef, useContext } from 'react';
-import { useParams, useNavigate} from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import dateFormatter from '../../hooks/dateFormatter';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
@@ -10,7 +10,6 @@ import LoadingScreen from '../../components/ReusableComponents/LoadingScreen';
 import SortBy from '../../components/Rent/SortBy';
 import CarFilterMobile from '../../components/Rent/CarFilterMobile';
 import CarContext from '../../contexts/CarContext';
-
 
 function RentalPage() {
   const [originalCarsData, setOriginalCarsData] = useState([]);
@@ -23,7 +22,7 @@ function RentalPage() {
 
   const navigate = useNavigate();
 
-  const carCtx = useContext(CarContext)
+  const carCtx = useContext(CarContext);
 
   const { startDate, endDate } = useParams();
 
@@ -226,11 +225,11 @@ function RentalPage() {
   };
 
   const onClickRent = (car) => {
-    carCtx.setCarData(car)
+    carCtx.setCarData(car);
     const currentPath = window.location.pathname;
     navigate(`${currentPath}/carId/${car.id}`);
   };
-  
+
   return (
     <div className="rent-container">
       <BackGroundContext.Provider value="opened">
@@ -298,7 +297,11 @@ function RentalPage() {
                       handleSortingFunction={handleSortingFunction}
                     />
                   </div>
-                  <Cars data={filteredCarsData} differenceInDays={differenceInDays} onClickRent={onClickRent} />
+                  <Cars
+                    data={filteredCarsData}
+                    differenceInDays={differenceInDays}
+                    onClickRent={onClickRent}
+                  />
                 </div>
               </div>
             </div>

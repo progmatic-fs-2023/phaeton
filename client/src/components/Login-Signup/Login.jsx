@@ -42,7 +42,14 @@ function Login({ handleLogin, errorMsg }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, firstName, lastName, dateOfBirth, IsGuestUser: false }),
+        body: JSON.stringify({
+          email,
+          password,
+          firstName,
+          lastName,
+          dateOfBirth,
+          IsGuestUser: false,
+        }),
       });
 
       const data = await response.json();
@@ -55,7 +62,7 @@ function Login({ handleLogin, errorMsg }) {
         setEmail('');
         setFirstName('');
         setLastName('');
-        setDateOfBirth('')
+        setDateOfBirth('');
         setPassword('');
         setPasswordConfirm('');
         setMessage('');

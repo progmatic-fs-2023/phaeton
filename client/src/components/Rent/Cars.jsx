@@ -7,6 +7,7 @@ function Cars({ data, differenceInDays, onClickRent }) {
   Cars.propTypes = {
     data: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
     differenceInDays: PropTypes.number.isRequired,
+    onClickRent: PropTypes.func.isRequired,
   };
 
   function numberWithSpaces(number) {

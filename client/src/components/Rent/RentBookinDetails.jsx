@@ -21,11 +21,7 @@ function RentBookingDetails() {
 
     // Convert back to days and return
     return Math.round(diffMilliseconds / oneDay);
-}
-
-
-
-
+  }
 
   // formatting date to DD.MM.YYYY
   function formatDateString(inputDate) {
@@ -38,7 +34,6 @@ function RentBookingDetails() {
 
   const formattedStartDate = formatDateString(startDate);
   const formattedEndDate = formatDateString(endDate);
-
 
   function onBook(event) {
     event.preventDefault();

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
 import UserContext from '../contexts/UserContext';
 // import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
@@ -12,6 +12,8 @@ function ServiceFormForRent() {
   // const parkingCtx = useContext(ParkingDetailsContext);
 
   const { startDate, endDate, carId } = useParams();
+
+  const navigate = useNavigate()
 
   function dateFormatterWithHyphen(value) {
     const date = new Date(value);
@@ -56,9 +58,10 @@ function ServiceFormForRent() {
           ServiceEndDate: endDateValue,
         }),
       };
-      const userCarData = await fetchWithCheck(url, options);
-      console.log('nice');
-      console.log(userCarData);
+      await fetchWithCheck(url, options);
+      // eslint-disable-next-line no-alert
+      alert('Car Rented Successfully');
+      navigate('/')
     }
 
     async function handleGuestUser(
@@ -90,9 +93,8 @@ function ServiceFormForRent() {
         }),
       };
       try {
-        userData = await fetchWithCheck(signupUrl, signupOptions);
+        await fetchWithCheck(signupUrl, signupOptions);
       } catch (error) {
-        console.log('User Used');
         const loginUrl = 'http://localhost:3000/users/login';
         const loginOptions = {
           method: 'POST',
@@ -101,10 +103,8 @@ function ServiceFormForRent() {
           },
           body: JSON.stringify({ email: emailValue, password: passwordValue, IsGuestUser }),
         };
-        userData = await fetchWithCheck(loginUrl, loginOptions);
+        await fetchWithCheck(loginUrl, loginOptions);
       }
-      console.log('data');
-      console.log(userData);
       const rentalUrl = `http://localhost:3000/rental/date/${carIdValue}`;
       const rentalOptions = {
         method: 'PATCH',
@@ -118,8 +118,7 @@ function ServiceFormForRent() {
           PhoneNumber: phoneNumberValue,
         }),
       };
-      const carData = await fetchWithCheck(rentalUrl, rentalOptions);
-      console.log(carData);
+      await fetchWithCheck(rentalUrl, rentalOptions);
     }
 
     if (isLoggedIn) {

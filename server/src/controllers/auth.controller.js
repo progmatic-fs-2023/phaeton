@@ -61,7 +61,7 @@ export const login = async (req, res) => {
           role: user.role,
           lastName: user.lastName,
           firstName: user.firstName,
-          dateOfBirth: user.DateOfBirth
+          dateOfBirth: user.DateOfBirth,
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
