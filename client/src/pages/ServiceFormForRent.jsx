@@ -13,7 +13,7 @@ function ServiceFormForRent() {
 
   const { startDate, endDate, carId } = useParams();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function dateFormatterWithHyphen(value) {
     const date = new Date(value);
@@ -61,7 +61,7 @@ function ServiceFormForRent() {
       await fetchWithCheck(url, options);
       // eslint-disable-next-line no-alert
       alert('Car Rented Successfully');
-      navigate('/')
+      navigate('/');
     }
 
     async function handleGuestUser(
