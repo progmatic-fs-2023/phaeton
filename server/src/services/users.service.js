@@ -26,6 +26,5 @@ export async function findUserByEmail(email, IsGuestUser) {
       DateOfBirth: true,
     },
   });
-  console.log(user);
   return user;
 }
