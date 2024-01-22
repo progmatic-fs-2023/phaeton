@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ParkingZones from './ParkingZones';
-import ParkingDetailsContext from '../../contexts/ParkingDetailsContext';
 import '../styles/Booking/ParkingBooking.css';
+import ParkingDetailsContext from '../../contexts/ParkingDetailsContext';
 
 function ParkingBooking(parkingLotData) {
   const navigate = useNavigate();

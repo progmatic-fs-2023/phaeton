@@ -9,10 +9,11 @@ export async function createUser(newUser) {
   return user;
 }
 
-export async function findUserByEmail(email) {
+export async function findUserByEmail(email, IsGuestUser) {
   const user = await prisma.users.findUnique({
     where: {
       email,
+      IsGuestUser,
     },
     // returns with selected columns
     select: {
@@ -22,7 +23,9 @@ export async function findUserByEmail(email) {
       email: true,
       password: true,
       role: true,
+      DateOfBirth: true,
     },
   });
+  console.log(user);
   return user;
 }

@@ -64,6 +64,23 @@
   background-color: var(--secondary-color);
 }
 
+/* Set the modal visible or make it disappear */
+
+.non-visible {
+  display: none
+}
+
+.visible {
+  display: contents
+}
+
+/* Set the background blurred */
+
+.blurred {
+  pointer-events: none;
+  filter: blur(2px)
+}
+
 @media only screen and (max-width: 500px) {
   #serviceform-container {
     margin: 0;

@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 // user registration
 export const signUp = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, dateOfBirth, password, IsGuestUser } = req.body;
 
   try {
     const passwordHash = await bcrypt.hash(password, 10);
@@ -13,7 +13,9 @@ export const signUp = async (req, res) => {
       firstName,
       lastName,
       email,
+      DateOfBirth: new Date(dateOfBirth),
       password: passwordHash,
+      IsGuestUser,
     });
 
     res.status(201).json({
@@ -29,7 +31,7 @@ export const signUp = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, IsGuestUser } = req.body;
 
   if (!email || !password) {
     res.status(400).json({
@@ -40,7 +42,7 @@ export const login = async (req, res) => {
   }
 
   try {
-    const user = await findUserByEmail(email); // getting the user from table by email
+    const user = await findUserByEmail(email, IsGuestUser); // getting the user from table by email
 
     if (!user) {
       res.status(401)({
@@ -54,11 +56,14 @@ export const login = async (req, res) => {
         delete user.password;
 
         const payload = {
+          id: user.id,
           email: user.email,
           role: user.role,
           lastName: user.lastName,
           firstName: user.firstName,
+          dateOfBirth: user.DateOfBirth,
         };
+
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3h' });
 
         res.status(200).json({

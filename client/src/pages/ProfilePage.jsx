@@ -1,12 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 import UserContext from '../contexts/UserContext';
 import '../components/styles/Pages/ProfilePage.css';
 
 function Profile() {
+  const navigate = useNavigate();
+
   const userCtx = useContext(UserContext);
   if (userCtx.user === 'GuestUser') {
-    return <div>GOHOME</div>;
+    useEffect(() => {
+      navigate('/');
+    }, []);
   }
   return (
     <div className="profile-page-container">
