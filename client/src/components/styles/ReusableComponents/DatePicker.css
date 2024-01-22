@@ -1,4 +1,4 @@
-@import url("../variables.css");
+@import url('../variables.css');
 
 /* Background */
 
@@ -9,12 +9,12 @@
 
 .parking-bg {
   padding-top: 20vh;
-  background-image: var(--main-linear-gradient), URL('../../../DatePicker/parking_bg.jpg');
+  background-image: var(--main-linear-gradient), URL('/DatePicker/parking_bg.jpg');
 }
 
 .rental-bg {
   padding-top: 20vh;
-  background-image: var(--main-linear-gradient), URL('../../../DatePicker/rental_bg.webp');
+  background-image: var(--main-linear-gradient), URL('/DatePicker/rental_bg.webp');
 }
 
 .opened {
@@ -115,4 +115,4 @@ button {
   .date-picker-container {
     margin: 0;
   }
-  }
+}

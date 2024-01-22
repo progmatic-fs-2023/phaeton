@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CarContext from '../../contexts/CarContext';
 import dateFormatter from '../../hooks/dateFormatter';
+import numberWithSpaces from '../../hooks/numberWithSpaces';
 
 function RentBookingDetails() {
   const { startDate, endDate, carId } = useParams();
@@ -80,7 +81,9 @@ function RentBookingDetails() {
                 </div>
               </div>
             </div>
-            <p>Price: {getDaysBetweenDates(startDate, endDate) * carData.price} HUF</p>
+            <p>
+              Price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price)} HUF
+            </p>
           </div>
         </div>
       </div>
