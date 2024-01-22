@@ -32,16 +32,13 @@ function Contact() {
         form.current,
         import.meta.env.VITE_API_PUBLIC_KEY,
       )
-      .then(
-        () => {
-          setDialogMessage('Email was sent successfully');
-          openDialog();
-        },
-        () => {
-          setDialogMessage('Something went wrong, please try again later.');
-          openDialog();
-        },
-      );
+      .then(() => {
+        setDialogMessage('Email was sent successfully');
+      })
+      .catch(() => {
+        setDialogMessage('Something went wrong, please try again later.');
+      })
+      .finally(openDialog());
     e.target.reset();
   };
 

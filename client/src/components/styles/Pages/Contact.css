@@ -48,8 +48,8 @@
 }
 
 .contact-modal {
-  height: auto;
-  justify-content: center;
+  padding: 40px;
+  height: 100px;
   align-items: center;
   border-radius: 10px;
   border: 1px solid black;

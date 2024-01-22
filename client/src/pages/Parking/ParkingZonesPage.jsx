@@ -4,6 +4,7 @@ import LoadingScreen from '../../components/ReusableComponents/LoadingScreen';
 import ParkingBooking from '../../components/Parking/ParkingBooking';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
+import formatDate from '../../hooks/formatDate';
 
 function ParkingZonesPage() {
   const { startDate, endDate } = useParams();
@@ -40,20 +41,10 @@ function ParkingZonesPage() {
     }
   }, [startDate, endDate]);
 
-  function formatDate(date) {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-
-    return `${day}${month}${year}`;
-  }
-  const onSearchFn = (startDateOnSearch, endDateOnSearch) => {
-    if (startDateOnSearch && endDateOnSearch) {
-      const formattedStartDate = formatDate(startDateOnSearch);
-      const formattedEndDate = formatDate(endDateOnSearch);
-      navigate(`/parking/from/${formattedStartDate}/end/${formattedEndDate}`);
-    }
-  };
+  const onSearchFn = (startDateOnSearch, endDateOnSearch) =>
+    startDateOnSearch &&
+    endDateOnSearch &&
+    navigate(`/parking/from/${formatDate(startDateOnSearch)}/end/${formatDate(endDateOnSearch)}`);
   return (
     <div>
       <h1>ParkingZOnes</h1>
