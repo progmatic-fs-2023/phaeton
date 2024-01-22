@@ -14,7 +14,6 @@ import formatDate from '../../hooks/formatDate';
 
 import CarContext from '../../contexts/CarContext';
 
-
 function RentalPage() {
   const [originalCarsData, setOriginalCarsData] = useState([]);
   const [carsData, setCarsData] = useState([]);
@@ -210,7 +209,6 @@ function RentalPage() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
 
   const onSearchFn = (startDateOnSearch, endDateOnSearch) =>
     startDateOnSearch &&
