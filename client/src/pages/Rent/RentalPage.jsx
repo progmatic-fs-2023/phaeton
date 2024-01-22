@@ -1,5 +1,5 @@
 import '../../components/styles/Rent/Rent.css';
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import dateFormatter from '../../hooks/dateFormatter';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
@@ -9,8 +9,7 @@ import CarFilter from '../../components/Rent/CarFilter';
 import LoadingScreen from '../../components/ReusableComponents/LoadingScreen';
 import SortBy from '../../components/Rent/SortBy';
 import CarFilterMobile from '../../components/Rent/CarFilterMobile';
-
-import formatDate from '../../hooks/formatDate';
+import CarContext from '../../contexts/CarContext';
 
 function RentalPage() {
   const [originalCarsData, setOriginalCarsData] = useState([]);
@@ -22,6 +21,8 @@ function RentalPage() {
   const [filtered, setFiltered] = useState(null);
 
   const navigate = useNavigate();
+
+  const carCtx = useContext(CarContext);
 
   const { startDate, endDate } = useParams();
 
@@ -206,10 +207,28 @@ function RentalPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const onSearchFn = (startDateOnSearch, endDateOnSearch) =>
-    startDateOnSearch &&
-    endDateOnSearch &&
-    navigate(`/rental/from/${formatDate(startDateOnSearch)}/end/${formatDate(endDateOnSearch)}`);
+  function formatDate(date) {
+    if (typeof date === 'string') {
+      return date;
+    }
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${day}${month}${year}`;
+  }
+  const onSearchFn = (startDateOnSearch, endDateOnSearch) => {
+    if (startDateOnSearch && endDateOnSearch) {
+      const formattedStartDate = formatDate(startDateOnSearch);
+      const formattedEndDate = formatDate(endDateOnSearch);
+      navigate(`/rental/from/${formattedStartDate}/end/${formattedEndDate}`);
+    }
+  };
+
+  const onClickRent = (car) => {
+    carCtx.setCarData(car);
+    const currentPath = window.location.pathname;
+    navigate(`${currentPath}/carId/${car.id}`);
+  };
 
   return (
     <div className="rent-container">
@@ -278,7 +297,11 @@ function RentalPage() {
                       handleSortingFunction={handleSortingFunction}
                     />
                   </div>
-                  <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
+                  <Cars
+                    data={filteredCarsData}
+                    differenceInDays={differenceInDays}
+                    onClickRent={onClickRent}
+                  />
                 </div>
               </div>
             </div>

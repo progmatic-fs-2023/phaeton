@@ -39,6 +39,15 @@ function ServiceFormForRent() {
   const [IsVisible, setIsVisible] = useState('non-visible');
   const [isBlurred, setIsBlurred] = useState('');
 
+  function successfullBooking() {
+    setIsVisible('visible');
+    setIsBlurred('blurred');
+    setMessage('Car Rented Successfully');
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
+  }
+
   const onSubmit = (event) => {
     event.preventDefault();
     async function fetchWithCheck(url, options) {
@@ -64,12 +73,7 @@ function ServiceFormForRent() {
       };
       await fetchWithCheck(url, options);
 
-      setIsVisible('visible');
-      setIsBlurred('blurred');
-      setMessage('Car Rented Successfully');
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
+      successfullBooking();
     }
 
     async function handleGuestUser(
@@ -101,7 +105,7 @@ function ServiceFormForRent() {
         }),
       };
       try {
-        await fetchWithCheck(signupUrl, signupOptions);
+        userData = await fetchWithCheck(signupUrl, signupOptions);
       } catch (error) {
         const loginUrl = 'http://localhost:3000/users/login';
         const loginOptions = {
@@ -111,7 +115,7 @@ function ServiceFormForRent() {
           },
           body: JSON.stringify({ email: emailValue, password: passwordValue, IsGuestUser }),
         };
-        await fetchWithCheck(loginUrl, loginOptions);
+        userData = await fetchWithCheck(loginUrl, loginOptions);
       }
       const rentalUrl = `http://localhost:3000/rental/date/${carIdValue}`;
       const rentalOptions = {
@@ -127,6 +131,7 @@ function ServiceFormForRent() {
         }),
       };
       await fetchWithCheck(rentalUrl, rentalOptions);
+      successfullBooking();
     }
 
     if (isLoggedIn) {
