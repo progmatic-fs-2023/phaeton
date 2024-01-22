@@ -1,5 +1,5 @@
 import '../../components/styles/Rent/Rent.css';
-import React, { useCallback, useState, useEffect, useRef, useContext } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import dateFormatter from '../../hooks/dateFormatter';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
@@ -12,9 +12,6 @@ import CarFilterMobile from '../../components/Rent/CarFilterMobile';
 
 import formatDate from '../../hooks/formatDate';
 
-import CarContext from '../../contexts/CarContext';
-
-
 function RentalPage() {
   const [originalCarsData, setOriginalCarsData] = useState([]);
   const [carsData, setCarsData] = useState([]);
@@ -25,8 +22,6 @@ function RentalPage() {
   const [filtered, setFiltered] = useState(null);
 
   const navigate = useNavigate();
-
-  const carCtx = useContext(CarContext);
 
   const { startDate, endDate } = useParams();
 
@@ -211,7 +206,6 @@ function RentalPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-
   const onSearchFn = (startDateOnSearch, endDateOnSearch) =>
     startDateOnSearch &&
     endDateOnSearch &&
@@ -284,11 +278,7 @@ function RentalPage() {
                       handleSortingFunction={handleSortingFunction}
                     />
                   </div>
-                  <Cars
-                    data={filteredCarsData}
-                    differenceInDays={differenceInDays}
-                    onClickRent={onClickRent}
-                  />
+                  <Cars data={filteredCarsData} differenceInDays={differenceInDays} />
                 </div>
               </div>
             </div>
