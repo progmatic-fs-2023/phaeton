@@ -12,6 +12,6 @@ function ServiceMessage({ message }) {
 }
 
 ServiceMessage.propTypes = {
-  message: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
 };
 export default ServiceMessage;
