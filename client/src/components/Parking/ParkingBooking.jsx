@@ -20,7 +20,7 @@ function ParkingBooking(parkingLotData) {
     parkingCtx.setParkingData(parking);
 
     navigate(
-      `/parking/from/${startDate}/end/${endDate}/zone/${parking[0].zone}/parkings/${parking.length}`,
+      `/parking/from/${startDate}/end/${endDate}/zone/${parking[0].zone}/spots/${parking.length}`,
       { state: parking },
     );
   }

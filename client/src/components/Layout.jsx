@@ -53,11 +53,11 @@ function Layout() {
             <Route path="parking" element={<Parking />} />
             <Route path="parking/from/:startDate/end/:endDate" element={<ParkingZonesPage />} />
             <Route
-              path="parking/from/:startDate/end/:endDate/zone/:zone/parkings/:parkings"
+              path="parking/from/:startDate/end/:endDate/zone/:zone/spots/:spots"
               element={<Booking service="parking" />}
             />
             <Route
-              path="parking/from/:startDate/end/:endDate/zone/:zone/parkings/:parkings/form"
+              path="parking/from/:startDate/end/:endDate/zone/:zone/spots/:spots/form"
               element={<ServiceForm />}
             />
           </Routes>
