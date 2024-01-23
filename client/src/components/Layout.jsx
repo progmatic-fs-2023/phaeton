@@ -61,7 +61,7 @@ function Layout() {
               path="parking/from/:startDate/end/:endDate/zone/:zone/spots/:spots/form"
               element={<ServiceForm />}
             />
-          <Route path='/admin' element={<AdminPage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </CarContext.Provider>
       </ParkingDetailsContext.Provider>
