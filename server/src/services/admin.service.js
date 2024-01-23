@@ -4,10 +4,10 @@ const prisma = new PrismaClient();
 
 // export functions individually when there's more function in it
 
-export async function cancelServiceById(userID, id) {
+export async function returnServiceById(userID, id) {
   const now = new Date(Date.now());
   now.toString();
-  const cancelledService = await prisma.Services.update({
+  const returnedService = await prisma.Services.update({
     where: {
       id,
       userID,
@@ -15,24 +15,36 @@ export async function cancelServiceById(userID, id) {
     },
     data: {
       ActualServiceEndDate: now,
+      IsActive: false,
     },
   });
 
-  return cancelledService;
+  return returnedService;
+}
+
+export async function cancelServiceById(userID, id) {
+  const canceledService = await prisma.Services.update({
+    where: {
+      id,
+      userID,
+      ActualServiceEndDate: null,
+    },
+    data: {
+      IsActive: false,
+    },
+  });
+
+  return canceledService;
 }
 
 export async function serviceQuery() {
   const services = await prisma.services.findMany({
-    // include: {
-    //   ParkingLot: true,
-    //   Users: true,
-    //   Cars: true,
-    // },
     select: {
       id: true,
       ServiceStartDate: true,
       ServiceEndDate: true,
       ActualServiceEndDate: true,
+      IsActive: true,
       Users: {
         select: {
           firstName: true,

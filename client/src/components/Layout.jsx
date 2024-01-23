@@ -16,6 +16,7 @@ import CarContext from '../contexts/CarContext';
 import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import ServiceForm from '../pages/ServiceForm';
+import AdminPage from '../pages/AdminPage';
 
 function Layout() {
   const [parkingData, setParkingData] = useState(null);
@@ -60,6 +61,7 @@ function Layout() {
               path="parking/from/:startDate/end/:endDate/zone/:zone/spots/:spots/form"
               element={<ServiceForm />}
             />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </CarContext.Provider>
       </ParkingDetailsContext.Provider>
