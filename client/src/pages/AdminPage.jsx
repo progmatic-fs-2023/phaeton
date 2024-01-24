@@ -99,6 +99,8 @@ function AdminPage() {
     return '-';
   }
 
+  console.log(services)
+
   const navigate = useNavigate();
   if (!isLoading) {
     if (services) {
