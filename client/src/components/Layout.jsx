@@ -16,6 +16,7 @@ import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import ServiceFormForParking from '../pages/ServiceFormForParking';
 import ServiceFormForRent from '../pages/ServiceFormForRent';
+import AdminPage from '../pages/AdminPage';
 
 function Layout() {
   const [parkingData, setParkingData] = useState(null);

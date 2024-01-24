@@ -69,8 +69,8 @@ export const book = async (req, res) => {
     const formattedServiceEndDate = dateFormatter(end);
     // returns with the number of reserved parking spots
     const { count } = await bookParkingLotById(
-      parking,
-      userObj.email,
+      parkingDataValue,
+      userID,
       formattedServiceStartDate,
       formattedServiceEndDate,
       PhoneNumber,
