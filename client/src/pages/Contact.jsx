@@ -46,7 +46,7 @@ function Contact() {
     <div className="contact-main-container">
       <div className="form-container">
         <h3>Contact us</h3>
-        <form action="post" ref={form} onSubmit={sendEmail}>
+        <form id="email-form" action="post" ref={form} onSubmit={sendEmail}>
           <label htmlFor="email">
             E-mail : <br />
             <input id="email" placeholder="E-mail..." name="user_email" type="email" required />

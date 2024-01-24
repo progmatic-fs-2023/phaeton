@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Route, Routes } from 'react-router';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router';
 import Home from '../pages/Home';
 import Contact from '../pages/Contact';
 import Header from './Header-Footer/Header';
@@ -26,6 +26,14 @@ function Layout() {
   );
   const [carData, setCarData] = useState(null);
   const CarContextValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData]);
+
+  // Get the current location.
+  const { pathname } = useLocation();
+
+  // Scroll to top if path changes.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div>

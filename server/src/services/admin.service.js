@@ -44,6 +44,7 @@ export async function serviceQuery() {
       ServiceStartDate: true,
       ServiceEndDate: true,
       ActualServiceEndDate: true,
+      PhoneNumber: true,
       IsActive: true,
       Users: {
         select: {

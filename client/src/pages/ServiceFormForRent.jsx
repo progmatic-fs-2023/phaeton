@@ -58,7 +58,7 @@ function ServiceFormForRent() {
       return response.json();
     }
 
-    async function handleLoggedInUser(carIdValue, startDateValue, endDateValue) {
+    async function handleLoggedInUser(carIdValue, startDateValue, endDateValue, phoneNumberValue) {
       const url = `http://localhost:3000/rental/date/${carIdValue}`;
       const options = {
         method: 'PATCH',
@@ -69,6 +69,7 @@ function ServiceFormForRent() {
           userID: userCtx.user.id,
           ServiceStartDate: startDateValue,
           ServiceEndDate: endDateValue,
+          PhoneNumber: phoneNumberValue,
         }),
       };
       await fetchWithCheck(url, options);
@@ -135,7 +136,7 @@ function ServiceFormForRent() {
     }
 
     if (isLoggedIn) {
-      handleLoggedInUser(carId, startDate, endDate);
+      handleLoggedInUser(carId, startDate, endDate, phoneNumber);
     } else {
       handleGuestUser(
         email,
