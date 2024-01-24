@@ -15,8 +15,6 @@ function ParkingZones({ data, parkingID }) {
   const zoneE = parkings.filter((parkingSpot) => parkingSpot.zone === 'E');
   const zoneF = parkings.filter((parkingSpot) => parkingSpot.zone === 'F');
 
-  console.log(zoneB);
-
   const zonesSpots = {
     zoneASpots: zoneA.length,
     zoneBSpots: zoneB.length,
@@ -25,8 +23,6 @@ function ParkingZones({ data, parkingID }) {
     zoneESpots: zoneE.length,
     zoneFSpots: zoneF.length,
   };
-
-  console.log(zonesSpots.zoneB.length);
 
   // checking the free spaces, record parking id checks the spot id, if matching -1 free space
   if (services.length > 0) {

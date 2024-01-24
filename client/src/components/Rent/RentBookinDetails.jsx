@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CarContext from '../../contexts/CarContext';
-import dateFormatter from '../utils/dateFormatter';
-import numberWithSpaces from '../utils/numberWithSpaces';
+import dateFormatter from '../../utils/dateFormatter';
+import numberWithSpaces from '../../utils/numberWithSpaces';
 
 function RentBookingDetails() {
   const { startDate, endDate, carId } = useParams();

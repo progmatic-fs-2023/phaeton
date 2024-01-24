@@ -5,7 +5,7 @@ import UserContext from '../contexts/UserContext';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
 import '../components/styles/Booking/ServiceForm.css';
-import getSomeYearsAgo from '../hooks/getSomeYearsAgo';
+import getSomeYearsAgo from '../utils/getSomeYearsAgo';
 import ServiceMessage from '../components/Booking/ServiceMessage';
 
 function ServiceFormForParking() {
