@@ -132,7 +132,7 @@ function Login({ handleLogin, errorMsg }) {
                 ✖
               </button>
             </div>
-            <form action="POST">
+            <form id="login-form" action="POST">
               <div className="login-container">
                 <input
                   type="email"
@@ -171,7 +171,7 @@ function Login({ handleLogin, errorMsg }) {
         ) : (
           <>
             {/* Sing up section */}
-            <form action="POST">
+            <form id="sign-up-form" action="POST">
               {' '}
               <div className="login-header">
                 <h1>Sign Up</h1>
