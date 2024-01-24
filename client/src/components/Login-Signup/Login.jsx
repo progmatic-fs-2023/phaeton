@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Login-Signup/Login.css';
 import PropTypes from 'prop-types';
-import getSomeYearsAgo from '../../hooks/getSomeYearsAgo';
+import getSomeYearsAgo from '../utils/getSomeYearsAgo';
 
 function Login({ handleLogin, errorMsg }) {
   Login.propTypes = {

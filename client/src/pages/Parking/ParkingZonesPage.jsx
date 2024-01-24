@@ -4,7 +4,7 @@ import LoadingScreen from '../../components/ReusableComponents/LoadingScreen';
 import ParkingBooking from '../../components/Parking/ParkingBooking';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
-import formatDate from '../../hooks/formatDate';
+import formatDate from '../../utils/formatDate';
 
 function ParkingZonesPage() {
   const { startDate, endDate } = useParams();

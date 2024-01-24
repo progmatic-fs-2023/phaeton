@@ -11,12 +11,11 @@ import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
-import ServiceFormForRent from '../pages/ServiceFormForRent';
 import CarContext from '../contexts/CarContext';
 import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
-import ServiceForm from '../pages/ServiceForm';
-import AdminPage from '../pages/AdminPage';
+import ServiceFormForParking from '../pages/ServiceFormForParking';
+import ServiceFormForRent from '../pages/ServiceFormForRent';
 
 function Layout() {
   const [parkingData, setParkingData] = useState(null);
@@ -67,7 +66,7 @@ function Layout() {
             />
             <Route
               path="parking/from/:startDate/end/:endDate/zone/:zone/spots/:spots/form"
-              element={<ServiceForm />}
+              element={<ServiceFormForParking />}
             />
             <Route path="/admin" element={<AdminPage />} />
           </Routes>

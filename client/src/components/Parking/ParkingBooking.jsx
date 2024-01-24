@@ -19,7 +19,11 @@ function ParkingBooking(parkingLotData) {
   }
   const handleGetParkingID = useCallback(
     (parking) => {
-      getParkingID(parking);
+      if (parking.length > 0) {
+        getParkingID(parking);
+      } else {
+        navigate('/');
+      }
     },
     [getParkingID],
   );

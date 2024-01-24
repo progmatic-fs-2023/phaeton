@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { findUserByEmail } from './users.service';
 
 const prisma = new PrismaClient();
 
