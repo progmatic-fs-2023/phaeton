@@ -11,6 +11,7 @@ function AdminPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [activeFilterIndex, setActiveFilterIndex] = useState(null);
+  const [changedItemArr, setChangedItemArr] = useState([])
 
   const userCtx = useContext(UserContext);
 
@@ -62,7 +63,7 @@ function AdminPage() {
 
   const handleSelectChange = (event, index) => {
     if (event.target.value !== 'active') {
-      console.log(index);
+      setChangedItemArr([...changedItemArr, index])
     }
   };
 
@@ -98,8 +99,6 @@ function AdminPage() {
     }
     return '-';
   }
-
-  console.log(services)
 
   const navigate = useNavigate();
   if (!isLoading) {
@@ -185,6 +184,9 @@ function AdminPage() {
                           Canceled
                         </option>
                       </select>
+                      {changedItemArr.includes(index) && 
+                      <button type='button'>Confirm</button>
+                      }
                     </td>
                   </tr>
                 ))}
