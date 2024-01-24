@@ -1,43 +1,54 @@
 @import url('../variables.css');
 
 .admin-page-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 80vh;
 }
 
 .services-table {
-    border-collapse: collapse;
-  }
-  
-  .services-table td, .services-table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .services-table tr:nth-child(even){background-color: #dbdbdb;}
-  
-  .services-table tr:hover {background-color: #ddd;}
-  
-  .services-table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: var(--main-color);
-    color: white;
-  }
+  border-collapse: collapse;
+}
 
-  /* Background colors of the select options */
+.services-table td,
+.services-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 
-  .admin-page-container .active {
-    background-color: lightgreen;
-  }
+.services-table tr:nth-child(even) {
+  background-color: #dbdbdb;
+}
 
-  .admin-page-container .returned {
-    background-color: orange;
-  }
+.services-table tr:hover {
+  background-color: rgba(0, 88, 134, 0.2);
+}
 
-  .admin-page-container .canceled {
-    background-color: red;
-  }
+.services-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--main-color);
+  color: white;
+}
 
+/* Background colors of the select options */
+
+.admin-page-container .active {
+  background-color: lightgreen;
+}
+
+.admin-page-container .returned {
+  background-color: orange;
+}
+
+.admin-page-container .canceled {
+  background-color: red;
+}
+
+/* Active filter button */
+
+.active-filter {
+  background-color: lightblue;
+}
