@@ -69,7 +69,7 @@ function ServiceFormForRent() {
           userID: userCtx.user.id,
           ServiceStartDate: startDateValue,
           ServiceEndDate: endDateValue,
-          PhoneNumber : phoneNumberValue
+          PhoneNumber: phoneNumberValue,
         }),
       };
       await fetchWithCheck(url, options);

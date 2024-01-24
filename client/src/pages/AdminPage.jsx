@@ -11,7 +11,8 @@ function AdminPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [activeFilterIndex, setActiveFilterIndex] = useState(null);
-  const [changedItemArr, setChangedItemArr] = useState([])
+  const [changedItemArr, setChangedItemArr] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const userCtx = useContext(UserContext);
 
@@ -36,34 +37,46 @@ function AdminPage() {
   }, []);
 
   const handlePrevClick = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+    if (changedItemArr.length === 0) {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    } else {
+      setErrorMessage(true);
     }
   };
 
   const handleNextClick = () => {
-    if (currentPage < Math.ceil(services.length / itemsPerPage)) {
-      setCurrentPage(currentPage + 1);
+    if (changedItemArr.length === 0) {
+      if (currentPage < Math.ceil(services.length / itemsPerPage)) {
+        setCurrentPage(currentPage + 1);
+      }
+    } else {
+      setErrorMessage(true);
     }
   };
 
   function handleFilterButton(event, index) {
-    let filteredData;
-    if (event.target.innerHTML === 'Rents') {
-      filteredData = originalServices.filter((service) => service.Cars);
-    } else if (event.target.innerHTML === 'Parkings') {
-      filteredData = originalServices.filter((service) => service.ParkingLot);
+    if (changedItemArr.length === 0) {
+      let filteredData;
+      if (event.target.innerHTML === 'Rents') {
+        filteredData = originalServices.filter((service) => service.Cars);
+      } else if (event.target.innerHTML === 'Parkings') {
+        filteredData = originalServices.filter((service) => service.ParkingLot);
+      } else {
+        filteredData = originalServices;
+      }
+      setActiveFilterIndex(index);
+      setServices(filteredData);
+      setCurrentPage(1);
     } else {
-      filteredData = originalServices;
+      setErrorMessage(true);
     }
-    setActiveFilterIndex(index);
-    setServices(filteredData);
-    setCurrentPage(1);
   }
 
   const handleSelectChange = (event, index) => {
     if (event.target.value !== 'active') {
-      setChangedItemArr([...changedItemArr, index])
+      setChangedItemArr([...changedItemArr, index]);
     }
   };
 
@@ -100,10 +113,15 @@ function AdminPage() {
     return '-';
   }
 
+  function handleConfirm(index) {
+    setErrorMessage(false);
+    setChangedItemArr(changedItemArr.filter((item) => item !== index));
+  }
+
   const navigate = useNavigate();
-  if (!isLoading) {
+  if (userCtx.user.role === 'ADMIN') {
     if (services) {
-      if (userCtx.user.role === 'ADMIN') {
+      if (!isLoading) {
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
         const currentItems = services.slice(indexOfFirstItem, indexOfLastItem);
@@ -170,7 +188,9 @@ function AdminPage() {
                     <td>
                       <select
                         disabled={isDisabled(service)}
-                        className={defaultStatus(service)}
+                        className={
+                          changedItemArr.includes(index) ? 'color-change' : defaultStatus(service)
+                        }
                         defaultValue={defaultStatus(service)}
                         onChange={(event) => handleSelectChange(event, index)}
                       >
@@ -184,9 +204,11 @@ function AdminPage() {
                           Canceled
                         </option>
                       </select>
-                      {changedItemArr.includes(index) && 
-                      <button type='button'>Confirm</button>
-                      }
+                      {changedItemArr.includes(index) && (
+                        <button type="button" onClick={() => handleConfirm(index)}>
+                          Confirm
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -204,14 +226,15 @@ function AdminPage() {
                 </button>
               )}
             </div>
+            {errorMessage && <p>Please save your changes</p>}
           </div>
         );
       }
-      useEffect(() => {
-        navigate('/');
-      }, []);
     }
+    return <LoadingScreen />;
   }
-  return <LoadingScreen />;
+  useEffect(() => {
+    navigate('/');
+  }, []);
 }
 export default AdminPage;
