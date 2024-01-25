@@ -11,7 +11,8 @@ function AdminPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [activeFilterIndex, setActiveFilterIndex] = useState(null);
-  const [changedItemArr, setChangedItemArr] = useState([]);
+  const [changedItemIndexArr, setChangedItemIndexArr] = useState([]);
+  const [changedItemValueArr, setChangedItemValueArr] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
 
   const userCtx = useContext(UserContext);
@@ -37,7 +38,7 @@ function AdminPage() {
   }, []);
 
   const handlePrevClick = () => {
-    if (changedItemArr.length === 0) {
+    if (changedItemIndexArr.length === 0) {
       if (currentPage > 1) {
         setCurrentPage(currentPage - 1);
       }
@@ -47,7 +48,7 @@ function AdminPage() {
   };
 
   const handleNextClick = () => {
-    if (changedItemArr.length === 0) {
+    if (changedItemIndexArr.length === 0) {
       if (currentPage < Math.ceil(services.length / itemsPerPage)) {
         setCurrentPage(currentPage + 1);
       }
@@ -57,7 +58,7 @@ function AdminPage() {
   };
 
   function handleFilterButton(event, index) {
-    if (changedItemArr.length === 0) {
+    if (changedItemIndexArr.length === 0) {
       let filteredData;
       if (event.target.innerHTML === 'Rents') {
         filteredData = originalServices.filter((service) => service.Cars);
@@ -75,9 +76,17 @@ function AdminPage() {
   }
 
   const handleSelectChange = (event, index) => {
-    if (event.target.value !== 'active') {
-      setChangedItemArr([...changedItemArr, index]);
+    setChangedItemIndexArr([...changedItemIndexArr, index]);
+    const updatedChangedItemValueArr = changedItemValueArr.slice();
+    const existingIndex = changedItemValueArr.findIndex((item) => item.index === index);
+
+    if (existingIndex !== -1) {
+      updatedChangedItemValueArr.splice(existingIndex, 1);
     }
+
+    updatedChangedItemValueArr.push({ index, value: event.target.value });
+
+    setChangedItemValueArr(updatedChangedItemValueArr);
   };
 
   function isDisabled(service) {
@@ -116,7 +125,7 @@ function AdminPage() {
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       const e = event;
-      if (changedItemArr.length > 0) {
+      if (changedItemIndexArr.length > 0) {
         const message =
           'You have unsaved changes. If you leave the page, your changes will be lost.';
         e.returnValue = message; // Standard for most browsers
@@ -133,12 +142,13 @@ function AdminPage() {
         handleBeforeUnload(event);
       });
     };
-  }, [changedItemArr]);
+  }, [changedItemIndexArr]);
 
   function handleConfirm(index) {
-    console.log(services[((currentPage - 1) * itemsPerPage) + index])
+    console.log(services[(currentPage - 1) * itemsPerPage + index]);
     setErrorMessage(false);
-    setChangedItemArr(changedItemArr.filter((item) => item !== index));
+    setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
+    setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index))
   }
 
   const navigate = useNavigate();
@@ -212,7 +222,9 @@ function AdminPage() {
                       <select
                         disabled={isDisabled(service)}
                         className={
-                          changedItemArr.includes(index) ? 'color-change' : defaultStatus(service)
+                          changedItemIndexArr.includes(index)
+                            ? 'color-change'
+                            : defaultStatus(service)
                         }
                         defaultValue={defaultStatus(service)}
                         onChange={(event) => handleSelectChange(event, index)}
@@ -227,7 +239,7 @@ function AdminPage() {
                           Canceled
                         </option>
                       </select>
-                      {changedItemArr.includes(index) && (
+                      {changedItemIndexArr.includes(index) && (
                         <button type="button" onClick={() => handleConfirm(index)}>
                           Confirm
                         </button>
