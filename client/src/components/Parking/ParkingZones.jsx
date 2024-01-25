@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import '../styles/Parking/ParkingZones.css';
 import PropTypes from 'prop-types';
 import NumberPicker from './NumberPicker';
@@ -6,6 +6,14 @@ import NumberPicker from './NumberPicker';
 function ParkingZones({ data, parkingID }) {
   // input value for multiple reservations, stored in useState
   const [numberOfSpots, setNumberOfSpots] = useState(1);
+  const dialogRef = useRef(null);
+
+  const openDialog = () => {
+    dialogRef.current.showModal();
+  };
+  const closeDialog = () => {
+    dialogRef.current.close();
+  };
 
   const { parkings, services } = data;
   const zoneA = parkings.filter((parkingSpot) => parkingSpot.zone === 'A');
@@ -23,40 +31,36 @@ function ParkingZones({ data, parkingID }) {
     zoneESpots: zoneE.length,
     zoneFSpots: zoneF.length,
   };
-
   // checking the free spaces, record parking id checks the spot id, if matching -1 free space
   if (services.length > 0) {
     services.forEach((record) => {
-      switch (true) {
-        case zoneA.some((spot) => spot.id === record.ParkingLotID):
-          zonesSpots.zoneASpots -= 1;
-          break;
-        case zoneB.some((spot) => spot.Id === record.ParkingLotID):
-          zonesSpots.zoneBSpots -= 1;
-          break;
-        case zoneC.some((spot) => spot.id === record.ParkingLotID):
-          zonesSpots.zoneCSpots -= 1;
-          break;
-        case zoneD.some((spot) => spot.id === record.ParkingLotID):
-          zonesSpots.zoneDSpots -= 1;
-          break;
-        case zoneE.some((spot) => spot.id === record.ParkingLotID):
-          zonesSpots.zoneESpots -= 1;
-          break;
-        case zoneF.some((spot) => spot.id === record.ParkingLotID):
-          zonesSpots.zoneFSpots -= 1;
-          break;
-        default:
-          break;
+      if (zoneA.some((spot) => spot.id === record.ParkingLotID)) {
+        zonesSpots.zoneASpots -= 1;
+      }
+      if (zoneB.some((spot) => spot.id === record.ParkingLotID)) {
+        zonesSpots.zoneBSpots -= 1;
+      }
+      if (zoneC.some((spot) => spot.id === record.ParkingLotID)) {
+        zonesSpots.zoneCSpots -= 1;
+      }
+      if (zoneD.some((spot) => spot.id === record.ParkingLotID)) {
+        zonesSpots.zoneDSpots -= 1;
+      }
+      if (zoneE.some((spot) => spot.id === record.ParkingLotID)) {
+        zonesSpots.zoneESpots -= 1;
+      }
+      if (zoneF.some((spot) => spot.id === record.ParkingLotID)) {
+        zonesSpots.zoneFSpots -= 1;
       }
     });
   }
   function checkSpace(zone) {
+    // console.log(zone, 'zonaCsekk');
     if (zone === 0) {
       return 'noSpace';
     }
     if (zone > 0 && zone <= 10) {
-      return 'fewSpots';
+      return 'fewSpace';
     }
     return 'freeSpace';
   }
@@ -71,6 +75,7 @@ function ParkingZones({ data, parkingID }) {
         if (freeSpots.length > 0) {
           return !freeSpots.some((record) => record.id === spot.id);
         }
+        //
         // checking if in services already present the spot.id
         if (services.length > 0) {
           return !services.some((record) => record.ParkingLotID === spot.id);
@@ -81,6 +86,11 @@ function ParkingZones({ data, parkingID }) {
       if (result) {
         freeSpots.push(result);
       }
+    }
+    if (freeSpots.length === 0) {
+      openDialog();
+      setTimeout(closeDialog, 2000);
+      return;
     }
     parkingID(freeSpots);
   }
@@ -145,6 +155,9 @@ function ParkingZones({ data, parkingID }) {
           Zone F
         </button>
       </div>
+      <dialog className="error-message-dialog" ref={dialogRef}>
+        <p>No free space, select another zone.</p>
+      </dialog>
     </div>
   );
 }

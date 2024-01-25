@@ -74,11 +74,7 @@
 .zone-E { grid-area: 4 / 2 / 5 / 3; }
 .zone-F { grid-area: 4 / 3 / 5 / 4; }
 
-#parking{
-    width: 30px;
-    padding-left: 25px;
-    text-align: center;
-}
+/*  Number picker */
 .parkingzones-input-container{
 background-color: var(--main-color);
 color:#fff;
@@ -88,12 +84,35 @@ font-weight: bold;
 font-size: 1.3rem;
 gap: 80px;
 margin-top: 50px;
+margin-left: 40px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 20px;
+padding: 10px;
 border-radius: 5px;
 }
-/* .parkingzones-input-container label{
+.parkingzones-input-container label{
     padding: 20px;
-} */
+    margin: auto;
+}
+#parking{
+    margin-left: 50px;
+    height: 50px;
+    border-radius: 5px;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.error-message-dialog{
+    border: 1px solid black;
+    width: 500px;
+    background-color: #b94646;
+    font-size: 1.3em;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    border:none;
+    outline: none;
+    box-shadow: 5px 5px 5px rgb(52, 50, 50);
+}

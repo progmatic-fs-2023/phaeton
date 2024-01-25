@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { findUserByEmail } from './users.service';
 
 const prisma = new PrismaClient();
 
@@ -37,12 +36,15 @@ export async function getParkingLotById(id) {
   });
   return parkingLot;
 }
-export async function bookParkingLotById(parkingLot, userEmail, ServiceStartDate, ServiceEndDate) {
+export async function bookParkingLotById(
+  parkingLot,
+  userID,
+  ServiceStartDate,
+  ServiceEndDate,
+  PhoneNumber,
+) {
   try {
     let result;
-    const user = await findUserByEmail(userEmail);
-    const { id: userID } = user;
-
     const dateCheck = await getParkingAndServicesByDate(ServiceStartDate, ServiceEndDate);
 
     // check for already taken parkings
@@ -57,6 +59,7 @@ export async function bookParkingLotById(parkingLot, userEmail, ServiceStartDate
           ServiceEndDate,
           userID,
           ParkingLotID: parking.id,
+          PhoneNumber,
         })),
       });
       return result;
