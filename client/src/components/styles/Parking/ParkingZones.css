@@ -103,3 +103,16 @@ border-radius: 5px;
     font-weight: bold;
     text-align: center;
 }
+
+.error-message-dialog{
+    border: 1px solid black;
+    width: 500px;
+    background-color: #b94646;
+    font-size: 1.3em;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    border:none;
+    outline: none;
+    box-shadow: 5px 5px 5px rgb(52, 50, 50);
+}

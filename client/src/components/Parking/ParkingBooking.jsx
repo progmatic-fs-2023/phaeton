@@ -21,8 +21,6 @@ function ParkingBooking(parkingLotData) {
     (parking) => {
       if (parking.length > 0) {
         getParkingID(parking);
-      } else {
-        navigate('/');
       }
     },
     [getParkingID],

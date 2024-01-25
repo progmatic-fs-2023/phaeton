@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
 import UserContext from '../../contexts/UserContext';
-// import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
 import '../../components/styles/Booking/ServiceForm.css';
 import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
@@ -11,8 +10,6 @@ import fetchWithCheck from '../../utils/fetchWitchCheck';
 
 function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
-  // const parkingCtx = useContext(ParkingDetailsContext);
-
   const { startDate, endDate, carId } = useParams();
 
   const navigate = useNavigate();
