@@ -113,10 +113,27 @@ function AdminPage() {
     return '-';
   }
 
-  function handleConfirm(index) {
-    setErrorMessage(false);
-    setChangedItemArr(changedItemArr.filter((item) => item !== index));
-  }
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const e = event;
+      if (changedItemArr.length > 0) {
+        const message =
+          'You have unsaved changes. If you leave the page, your changes will be lost.';
+        e.returnValue = message; // Standard for most browsers
+        return message; // For some older browsers
+      }
+      return null;
+    };
+    window.addEventListener('beforeunload', (event) => {
+      handleBeforeUnload(event);
+    });
+
+    return () => {
+      window.removeEventListener('beforeunload', (event) => {
+        handleBeforeUnload(event);
+      });
+    };
+  }, [changedItemArr]);
 
   const navigate = useNavigate();
   if (userCtx.user.role === 'ADMIN') {
