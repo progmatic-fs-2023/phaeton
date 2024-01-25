@@ -2,7 +2,7 @@ import React, { useState, useContext, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
 import { useParams } from 'react-router-dom';
-import dateFormatter from '../../hooks/dateFormatter';
+import dateFormatter from '../../utils/dateFormatter';
 import BackGroundContext from '../../contexts/BackgroundContext';
 import 'react-calendar/dist/Calendar.css';
 import '../styles/ReusableComponents/DatePicker.css';
