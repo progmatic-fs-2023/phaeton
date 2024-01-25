@@ -83,6 +83,8 @@ function AdminPage() {
 
   // Set status
 
+  const absolutIndex = (index) => (currentPage - 1) * itemsPerPage + index;
+
   const handleSelectChange = (event, index) => {
     setChangedItemIndexArr([...changedItemIndexArr, index]);
     const updatedChangedItemValueArr = changedItemValueArr.slice();
@@ -92,9 +94,7 @@ function AdminPage() {
       updatedChangedItemValueArr.splice(existingIndex, 1);
     }
 
-    const absolutIndex = (currentPage - 1) * itemsPerPage + index;
-
-    updatedChangedItemValueArr.push({ index: absolutIndex, value: event.target.value });
+    updatedChangedItemValueArr.push({ index: absolutIndex(index), value: event.target.value });
 
     setChangedItemValueArr(updatedChangedItemValueArr);
   };
@@ -161,7 +161,7 @@ function AdminPage() {
   // Confirm button
 
   function handleConfirm(index) {
-    console.log(services[(currentPage - 1) * itemsPerPage + index]);
+    console.log(services[absolutIndex(index)]);
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
