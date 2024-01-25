@@ -135,6 +135,12 @@ function AdminPage() {
     };
   }, [changedItemArr]);
 
+  function handleConfirm(index) {
+    console.log(services[((currentPage - 1) * itemsPerPage) + index])
+    setErrorMessage(false);
+    setChangedItemArr(changedItemArr.filter((item) => item !== index));
+  }
+
   const navigate = useNavigate();
   if (userCtx.user.role === 'ADMIN') {
     if (services) {
