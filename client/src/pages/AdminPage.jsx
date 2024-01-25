@@ -17,6 +17,8 @@ function AdminPage() {
 
   const userCtx = useContext(UserContext);
 
+  // Getting Data for the table
+
   const fetchData = async () => {
     const response = await fetch(`http://localhost:3000/admin/services/${userCtx.user.id}`, {
       method: 'GET',
@@ -36,6 +38,8 @@ function AdminPage() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Next and Previous buttons
 
   const handlePrevClick = () => {
     if (changedItemIndexArr.length === 0) {
@@ -57,6 +61,8 @@ function AdminPage() {
     }
   };
 
+  // Filter button
+
   function handleFilterButton(event, index) {
     if (changedItemIndexArr.length === 0) {
       let filteredData;
@@ -75,6 +81,8 @@ function AdminPage() {
     }
   }
 
+  // Set status
+
   const handleSelectChange = (event, index) => {
     setChangedItemIndexArr([...changedItemIndexArr, index]);
     const updatedChangedItemValueArr = changedItemValueArr.slice();
@@ -84,7 +92,9 @@ function AdminPage() {
       updatedChangedItemValueArr.splice(existingIndex, 1);
     }
 
-    updatedChangedItemValueArr.push({ index, value: event.target.value });
+    const absolutIndex = (currentPage - 1) * itemsPerPage + index;
+
+    updatedChangedItemValueArr.push({ index: absolutIndex, value: event.target.value });
 
     setChangedItemValueArr(updatedChangedItemValueArr);
   };
@@ -122,6 +132,8 @@ function AdminPage() {
     return '-';
   }
 
+  // Page leaving alert
+
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       const e = event;
@@ -144,11 +156,15 @@ function AdminPage() {
     };
   }, [changedItemIndexArr]);
 
+  console.log(changedItemValueArr);
+
+  // Confirm button
+
   function handleConfirm(index) {
     console.log(services[(currentPage - 1) * itemsPerPage + index]);
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
-    setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index))
+    setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
   }
 
   const navigate = useNavigate();
