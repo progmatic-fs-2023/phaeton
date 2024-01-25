@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { createUser, findUserByEmail } from '../services/users.service';
+import { createUser, findUserByEmail, findServicesByUserId } from '../services/users.service';
 import 'dotenv/config';
 
 // user registration
@@ -94,5 +94,15 @@ export const check = (req, res) => {
     }
   } catch (err) {
     res.status(400).json('GuestUser');
+  }
+};
+
+export const list = async (req, res) => {
+  const userId = req.body;
+  try {
+    const services = await findServicesByUserId(userId);
+    res.status(200).json(services);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 };
