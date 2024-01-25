@@ -14,8 +14,8 @@ import RentalPage from '../pages/Rent/RentalPage';
 import CarContext from '../contexts/CarContext';
 import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
-import ServiceFormForParking from '../pages/ServiceFormForParking';
-import ServiceFormForRent from '../pages/ServiceFormForRent';
+import ServiceFormForParking from '../pages/Parking/ServiceFormForParking';
+import ServiceFormForRent from '../pages/Rent/ServiceFormForRent';
 import AdminPage from '../pages/AdminPage';
 
 function Layout() {

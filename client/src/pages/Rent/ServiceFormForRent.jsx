@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
-import UserContext from '../contexts/UserContext';
+import UserContext from '../../contexts/UserContext';
 // import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
-import '../components/styles/Booking/ServiceForm.css';
-import getSomeYearsAgo from '../utils/getSomeYearsAgo';
-import ServiceMessage from '../components/Booking/ServiceMessage';
+import '../../components/styles/Booking/ServiceForm.css';
+import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
+import ServiceMessage from '../../components/Booking/ServiceMessage';
+import fetchWithCheck from '../../utils/fetchWitchCheck';
 
 function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
@@ -50,15 +51,7 @@ function ServiceFormForRent() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    async function fetchWithCheck(url, options) {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error('Something went wrong');
-      }
-      return response.json();
-    }
-
-    async function handleLoggedInUser(carIdValue, startDateValue, endDateValue, phoneNumberValue) {
+    async function loggedInUserRenting(carIdValue, startDateValue, endDateValue, phoneNumberValue) {
       const url = `http://localhost:3000/rental/date/${carIdValue}`;
       const options = {
         method: 'PATCH',
@@ -77,7 +70,7 @@ function ServiceFormForRent() {
       successfullBooking();
     }
 
-    async function handleGuestUser(
+    async function guestUserRenting(
       emailValue,
       passwordValue,
       firstNameValue,
@@ -136,9 +129,9 @@ function ServiceFormForRent() {
     }
 
     if (isLoggedIn) {
-      handleLoggedInUser(carId, startDate, endDate, phoneNumber);
+      loggedInUserRenting(carId, startDate, endDate, phoneNumber);
     } else {
-      handleGuestUser(
+      guestUserRenting(
         email,
         'GuestUser',
         firstName,

@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
-import UserContext from '../contexts/UserContext';
-import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+import UserContext from '../../contexts/UserContext';
+import ParkingDetailsContext from '../../contexts/ParkingDetailsContext';
 import 'react-phone-number-input/style.css';
-import '../components/styles/Booking/ServiceForm.css';
-import getSomeYearsAgo from '../utils/getSomeYearsAgo';
-import ServiceMessage from '../components/Booking/ServiceMessage';
+import '../../components/styles/Booking/ServiceForm.css';
+import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
+import ServiceMessage from '../../components/Booking/ServiceMessage';
+import fetchWithCheck from '../../utils/fetchWitchCheck';
 
 function ServiceFormForParking() {
   const userCtx = useContext(UserContext);
@@ -48,15 +49,7 @@ function ServiceFormForParking() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    async function fetchWithCheck(url, options) {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error('Something went wrong');
-      }
-      return response.json();
-    }
-
-    async function handleLoggedInUser(
+    async function loggedInUserSpotBooking(
       userData,
       parkingDataValue,
       startDateValue,
@@ -80,7 +73,7 @@ function ServiceFormForParking() {
       successfullBooking();
     }
 
-    async function handleGuestUser(
+    async function guestUserSpotBooking(
       emailValue,
       passwordValue,
       firstNameValue,
@@ -138,9 +131,9 @@ function ServiceFormForParking() {
     }
 
     if (isLoggedIn) {
-      handleLoggedInUser(user, parkingData, startDate, endDate, phoneNumber);
+      loggedInUserSpotBooking(user, parkingData, startDate, endDate, phoneNumber);
     } else {
-      handleGuestUser(
+      guestUserSpotBooking(
         email,
         'GuestUser',
         firstName,
