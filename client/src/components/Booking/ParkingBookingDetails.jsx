@@ -1,6 +1,8 @@
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Booking/ParkingBookingDetails.css';
+import numberWithSpaces from '../../utils/numberWithSpaces';
+import dateFormatter from '../../utils/dateFormatter';
 
 function ParkingBookingDetails() {
   const navigate = useNavigate();
@@ -15,6 +17,17 @@ function ParkingBookingDetails() {
     return `${year}-${month}-${day}`;
   }
 
+  function getDaysBetweenDates(fromDate, toDate) {
+    // One day in milliseconds
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    // Calculate the difference in milliseconds
+    const diffMilliseconds = Math.abs(dateFormatter(toDate) - dateFormatter(fromDate));
+
+    // Convert back to days and return
+    return Math.round(diffMilliseconds / oneDay);
+  }
+
   const formattedStartDate = formatDateString(startDate);
   const formattedEndDate = formatDateString(endDate);
   function onBook(event) {
@@ -27,6 +40,7 @@ function ParkingBookingDetails() {
       <h2>Confirm your booking:</h2>
       <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
       <div>{`${spots} spot in zone: ${zone}`}</div>
+      <p>Price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * 3000)} HUF</p>
       <button type="submit" onClick={onBook}>
         Confirm
       </button>
