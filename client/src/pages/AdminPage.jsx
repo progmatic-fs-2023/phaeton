@@ -119,7 +119,7 @@ function AdminPage() {
     return status;
   }
 
-  function dateFormatter2(value) {
+  function dateFormatter(value) {
     if (value) {
       const newValue = new Date(value);
       const date = [
@@ -161,7 +161,12 @@ function AdminPage() {
   // Confirm button
 
   function handleConfirm(index) {
-    console.log(services[absolutIndex(index)]);
+    const service = services[absolutIndex(index)];
+    const action = changedItemValueArr.filter((item) => item.index === index);
+
+    console.log(service);
+    console.log(action);
+
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
@@ -223,9 +228,9 @@ function AdminPage() {
                 {currentItems.map((service, index) => (
                   <tr key={service.id}>
                     <td>{service.id}</td>
-                    <td>{dateFormatter2(service.ServiceStartDate)}</td>
-                    <td>{dateFormatter2(service.ServiceEndDate)}</td>
-                    <td>{dateFormatter2(service.ActualServiceEndDate)}</td>
+                    <td>{dateFormatter(service.ServiceStartDate)}</td>
+                    <td>{dateFormatter(service.ServiceEndDate)}</td>
+                    <td>{dateFormatter(service.ActualServiceEndDate)}</td>
                     <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
                     <td>
                       {service.Users.firstName} {service.Users.lastName}
