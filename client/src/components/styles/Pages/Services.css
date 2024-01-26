@@ -1,0 +1,21 @@
+.price-cancel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.canceled-p {
+  background-color: red;
+  border-radius: 10px;
+  width: 128px;
+  height: 29px;
+  text-align: center;
+  color: white;
+  font-size: large;
+}
+.settings-center-h1 {
+  text-align: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import UserContext from '../../contexts/UserContext';
 import '../../components/styles/Pages/ProfilePage.css';
-import dateFormatterWithHyphen from '../../hooks/dateFromatterWhitHyphen';
+import dateFormatterWithHyphen from '../../utils/dateFromatterWhitHyphen';
 function Profile() {
   const navigate = useNavigate();
 
