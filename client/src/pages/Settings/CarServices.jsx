@@ -2,7 +2,9 @@ import { React, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import UserContext from '../../contexts/UserContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import dateFormatterWithHyphen from '../../hooks/dateFromatterWhitHyphen';
+import dateFormatterWithHyphen from '../../utils/dateFromatterWhitHyphen';
+import numberWithSpaces from '../../utils/numberWithSpaces';
+import '../../components/styles/Pages/Services.css';
 function CarServices() {
   const navigate = useNavigate();
   const [userServices, setUserServices] = useState([]);
@@ -27,11 +29,32 @@ function CarServices() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setUserServices(data);
       });
   }, []);
-
+  const handleCancel = (id) => {
+    console.log(userCtx.user.id);
+    console.log(userServices);
+    fetch(`http://localhost:3000/admin/cancel/${userCtx.user.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Cancel response:', data);
+      })
+      .catch((error) => {
+        console.error('Cancel error:', error);
+      });
+  };
   function getDaysBetweenDates(fromDate, toDate) {
     const oneDay = 24 * 60 * 60 * 1000;
 
@@ -94,21 +117,42 @@ function CarServices() {
                           <span className="material-symbols-outlined">payments</span>{' '}
                           {`${services.Cars.price} HUF/day`}
                         </div>
-                        <div className="car-info-elem">
-                          <span className="material-symbols-outlined">payments</span>{' '}
-                          <button>Cancel</button>
-                        </div>
                       </div>
                     </div>
-                    <p>
-                      Price:{' '}
-                      {getDaysBetweenDates(services.ServiceStartDate, services.ServiceEndDate) *
-                        services.Cars.price}{' '}
-                      HUF
-                    </p>
+                    <div className="price-cancel">
+                      <p>
+                        Price:{' '}
+                        {numberWithSpaces(
+                          getDaysBetweenDates(services.ServiceStartDate, services.ServiceEndDate) *
+                            services.Cars.price,
+                        )}{' '}
+                        HUF
+                      </p>
+                      <div className="car-info-elem">
+                        {services.IsActive ? (
+                          <button
+                            className="cancel-btn"
+                            disabled={
+                              new Date(services.ServiceStartDate) > new Date() ? false : true
+                            }
+                            onClick={() => handleCancel(services.id)}
+                          >
+                            Cancel
+                          </button>
+                        ) : (
+                          <p className="canceled-p">Canceled</p>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+          );
+        } else if (!services) {
+          return (
+            <div className="settings-center-h1">
+              <h1>You should rent a car first.</h1>
             </div>
           );
         }
