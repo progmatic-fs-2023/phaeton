@@ -7,6 +7,7 @@ import '../../components/styles/Booking/ServiceForm.css';
 import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
 import ServiceMessage from '../../components/Booking/ServiceMessage';
 import fetchWithCheck from '../../utils/fetchWitchCheck';
+import BookingReceipt from '../../components/Booking/BookingReceipt';
 
 function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
@@ -63,7 +64,7 @@ function ServiceFormForRent() {
         }),
       };
       await fetchWithCheck(url, options);
-
+      BookingReceipt();
       successfullBooking();
     }
 
@@ -122,6 +123,7 @@ function ServiceFormForRent() {
         }),
       };
       await fetchWithCheck(rentalUrl, rentalOptions);
+      BookingReceipt({ email, firstName, lastName });
       successfullBooking();
     }
 
