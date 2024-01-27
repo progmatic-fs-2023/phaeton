@@ -63,16 +63,17 @@ export const listById = async (req, res) => {
 
 export const book = async (req, res) => {
   try {
-    const { userObj, parking } = req.body;
+    const { userID, parkingDataValue, PhoneNumber } = req.body;
     const { start, end } = req.params;
     const formattedServiceStartDate = dateFormatter(start);
     const formattedServiceEndDate = dateFormatter(end);
     // returns with the number of reserved parking spots
     const { count } = await bookParkingLotById(
-      parking,
-      userObj.email,
+      parkingDataValue,
+      userID,
       formattedServiceStartDate,
       formattedServiceEndDate,
+      PhoneNumber,
     );
     res.status(201).json({ message: 'Parking lot rented successfully', count });
   } catch (err) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Login-Signup/Login.css';
 import PropTypes from 'prop-types';
-import getSomeYearsAgo from '../../hooks/getSomeYearsAgo';
+import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
 
 function Login({ handleLogin, errorMsg }) {
   Login.propTypes = {
@@ -132,7 +132,7 @@ function Login({ handleLogin, errorMsg }) {
                 ✖
               </button>
             </div>
-            <form action="POST">
+            <form id="login-form" action="POST">
               <div className="login-container">
                 <input
                   type="email"
@@ -171,7 +171,7 @@ function Login({ handleLogin, errorMsg }) {
         ) : (
           <>
             {/* Sing up section */}
-            <form action="POST">
+            <form id="sign-up-form" action="POST">
               {' '}
               <div className="login-header">
                 <h1>Sign Up</h1>

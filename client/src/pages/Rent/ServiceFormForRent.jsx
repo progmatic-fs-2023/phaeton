@@ -1,17 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
-import UserContext from '../contexts/UserContext';
-// import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+import UserContext from '../../contexts/UserContext';
 import 'react-phone-number-input/style.css';
-import '../components/styles/Booking/ServiceForm.css';
-import getSomeYearsAgo from '../hooks/getSomeYearsAgo';
-import ServiceMessage from '../components/Booking/ServiceMessage';
+import '../../components/styles/Booking/ServiceForm.css';
+import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
+import ServiceMessage from '../../components/Booking/ServiceMessage';
+import fetchWithCheck from '../../utils/fetchWitchCheck';
 
 function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
-  // const parkingCtx = useContext(ParkingDetailsContext);
-
   const { startDate, endDate, carId } = useParams();
 
   const navigate = useNavigate();
@@ -50,15 +48,7 @@ function ServiceFormForRent() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    async function fetchWithCheck(url, options) {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error('Something went wrong');
-      }
-      return response.json();
-    }
-
-    async function handleLoggedInUser(carIdValue, startDateValue, endDateValue) {
+    async function loggedInUserRenting(carIdValue, startDateValue, endDateValue, phoneNumberValue) {
       const url = `http://localhost:3000/rental/date/${carIdValue}`;
       const options = {
         method: 'PATCH',
@@ -69,6 +59,7 @@ function ServiceFormForRent() {
           userID: userCtx.user.id,
           ServiceStartDate: startDateValue,
           ServiceEndDate: endDateValue,
+          PhoneNumber: phoneNumberValue,
         }),
       };
       await fetchWithCheck(url, options);
@@ -76,7 +67,7 @@ function ServiceFormForRent() {
       successfullBooking();
     }
 
-    async function handleGuestUser(
+    async function guestUserRenting(
       emailValue,
       passwordValue,
       firstNameValue,
@@ -135,9 +126,9 @@ function ServiceFormForRent() {
     }
 
     if (isLoggedIn) {
-      handleLoggedInUser(carId, startDate, endDate);
+      loggedInUserRenting(carId, startDate, endDate, phoneNumber);
     } else {
-      handleGuestUser(
+      guestUserRenting(
         email,
         'GuestUser',
         firstName,

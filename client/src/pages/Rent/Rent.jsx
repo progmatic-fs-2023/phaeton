@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
 import useDocumentTitle from '../../components/ReusableComponents/useDocumentTitle';
-import formatDate from '../../hooks/formatDate';
+import formatDate from '../../utils/formatDate';
 
 function Rent() {
   useDocumentTitle('Phaeton · Rent');

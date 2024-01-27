@@ -1,7 +1,7 @@
 import '../../components/styles/Rent/Rent.css';
 import React, { useCallback, useState, useEffect, useRef, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import dateFormatter from '../../hooks/dateFormatter';
+import dateFormatter from '../../utils/dateFormatter';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
 import Cars from '../../components/Rent/Cars';

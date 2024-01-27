@@ -1,5 +1,32 @@
+@import url("../variables.css");
+
 .end-booking-details{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  border: 1px solid black;
-  margin: 199px 0 200px 0;
+  border: 1px solid grey;
+  box-shadow: var(--main-box-shadow);
+  margin: 200px auto 200px auto;
+  width: 500px;
+  border-radius: 5px;
+  background-color: white;
+  padding: 50px;
+}
+
+.end-booking-details button {
+  background-color: var(--main-color);
+  color: white;
+  margin-top: 30px;
+  border: 0;
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  width: 200px;
+}
+.end-booking-details div{
+font-size: 1.3em;
+font-weight: 400;
+letter-spacing: 1px;
 }

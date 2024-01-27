@@ -1,43 +1,144 @@
 @import url('../variables.css');
 
 .admin-page-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 80vh;
 }
 
 .services-table {
-    border-collapse: collapse;
-  }
-  
-  .services-table td, .services-table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .services-table tr:nth-child(even){background-color: #dbdbdb;}
-  
-  .services-table tr:hover {background-color: #ddd;}
-  
-  .services-table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: var(--main-color);
-    color: white;
-  }
+  border-collapse: collapse;
+}
 
-  /* Background colors of the select options */
+.services-table td,
+.services-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 
-  .admin-page-container .active {
-    background-color: lightgreen;
+.services-table tr:nth-child(even) {
+  background-color: #dbdbdb;
+}
+
+.services-table tr:hover {
+  background-color: rgba(0, 88, 134, 0.2);
+}
+
+.services-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--main-color);
+  color: white;
+}
+
+/* Background colors of the select options */
+
+.admin-page-container .active {
+  background-color: lightgreen;
+}
+
+.admin-page-container .returned {
+  background-color: orange;
+}
+
+.admin-page-container .canceled {
+  background-color: red;
+}
+
+/* Color Change effect */
+
+@-webkit-keyframes colorChange {
+  0% {
+    background-color: yellow;
   }
-
-  .admin-page-container .returned {
+  50% {
     background-color: orange;
   }
-
-  .admin-page-container .canceled {
+  100% {
     background-color: red;
   }
+}
 
+@-moz-keyframes colorChange {
+  0% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: orange;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+@-ms-keyframes colorChange {
+  0% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: orange;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+@-o-keyframes colorChange {
+  0% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: orange;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    color: white;
+    background-color: var(--main-color);
+  }
+  50% {
+    color:black;
+    background-color: lightblue;
+  }
+  75% {
+    color:black;
+    background-color: lightblue;
+  }
+  100% {
+    color: white;
+    background-color: var(--main-color);
+  }
+}
+
+.color-change {
+  background-color: var(--main-color);
+  -webkit-animation-name: colorChange;
+  -moz-animation-name: colorChange;
+  -ms-animation-name: colorChange;
+  -o-animation-name: colorChange;
+  animation-name: colorChange;
+
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+/* Active filter button */
+
+.active-filter {
+  background-color: lightblue;
+}

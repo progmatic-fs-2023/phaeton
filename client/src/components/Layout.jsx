@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Route, Routes } from 'react-router';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router';
 import Home from '../pages/Home';
 import Contact from '../pages/Contact';
 import Header from './Header-Footer/Header';
@@ -11,11 +11,11 @@ import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
-import ServiceFormForRent from '../pages/ServiceFormForRent';
 import CarContext from '../contexts/CarContext';
 import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
-import ServiceForm from '../pages/ServiceForm';
+import ServiceFormForParking from '../pages/Parking/ServiceFormForParking';
+import ServiceFormForRent from '../pages/Rent/ServiceFormForRent';
 import AdminPage from '../pages/AdminPage';
 
 function Layout() {
@@ -26,6 +26,14 @@ function Layout() {
   );
   const [carData, setCarData] = useState(null);
   const CarContextValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData]);
+
+  // Get the current location.
+  const { pathname } = useLocation();
+
+  // Scroll to top if path changes.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div>
@@ -59,7 +67,7 @@ function Layout() {
             />
             <Route
               path="parking/from/:startDate/end/:endDate/zone/:zone/spots/:spots/form"
-              element={<ServiceForm />}
+              element={<ServiceFormForParking />}
             />
             <Route path="/admin" element={<AdminPage />} />
           </Routes>
