@@ -30,3 +30,27 @@
   border-radius: 10px;
   width: 100%;
 }
+.cancel-btn:hover,
+.cancel-btn::after {
+  background-color: var(--secondary-color);
+}
+
+.cancel-btn:disabled {
+  background-color: grey;
+}
+
+.car-date {
+  justify-content: center;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  border: 1px solid silver;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: var(--main-box-shadow);
+  background-color: white;
+}
+.car-container.padding {
+  gap: 2px;
+  margin: 20px;
+}

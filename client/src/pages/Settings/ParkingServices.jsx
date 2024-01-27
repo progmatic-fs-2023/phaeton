@@ -1,6 +1,6 @@
 import { React, useContext, useEffect, useState } from 'react';
-import UserContext from '../../contexts/UserContext';
 import { useNavigate } from 'react-router';
+import UserContext from '../../contexts/UserContext';
 import dateFormatterWithHyphen from '../../utils/dateFromatterWhitHyphen';
 import numberWithSpaces from '../../utils/numberWithSpaces';
 import '../../components/styles/Pages/Services.css';
@@ -62,7 +62,6 @@ export default function ParkingServices() {
   function getDaysBetweenDates(fromDate, toDate) {
     const oneDay = 24 * 60 * 60 * 1000;
 
-    // Átalakítjuk a dátumokat Date objektummá
     const startDate = new Date(fromDate);
     const endDate = new Date(toDate);
 
@@ -84,7 +83,7 @@ export default function ParkingServices() {
       {userServices.map((services) => {
         if (services.ParkingLot || services.ParkingLotID) {
           return (
-            <div className="car-container" key={services.id}>
+            <div className="car-container padding" key={services.id}>
               <div className="car-card">
                 {' '}
                 <div>
@@ -106,8 +105,9 @@ export default function ParkingServices() {
                 <div>
                   {services.IsActive ? (
                     <button
+                      type="button"
                       className="cancel-btn"
-                      disabled={new Date(services.ServiceStartDate) > new Date() ? false : true}
+                      disabled={!(new Date(services.ServiceStartDate) > new Date())}
                       onClick={() => handleCancel(services.id)}
                     >
                       Cancel
@@ -117,10 +117,11 @@ export default function ParkingServices() {
                   )}
                 </div>
               </div>
-              <div></div>
+              <div />
             </div>
           );
         }
+        return null;
       })}
     </div>
   );

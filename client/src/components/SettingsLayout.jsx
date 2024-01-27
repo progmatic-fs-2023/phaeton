@@ -1,7 +1,7 @@
 import { React, useContext, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router';
-import UserContext from '../contexts/UserContext';
 import { NavLink } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 
 function SettingsLayout() {
   const navigate = useNavigate();

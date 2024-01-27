@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import UserContext from '../../contexts/UserContext';
 import '../../components/styles/Pages/ProfilePage.css';
 import dateFormatterWithHyphen from '../../utils/dateFromatterWhitHyphen';
+
 function Profile() {
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ function Profile() {
   }
 
   return (
-    <>
+    <div className="profile-data">
       <div className="profile-data-container">
         <h2>Profile</h2>
 
@@ -31,7 +32,7 @@ function Profile() {
           <p>Date of birth: {dateFormatterWithHyphen(userCtx.user.dateOfBirth)} </p>
         </h3>
       </div>
-    </>
+    </div>
   );
 }
 

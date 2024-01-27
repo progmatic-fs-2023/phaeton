@@ -1,10 +1,11 @@
 import { React, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import UserContext from '../../contexts/UserContext';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import UserContext from '../../contexts/UserContext';
 import dateFormatterWithHyphen from '../../utils/dateFromatterWhitHyphen';
 import numberWithSpaces from '../../utils/numberWithSpaces';
 import '../../components/styles/Pages/Services.css';
+
 function CarServices() {
   const navigate = useNavigate();
   const [userServices, setUserServices] = useState([]);
@@ -86,8 +87,8 @@ function CarServices() {
           const splittedImageUrl = services.Cars.imageUrl.split('.');
           return (
             <div key={services.id}>
-              <div className="car-container">
-                <div>{`From ${dateFormatterWithHyphen(
+              <div className="car-container padding">
+                <div className="car-date">{`From ${dateFormatterWithHyphen(
                   services.ServiceStartDate,
                 )} to ${dateFormatterWithHyphen(services.ServiceEndDate)}`}</div>
                 <div key={services.Cars.model} className="car-card">
@@ -142,10 +143,9 @@ function CarServices() {
                       <div className="car-info-elem">
                         {services.IsActive ? (
                           <button
+                            type="button"
                             className="cancel-btn"
-                            disabled={
-                              new Date(services.ServiceStartDate) > new Date() ? false : true
-                            }
+                            disabled={!(new Date(services.ServiceStartDate) > new Date())}
                             onClick={() => handleCancel(services.id)}
                           >
                             Cancel
@@ -161,6 +161,7 @@ function CarServices() {
             </div>
           );
         }
+        return null;
       })}
     </div>
   );

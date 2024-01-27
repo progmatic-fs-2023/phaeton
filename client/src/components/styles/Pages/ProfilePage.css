@@ -15,15 +15,16 @@
   background-color: var(--secondary-color);
 }
 .profile-data-container {
-  width: 60%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 20px;
 }
+
 .profile-header {
   background-color: var(--secondary-color);
   display: flex;
@@ -44,4 +45,23 @@
   background-color: var(--secondary-color);
   color: black;
   border: black 1px solid;
+}
+
+@media (max-width: 1327px) {
+  .profile-menubar1 {
+    display: none;
+  }
+  .profile-page-container {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 879px) {
+  .profile-menubar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
