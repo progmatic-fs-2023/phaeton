@@ -28,3 +28,17 @@ export async function findUserByEmail(email, IsGuestUser) {
   });
   return user;
 }
+
+export async function findServicesByUserId({ userId }) {
+  const services = await prisma.services.findMany({
+    where: {
+      userID: userId,
+    },
+    include: {
+      Cars: true,
+      ParkingLot: true,
+    },
+  });
+
+  return services;
+}
