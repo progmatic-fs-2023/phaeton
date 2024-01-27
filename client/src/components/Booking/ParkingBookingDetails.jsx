@@ -40,7 +40,7 @@ function ParkingBookingDetails() {
       <h2>Confirm your booking:</h2>
       <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
       <div>{`${spots} spot in zone: ${zone}`}</div>
-      <p>Price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * 3000)} HUF</p>
+      <p>Each spot price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * 3000)} HUF</p>
       <button type="submit" onClick={onBook}>
         Confirm
       </button>
