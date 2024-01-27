@@ -157,13 +157,16 @@ function AdminPage() {
   }, [changedItemIndexArr]);
 
   // Confirm button
-
   function handleConfirm(index) {
+    const activeSelector = document.querySelectorAll('#status-selector')[index];
     const service = services[absoluteIndex(index)];
     const action = changedItemValueArr.filter((item) => item.index === index);
-    console.log(service);
-      const serviceFetch = async () => {
-        const response = await fetch(`http://localhost:3000/admin/${action[0].value === 'returned' ? 'return' :'cancel'}/${service.Users.id}`, {
+    const serviceFetch = async () => {
+      const response = await fetch(
+        `http://localhost:3000/admin/${action[0].value === 'returned' ? 'return' : 'cancel'}/${
+          service.Users.id
+        }`,
+        {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -171,18 +174,20 @@ function AdminPage() {
           body: JSON.stringify({
             id: service.id,
           }),
-        });
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        } console.log(data)
-      }; serviceFetch()
+        },
+      );
+      await response.json();
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    };
+    serviceFetch();
 
-
+    activeSelector.setAttribute('id', `${action[0].value}`);
+    activeSelector.setAttribute('disabled', '');
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
-    fetchData()
   }
 
   const navigate = useNavigate();
@@ -254,6 +259,7 @@ function AdminPage() {
                     </td>
                     <td>
                       <select
+                        id="status-selector"
                         disabled={isDisabled(service)}
                         className={
                           changedItemIndexArr.includes(index)

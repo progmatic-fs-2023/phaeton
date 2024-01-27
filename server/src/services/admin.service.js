@@ -66,7 +66,7 @@ export async function serviceQuery() {
     },
     orderBy: [
       {
-        ServiceStartDate: 'asc',
+        ServiceStartDate: 'desc',
       },
       {
         ServiceEndDate: 'asc',
@@ -76,4 +76,3 @@ export async function serviceQuery() {
 
   return services;
 }
-
