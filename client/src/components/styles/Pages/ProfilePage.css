@@ -2,11 +2,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .profile-menubar {
   padding: 10px;
+  padding: 10px;
   background-color: var(--secondary-color);
   display: flex;
+  flex-direction: column;
+}
+.profile-menubar1 {
+  padding: 10px;
+  width: 12%;
+  background-color: var(--secondary-color);
   flex-direction: column;
 }
 .profile-menubar1 {
@@ -27,10 +36,12 @@
 
 .profile-header {
   background-color: var(--secondary-color);
+  background-color: var(--secondary-color);
   display: flex;
   justify-content: center;
 }
 .profile-btn {
+  width: 250px;
   width: 250px;
   background-color: var(--main-color);
   color: white;
