@@ -10,7 +10,7 @@ function AdminPage() {
   const [services, setServices] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [activeFilterIndex, setActiveFilterIndex] = useState(null);
+  const [activeFilterIndex, setActiveFilterIndex] = useState(0);
   const [changedItemIndexArr, setChangedItemIndexArr] = useState([]);
   const [changedItemValueArr, setChangedItemValueArr] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -83,7 +83,7 @@ function AdminPage() {
 
   // Set status
 
-  const absolutIndex = (index) => (currentPage - 1) * itemsPerPage + index;
+  const absoluteIndex = (index) => (currentPage - 1) * itemsPerPage + index;
 
   const handleSelectChange = (event, index) => {
     setChangedItemIndexArr([...changedItemIndexArr, index]);
@@ -94,7 +94,7 @@ function AdminPage() {
       updatedChangedItemValueArr.splice(existingIndex, 1);
     }
 
-    updatedChangedItemValueArr.push({ index: absolutIndex(index), value: event.target.value });
+    updatedChangedItemValueArr.push({ index: absoluteIndex(index), value: event.target.value });
 
     setChangedItemValueArr(updatedChangedItemValueArr);
   };
@@ -156,20 +156,33 @@ function AdminPage() {
     };
   }, [changedItemIndexArr]);
 
-  console.log(changedItemValueArr);
-
   // Confirm button
 
   function handleConfirm(index) {
-    const service = services[absolutIndex(index)];
+    const service = services[absoluteIndex(index)];
     const action = changedItemValueArr.filter((item) => item.index === index);
-
     console.log(service);
-    console.log(action);
+      const serviceFetch = async () => {
+        const response = await fetch(`http://localhost:3000/admin/${action[0].value === 'returned' ? 'return' :'cancel'}/${service.Users.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: service.id,
+          }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        } console.log(data)
+      }; serviceFetch()
+
 
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
+    fetchData()
   }
 
   const navigate = useNavigate();
