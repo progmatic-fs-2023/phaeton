@@ -103,11 +103,11 @@
     background-color: var(--main-color);
   }
   50% {
-    color:black;
+    color: black;
     background-color: lightblue;
   }
   75% {
-    color:black;
+    color: black;
     background-color: lightblue;
   }
   100% {
@@ -141,4 +141,14 @@
 
 .active-filter {
   background-color: lightblue;
+}
+
+/* Changing the background color after confirmation */
+
+#returned {
+  background-color: orange;
+}
+
+#canceled {
+  background-color: red;
 }

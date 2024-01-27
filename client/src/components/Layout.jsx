@@ -7,13 +7,16 @@ import Footer from './Header-Footer/Footer';
 import Rent from '../pages/Rent/Rent';
 import Parking from '../pages/Parking/Parking';
 import Shuttle from '../pages/Shuttle';
-import Profile from '../pages/ProfilePage';
 import Booking from '../pages/Booking';
 import ParkingZonesPage from '../pages/Parking/ParkingZonesPage';
 import RentalPage from '../pages/Rent/RentalPage';
 import CarContext from '../contexts/CarContext';
 import PageNotFound from '../pages/PageNotFound';
 import ParkingDetailsContext from '../contexts/ParkingDetailsContext';
+import Profile from '../pages/Settings/Profile';
+import CarServices from '../pages/Settings/CarServices';
+import SettingsLayout from './SettingsLayout';
+import ParkingServices from '../pages/Settings/ParkingServices';
 import ServiceFormForParking from '../pages/Parking/ServiceFormForParking';
 import ServiceFormForRent from '../pages/Rent/ServiceFormForRent';
 import AdminPage from '../pages/AdminPage';
@@ -43,9 +46,13 @@ function Layout() {
         <CarContext.Provider value={CarContextValue}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route element={<SettingsLayout />} path="/settings">
+              <Route path="profile" element={<Profile />} />
+              <Route path="rentservices" element={<CarServices />} />
+              <Route path="parkingservices" element={<ParkingServices />} />
+            </Route>
             <Route path="shuttle" element={<Shuttle />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
             {/* Rent */}
             <Route path="rental" element={<Rent />} />

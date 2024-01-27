@@ -21,7 +21,7 @@ export async function cancelService(req, res) {
   try {
     const result = await cancelServiceById(req.params.userID, req.body.id);
     res.json({
-      message: 'Service returned successfully',
+      message: 'Service canceled successfully',
       result,
     });
   } catch (err) {

@@ -10,11 +10,14 @@ function AdminPage() {
   const [services, setServices] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [activeFilterIndex, setActiveFilterIndex] = useState(null);
-  const [changedItemArr, setChangedItemArr] = useState([]);
+  const [activeFilterIndex, setActiveFilterIndex] = useState(0);
+  const [changedItemIndexArr, setChangedItemIndexArr] = useState([]);
+  const [changedItemValueArr, setChangedItemValueArr] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
 
   const userCtx = useContext(UserContext);
+
+  // Getting Data for the table
 
   const fetchData = async () => {
     const response = await fetch(`http://localhost:3000/admin/services/${userCtx.user.id}`, {
@@ -36,8 +39,10 @@ function AdminPage() {
     fetchData();
   }, []);
 
+  // Next and Previous buttons
+
   const handlePrevClick = () => {
-    if (changedItemArr.length === 0) {
+    if (changedItemIndexArr.length === 0) {
       if (currentPage > 1) {
         setCurrentPage(currentPage - 1);
       }
@@ -47,7 +52,7 @@ function AdminPage() {
   };
 
   const handleNextClick = () => {
-    if (changedItemArr.length === 0) {
+    if (changedItemIndexArr.length === 0) {
       if (currentPage < Math.ceil(services.length / itemsPerPage)) {
         setCurrentPage(currentPage + 1);
       }
@@ -56,8 +61,10 @@ function AdminPage() {
     }
   };
 
+  // Filter button
+
   function handleFilterButton(event, index) {
-    if (changedItemArr.length === 0) {
+    if (changedItemIndexArr.length === 0) {
       let filteredData;
       if (event.target.innerHTML === 'Rents') {
         filteredData = originalServices.filter((service) => service.Cars);
@@ -74,10 +81,22 @@ function AdminPage() {
     }
   }
 
+  // Set status
+
+  const absoluteIndex = (index) => (currentPage - 1) * itemsPerPage + index;
+
   const handleSelectChange = (event, index) => {
-    if (event.target.value !== 'active') {
-      setChangedItemArr([...changedItemArr, index]);
+    setChangedItemIndexArr([...changedItemIndexArr, index]);
+    const updatedChangedItemValueArr = changedItemValueArr.slice();
+    const existingIndex = changedItemValueArr.findIndex((item) => item.index === index);
+
+    if (existingIndex !== -1) {
+      updatedChangedItemValueArr.splice(existingIndex, 1);
     }
+
+    updatedChangedItemValueArr.push({ index: absoluteIndex(index), value: event.target.value });
+
+    setChangedItemValueArr(updatedChangedItemValueArr);
   };
 
   function isDisabled(service) {
@@ -100,7 +119,7 @@ function AdminPage() {
     return status;
   }
 
-  function dateFormatter2(value) {
+  function dateFormatter(value) {
     if (value) {
       const newValue = new Date(value);
       const date = [
@@ -113,9 +132,62 @@ function AdminPage() {
     return '-';
   }
 
+  // Page leaving alert
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const e = event;
+      if (changedItemIndexArr.length > 0) {
+        const message =
+          'You have unsaved changes. If you leave the page, your changes will be lost.';
+        e.returnValue = message; // Standard for most browsers
+        return message; // For some older browsers
+      }
+      return null;
+    };
+    window.addEventListener('beforeunload', (event) => {
+      handleBeforeUnload(event);
+    });
+
+    return () => {
+      window.removeEventListener('beforeunload', (event) => {
+        handleBeforeUnload(event);
+      });
+    };
+  }, [changedItemIndexArr]);
+
+  // Confirm button
   function handleConfirm(index) {
+    const activeSelector = document.querySelectorAll('#status-selector')[index];
+    const service = services[absoluteIndex(index)];
+    const action = changedItemValueArr.filter((item) => item.index === index);
+    const serviceFetch = async () => {
+      const response = await fetch(
+        `http://localhost:3000/admin/${action[0].value === 'returned' ? 'return' : 'cancel'}/${
+          service.Users.id
+        }`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: service.id,
+          }),
+        },
+      );
+      await response.json();
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    };
+    serviceFetch();
+
+    activeSelector.setAttribute('id', `${action[0].value}`);
+    activeSelector.setAttribute('disabled', '');
     setErrorMessage(false);
-    setChangedItemArr(changedItemArr.filter((item) => item !== index));
+    setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
+    setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
   }
 
   const navigate = useNavigate();
@@ -174,9 +246,9 @@ function AdminPage() {
                 {currentItems.map((service, index) => (
                   <tr key={service.id}>
                     <td>{service.id}</td>
-                    <td>{dateFormatter2(service.ServiceStartDate)}</td>
-                    <td>{dateFormatter2(service.ServiceEndDate)}</td>
-                    <td>{dateFormatter2(service.ActualServiceEndDate)}</td>
+                    <td>{dateFormatter(service.ServiceStartDate)}</td>
+                    <td>{dateFormatter(service.ServiceEndDate)}</td>
+                    <td>{dateFormatter(service.ActualServiceEndDate)}</td>
                     <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
                     <td>
                       {service.Users.firstName} {service.Users.lastName}
@@ -187,9 +259,12 @@ function AdminPage() {
                     </td>
                     <td>
                       <select
+                        id="status-selector"
                         disabled={isDisabled(service)}
                         className={
-                          changedItemArr.includes(index) ? 'color-change' : defaultStatus(service)
+                          changedItemIndexArr.includes(index)
+                            ? 'color-change'
+                            : defaultStatus(service)
                         }
                         defaultValue={defaultStatus(service)}
                         onChange={(event) => handleSelectChange(event, index)}
@@ -204,7 +279,7 @@ function AdminPage() {
                           Canceled
                         </option>
                       </select>
-                      {changedItemArr.includes(index) && (
+                      {changedItemIndexArr.includes(index) && (
                         <button type="button" onClick={() => handleConfirm(index)}>
                           Confirm
                         </button>

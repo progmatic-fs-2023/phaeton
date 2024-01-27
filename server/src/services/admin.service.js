@@ -48,6 +48,7 @@ export async function serviceQuery() {
       IsActive: true,
       Users: {
         select: {
+          id: true,
           firstName: true,
           lastName: true,
         },
@@ -63,6 +64,14 @@ export async function serviceQuery() {
         },
       },
     },
+    orderBy: [
+      {
+        ServiceStartDate: 'desc',
+      },
+      {
+        ServiceEndDate: 'asc',
+      },
+    ],
   });
 
   return services;
