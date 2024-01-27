@@ -4,11 +4,13 @@
   justify-content: space-evenly;
 }
 .canceled-p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: red;
   border-radius: 10px;
   width: 128px;
   height: 29px;
-  text-align: center;
   color: white;
   font-size: large;
 }
@@ -18,4 +20,13 @@
   display: flex;
   justify-content: center;
   align-self: center;
+}
+.cancel-btn {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border: white 1px solid;
+  border-radius: 10px;
+  width: 100%;
 }

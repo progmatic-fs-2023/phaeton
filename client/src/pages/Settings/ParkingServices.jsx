@@ -8,6 +8,8 @@ import '../../components/styles/Pages/Services.css';
 export default function ParkingServices() {
   const navigate = useNavigate();
   const [userServices, setUserServices] = useState([]);
+  const [forceUpdate, setForceUpdate] = useState(false);
+  const filteredServices = userServices.filter((service) => service.ParkingLotID);
 
   const userCtx = useContext(UserContext);
   if (userCtx.user === 'GuestUser') {
@@ -32,7 +34,7 @@ export default function ParkingServices() {
       .then((data) => {
         setUserServices(data);
       });
-  }, []);
+  }, [forceUpdate]);
 
   const handleCancel = (id) => {
     fetch(`http://localhost:3000/admin/cancel/${userCtx.user.id}`, {
@@ -54,7 +56,8 @@ export default function ParkingServices() {
             service.id === id ? { ...service, isActive: false } : service,
           ),
         );
-      }, [userCtx.user]);
+        setForceUpdate((prev) => !prev);
+      });
   };
   function getDaysBetweenDates(fromDate, toDate) {
     const oneDay = 24 * 60 * 60 * 1000;
@@ -65,14 +68,21 @@ export default function ParkingServices() {
 
     const diffMilliseconds = Math.abs(endDate - startDate);
     const daysBetween = Math.round(diffMilliseconds / oneDay);
-
     return daysBetween;
+  }
+
+  if (filteredServices.length === 0) {
+    return (
+      <div className="settings-center-h1">
+        <h1>You should book a parkingLot first.</h1>
+      </div>
+    );
   }
 
   return (
     <div>
       {userServices.map((services) => {
-        if (services.Cars === null || services.carID === null) {
+        if (services.ParkingLot || services.ParkingLotID) {
           return (
             <div className="car-container" key={services.id}>
               <div className="car-card">
@@ -84,7 +94,6 @@ export default function ParkingServices() {
                 </div>
                 <div>{`Your Parking Zone Is : ${services.ParkingLot.zone}`}</div>
                 <div>
-                  {console.log(services.ServiceStartDate)}
                   <p>
                     Price:{' '}
                     {numberWithSpaces(
@@ -97,23 +106,18 @@ export default function ParkingServices() {
                 <div>
                   {services.IsActive ? (
                     <button
+                      className="cancel-btn"
                       disabled={new Date(services.ServiceStartDate) > new Date() ? false : true}
                       onClick={() => handleCancel(services.id)}
                     >
                       Cancel
                     </button>
                   ) : (
-                    <p>Canceled</p>
+                    <p className="canceled-p">Canceled</p>
                   )}
                 </div>
               </div>
               <div></div>
-            </div>
-          );
-        } else if (!services.ParkingLot) {
-          return (
-            <div className="settings-center-h1">
-              <h1>You should book a parkingLot first.</h1>
             </div>
           );
         }

@@ -8,6 +8,8 @@ import '../../components/styles/Pages/Services.css';
 function CarServices() {
   const navigate = useNavigate();
   const [userServices, setUserServices] = useState([]);
+  const [forceUpdate, setForceUpdate] = useState(false);
+
   const userCtx = useContext(UserContext);
   if (userCtx.user === 'GuestUser') {
     useEffect(() => {
@@ -31,10 +33,9 @@ function CarServices() {
       .then((data) => {
         setUserServices(data);
       });
-  }, []);
+  }, [forceUpdate]);
+
   const handleCancel = (id) => {
-    console.log(userCtx.user.id);
-    console.log(userServices);
     fetch(`http://localhost:3000/admin/cancel/${userCtx.user.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -48,11 +49,13 @@ function CarServices() {
         }
         return response.json();
       })
-      .then((data) => {
-        console.log('Cancel response:', data);
-      })
-      .catch((error) => {
-        console.error('Cancel error:', error);
+      .then(() => {
+        setUserServices((prevServices) =>
+          prevServices.map((service) =>
+            service.id === id ? { ...service, isActive: false } : service,
+          ),
+        );
+        setForceUpdate((prev) => !prev);
       });
   };
   function getDaysBetweenDates(fromDate, toDate) {
@@ -67,7 +70,15 @@ function CarServices() {
 
     return daysBetween;
   }
+  const filteredServices = userServices.filter((service) => service.CarID);
 
+  if (filteredServices.length === 0) {
+    return (
+      <div className="settings-center-h1">
+        <h1>You should rent a car first.</h1>
+      </div>
+    );
+  }
   return (
     <div>
       {userServices.map((services) => {
@@ -147,12 +158,6 @@ function CarServices() {
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        } else if (!services) {
-          return (
-            <div className="settings-center-h1">
-              <h1>You should rent a car first.</h1>
             </div>
           );
         }
