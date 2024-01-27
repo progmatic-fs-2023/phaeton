@@ -46,7 +46,6 @@ function Profile({ userCtx }) {
           <NavLink to="/settings/profile">
             <button type="button" className="log-out-btn">
               <p>Settings</p>
-              <p>Settings</p>
             </button>
           </NavLink>
         </div>
