@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import DatePicker from '../../components/ReusableComponents/DatePicker';
 import BackGroundContext from '../../contexts/BackgroundContext';
-import '../../components/styles/Parking/Parking.css';
 import formatDate from '../../utils/formatDate';
 
 function Parking() {

@@ -102,6 +102,7 @@ function ParkingZones({ data, parkingID }) {
   return (
     <div>
       <NumberPicker value={numberOfSpots} onChange={handleParkingSpotsNumberChange} />
+      <h3>Select a zone where you want to park</h3>
       <div className="zones-grid">
         <div className="office">
           <span>Office</span>
