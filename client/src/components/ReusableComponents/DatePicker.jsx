@@ -57,43 +57,45 @@ function DatePicker({ onSearch }) {
   return (
     <div className={parkingBg}>
       <div className="date-picker-main-container">
-        <div className="date-picker-container" id={parkingBg}>
-          <button
-            className="date-picker-button"
-            type="button"
-            onClick={() => openCalendar('start')}
-          >
-            <p>Departure</p>
-            <div>
-              <img src={calendarSVG} alt="calendar" />
-              {dateFormatter2(fromValue)}
-            </div>
-          </button>
-          <img src={arrow} className="arrow" alt="arrow" />
-          <button
-            className="button date-picker-button"
-            type="button"
-            onClick={() => openCalendar('end')}
-          >
-            <p>Return</p>
-            <div>
-              <img src={calendarSVG} alt="calendar" />
-              {dateFormatter2(toValue)}
-            </div>
-          </button>
-          <button
-            type="button"
-            className="button search-button"
-            onClick={() => {
-              if (fromValue > toValue) {
-                onSearch(current, followingDay);
-              } else {
-                onSearch(fromValue, toValue);
-              }
-            }}
-          >
-            Search
-          </button>
+        <div>
+          <div className="date-picker-container" id={parkingBg}>
+            <button
+              className="date-picker-button"
+              type="button"
+              onClick={() => openCalendar('start')}
+            >
+              <p>Departure</p>
+              <div>
+                <img src={calendarSVG} alt="calendar" />
+                {dateFormatter2(fromValue)}
+              </div>
+            </button>
+            <img src={arrow} className="arrow" alt="arrow" />
+            <button
+              className="button date-picker-button"
+              type="button"
+              onClick={() => openCalendar('end')}
+            >
+              <p>Return</p>
+              <div>
+                <img src={calendarSVG} alt="calendar" />
+                {dateFormatter2(toValue)}
+              </div>
+            </button>
+            <button
+              type="button"
+              className="button search-button"
+              onClick={() => {
+                if (fromValue >= toValue) {
+                  onSearch(current, followingDay);
+                } else {
+                  onSearch(fromValue, toValue);
+                }
+              }}
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
       <dialog id="calendar-dialog" ref={calendarDialog}>

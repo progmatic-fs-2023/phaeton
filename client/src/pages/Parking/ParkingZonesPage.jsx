@@ -47,19 +47,21 @@ function ParkingZonesPage() {
     navigate(`/parking/from/${formatDate(startDateOnSearch)}/end/${formatDate(endDateOnSearch)}`);
   return (
     <div>
-      <BackGroundContext.Provider value="opened" />
-      {isLoading || !parkingLotData || parkingLotData.length === 0 ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          <DatePicker
-            onSearch={(startDateOnSearch, endDateOnSearch) => {
-              onSearchFn(startDateOnSearch, endDateOnSearch);
-            }}
-          />
-          <ParkingBooking data={parkingLotData} />
-        </>
-      )}
+      <BackGroundContext.Provider value="opened">
+        {isLoading || !parkingLotData || parkingLotData.length === 0 ? (
+          <LoadingScreen />
+        ) : (
+          <div className="parking-booking-bg">
+            <p>asd</p>
+            <DatePicker
+              onSearch={(startDateOnSearch, endDateOnSearch) => {
+                onSearchFn(startDateOnSearch, endDateOnSearch);
+              }}
+            />
+            <ParkingBooking data={parkingLotData} />
+          </div>
+        )}
+      </BackGroundContext.Provider>
     </div>
   );
 }

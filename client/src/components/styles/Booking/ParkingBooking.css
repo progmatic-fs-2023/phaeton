@@ -1,13 +1,19 @@
+@import url("../variables.css");
 
 .parking-zones-container {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
-.parking-text-container {
+/* .parking-text-container {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   gap: 50px;
   padding: 30px;
+} */
+
+.price-tag{
+  font-size: 1.1em;
+  font-weight: 600;
 }
