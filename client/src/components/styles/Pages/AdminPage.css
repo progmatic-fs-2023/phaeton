@@ -7,6 +7,10 @@
   min-height: 80vh;
 }
 
+.admin-page-container h1 {
+  margin: 35px;
+}
+
 .filter-and-sortby-container {
   display: flex;
   justify-content: space-between;
@@ -112,6 +116,23 @@
   background-color: #7bbf7b;
   color: white;
 }
+
+.searchbar {
+  display: flex;
+  background-color: white;
+  border: 1px solid grey;
+  scale: 1.3;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 20px 0px;
+}
+
+.searchbar input {
+  border: none;
+  outline: 0;
+  width: 300px;
+}
+
 
 /* Background colors of the select options */
 

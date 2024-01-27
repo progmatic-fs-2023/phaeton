@@ -14,18 +14,22 @@ function AdminPage() {
   const [changedItemIndexArr, setChangedItemIndexArr] = useState([]);
   const [changedItemValueArr, setChangedItemValueArr] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const userCtx = useContext(UserContext);
 
   // Getting Data for the table
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:3000/admin/services/${userCtx.user.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `http://localhost:3000/admin/services/${userCtx.user.id}?search=${searchTerm}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     const data = await response.json();
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -156,7 +160,8 @@ function AdminPage() {
   function handleConfirm(index) {
     const activeSelector = document.querySelectorAll('#status-selector')[index];
     const service = services[absoluteIndex(index)];
-    const action = changedItemValueArr.filter((item) => item.index === index);
+    const action = changedItemValueArr.filter((item) => item.index === absoluteIndex(index));
+
     const serviceFetch = async () => {
       const response = await fetch(
         `http://localhost:3000/admin/${action[0].value === 'returned' ? 'return' : 'cancel'}/${
@@ -188,17 +193,36 @@ function AdminPage() {
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
   }
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   const navigate = useNavigate();
   if (userCtx.user.role === 'ADMIN') {
     if (services) {
       if (!isLoading) {
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = services.slice(indexOfFirstItem, indexOfLastItem);
+        const filteredItems = services.filter((service) =>
+          Object.values(service).some((value) =>
+            String(value).toLowerCase().includes(searchTerm.toLowerCase()),
+          ),
+        );
+
+        const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
         return (
           <div className="admin-page-container">
             <h1>Welcome {userCtx.user.firstName}!</h1>
+            <div className="searchbar">
+              <span className="material-symbols-outlined">search</span>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+            </div>
             <div className="table-container">
               <div>
                 <div className="filter-and-sortby-container">
@@ -252,9 +276,7 @@ function AdminPage() {
                         <td>{dateFormatter(service.ServiceEndDate)}</td>
                         <td>{dateFormatter(service.ActualServiceEndDate)}</td>
                         <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
-                        <td>
-                          {service.Users.firstName} {service.Users.lastName}
-                        </td>
+                        <td>{service.name}</td>
                         <td>{service.Cars ? service.Cars.model : '-'}</td>
                         <td>
                           <a href={`tel:${service.PhoneNumber}`}>{service.PhoneNumber}</a>
