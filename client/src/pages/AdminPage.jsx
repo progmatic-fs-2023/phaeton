@@ -123,10 +123,10 @@ function AdminPage() {
     if (value) {
       const newValue = new Date(value);
       const date = [
-        newValue.getDate(),
-        newValue.toLocaleString('default', { month: 'short' }),
+        (newValue.getDate() + 1).toString().padStart(2, '0'),
+        (newValue.getMonth() + 1).toString().padStart(2, '0'),
         newValue.getFullYear(),
-      ].join(' ');
+      ].join('.');
       return date;
     }
     return '-';
@@ -145,15 +145,11 @@ function AdminPage() {
       }
       return null;
     };
-    window.addEventListener('beforeunload', (event) => {
-      handleBeforeUnload(event);
-    });
-
-    return () => {
-      window.removeEventListener('beforeunload', (event) => {
+    if (changedItemIndexArr.length < 0) {
+      window.addEventListener('beforeunload', (event) => {
         handleBeforeUnload(event);
       });
-    };
+    }
   }, [changedItemIndexArr]);
 
   // Confirm button
@@ -183,8 +179,10 @@ function AdminPage() {
     };
     serviceFetch();
 
-    activeSelector.setAttribute('id', `${action[0].value}`);
-    activeSelector.setAttribute('disabled', '');
+    if (action[0].value !== 'active') {
+      activeSelector.setAttribute('id', `${action[0].value}`);
+      activeSelector.setAttribute('disabled', '');
+    }
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
@@ -201,107 +199,125 @@ function AdminPage() {
         return (
           <div className="admin-page-container">
             <h1>Welcome {userCtx.user.firstName}!</h1>
-            <label htmlFor="item-per-page">
-              Items per Page
-              <select
-                id="item-per-page"
-                onChange={(event) => {
-                  setItemsPerPage(event.target.value);
-                }}
-                name="item-per-page"
-              >
-                <option>10</option>
-                <option>15</option>
-                <option>25</option>
-                <option>50</option>
-              </select>
-            </label>
-            <div className="admin-page-filter-button">
-              {['All', 'Parkings', 'Rents'].map((filter, index) => (
-                <button
-                  key={filter}
-                  type="button"
-                  onClick={(event) => handleFilterButton(event, index)}
-                  className={activeFilterIndex === index ? 'active-filter' : ''}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
-            <table className="services-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Actual End Date</th>
-                  <th>Parking Zone</th>
-                  <th>Name</th>
-                  <th>Car Model</th>
-                  <th>Phone Number</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((service, index) => (
-                  <tr key={service.id}>
-                    <td>{service.id}</td>
-                    <td>{dateFormatter(service.ServiceStartDate)}</td>
-                    <td>{dateFormatter(service.ServiceEndDate)}</td>
-                    <td>{dateFormatter(service.ActualServiceEndDate)}</td>
-                    <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
-                    <td>
-                      {service.Users.firstName} {service.Users.lastName}
-                    </td>
-                    <td>{service.Cars ? service.Cars.model : '-'}</td>
-                    <td>
-                      <a href={`tel:${service.PhoneNumber}`}>{service.PhoneNumber}</a>
-                    </td>
-                    <td>
-                      <select
-                        id="status-selector"
-                        disabled={isDisabled(service)}
-                        className={
-                          changedItemIndexArr.includes(index)
-                            ? 'color-change'
-                            : defaultStatus(service)
-                        }
-                        defaultValue={defaultStatus(service)}
-                        onChange={(event) => handleSelectChange(event, index)}
+            <div className="table-container">
+              <div>
+                <div className="filter-and-sortby-container">
+                  <div className="admin-page-filter-button">
+                    {['All', 'Parkings', 'Rents'].map((filter, index) => (
+                      <button
+                        key={filter}
+                        type="button"
+                        onClick={(event) => handleFilterButton(event, index)}
+                        className={activeFilterIndex === index ? 'active-filter' : ''}
                       >
-                        <option className="active" value="active">
-                          Active
-                        </option>
-                        <option className="returned" value="returned">
-                          Returned
-                        </option>
-                        <option className="canceled" value="canceled">
-                          Canceled
-                        </option>
-                      </select>
-                      {changedItemIndexArr.includes(index) && (
-                        <button type="button" onClick={() => handleConfirm(index)}>
-                          Confirm
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>
-              {currentPage > 1 && (
-                <button type="button" onClick={handlePrevClick}>
-                  Previous
+                        {filter}
+                      </button>
+                    ))}
+                  </div>
+                  <label htmlFor="item-per-page">
+                    Items per Page
+                    <select
+                      id="item-per-page"
+                      onChange={(event) => {
+                        setItemsPerPage(event.target.value);
+                      }}
+                      name="item-per-page"
+                    >
+                      <option>10</option>
+                      <option>15</option>
+                      <option>25</option>
+                      <option>50</option>
+                    </select>
+                  </label>
+                </div>
+                <table className="services-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Actual End Date</th>
+                      <th>Parking Zone</th>
+                      <th>Name</th>
+                      <th>Car Model</th>
+                      <th>Phone Number</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentItems.map((service, index) => (
+                      <tr key={service.id}>
+                        <td>{service.id}</td>
+                        <td>{dateFormatter(service.ServiceStartDate)}</td>
+                        <td>{dateFormatter(service.ServiceEndDate)}</td>
+                        <td>{dateFormatter(service.ActualServiceEndDate)}</td>
+                        <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
+                        <td>
+                          {service.Users.firstName} {service.Users.lastName}
+                        </td>
+                        <td>{service.Cars ? service.Cars.model : '-'}</td>
+                        <td>
+                          <a href={`tel:${service.PhoneNumber}`}>{service.PhoneNumber}</a>
+                        </td>
+                        <td>
+                          <select
+                            id="status-selector"
+                            disabled={isDisabled(service)}
+                            className={
+                              changedItemIndexArr.includes(index)
+                                ? 'color-change'
+                                : defaultStatus(service)
+                            }
+                            defaultValue={defaultStatus(service)}
+                            onChange={(event) => handleSelectChange(event, index)}
+                          >
+                            <option className="active" value="active">
+                              Active
+                            </option>
+                            <option className="returned" value="returned">
+                              Returned
+                            </option>
+                            <option className="canceled" value="canceled">
+                              Canceled
+                            </option>
+                          </select>
+                          {changedItemIndexArr.includes(index) && (
+                            <button
+                              className="confirm-button"
+                              type="button"
+                              onClick={() => handleConfirm(index)}
+                            >
+                              Confirm
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="next-and-previous-buttons">
+                <button
+                  type="button"
+                  onClick={handlePrevClick}
+                  disabled={currentPage === 1}
+                  className={currentPage > 1 && 'active-move-button'}
+                >
+                  &larr; Previous
                 </button>
-              )}
-              {currentPage < Math.ceil(services.length / itemsPerPage) && (
-                <button type="button" onClick={handleNextClick}>
-                  Next
+                <button
+                  type="button"
+                  onClick={handleNextClick}
+                  disabled={currentPage === Math.ceil(services.length / itemsPerPage)}
+                  className={
+                    currentPage < Math.ceil(services.length / itemsPerPage) && 'active-move-button'
+                  }
+                >
+                  Next &rarr;
                 </button>
-              )}
+              </div>
+              {errorMessage && <p className="save-reminder">Please save your changes</p>}
             </div>
-            {errorMessage && <p>Please save your changes</p>}
           </div>
         );
       }

@@ -7,8 +7,58 @@
   min-height: 80vh;
 }
 
+.filter-and-sortby-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  z-index: 1;
+  overflow: hidden;
+  height: 30px;
+}
+
+.filter-and-sortby-container button {
+  border-bottom: transparent;
+  border-radius: 5px;
+  border: 1px solid silver;
+  margin-left: 3px;
+}
+
+.filter-and-sortby-container button:hover {
+  background-color: #c0d2db;
+}
+
+.filter-and-sortby-container button:active {
+  background-color: #91b0bf
+}
+
+.next-and-previous-buttons {
+  margin: 20px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.next-and-previous-buttons button {
+  border: 1px solid silver;
+}
+
+.active-move-button:hover {
+  background-color: rgba(0, 88, 134, 0.2);
+}
+
+.active-move-button:active {
+  background-color: rgba(0, 88, 134, 0.4);
+}
+
 .services-table {
   border-collapse: collapse;
+  z-index: 2;
+}
+
+.table-container {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .services-table td,
@@ -16,6 +66,13 @@
   border: 1px solid #ddd;
   padding: 8px;
 }
+
+.services-table td:first-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 .services-table tr:nth-child(even) {
   background-color: #dbdbdb;
@@ -30,6 +87,29 @@
   padding-bottom: 12px;
   text-align: left;
   background-color: var(--main-color);
+  color: white;
+}
+
+.save-reminder {
+  font-size: larger;
+  color: red;
+  text-align: center;
+  margin: 0;
+}
+
+.admin-page-container .confirm-button {
+  font-size: smaller;
+  margin-left: 5px;
+  border: 1px solid silver;
+}
+
+.admin-page-container .confirm-button:hover {
+  background-color: #4c9c4c;
+  color: white;
+}
+
+.admin-page-container .confirm-button:active {
+  background-color: #7bbf7b;
   color: white;
 }
 
@@ -140,7 +220,10 @@
 /* Active filter button */
 
 .active-filter {
-  background-color: lightblue;
+  background-color: var(--main-color);
+  color: white;
+  scale: 1.2;
+  border-color: var(--main-color);
 }
 
 /* Changing the background color after confirmation */
@@ -151,4 +234,14 @@
 
 #canceled {
   background-color: red;
+}
+
+
+@media screen and (max-width: 800px) {
+  .services-table th:first-child {
+    display: none;
+  }
+  .services-table td:first-child {
+    display: none;
+  }
 }
