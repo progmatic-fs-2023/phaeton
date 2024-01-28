@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CarContext from '../../contexts/CarContext';
-import dateFormatter from '../../utils/dateFormatter';
+import getDaysBetweenDates from '../../utils/getDaysBetweenDates';
 import numberWithSpaces from '../../utils/numberWithSpaces';
+import dateFormatWithDots from '../../utils/dateFormatWithDots';
 
 function RentBookingDetails() {
   const { startDate, endDate, carId } = useParams();
@@ -13,28 +14,11 @@ function RentBookingDetails() {
   const carCtx = useContext(CarContext);
   const { carData } = carCtx;
 
-  function getDaysBetweenDates(fromDate, toDate) {
-    // One day in milliseconds
-    const oneDay = 24 * 60 * 60 * 1000;
-
-    // Calculate the difference in milliseconds
-    const diffMilliseconds = Math.abs(dateFormatter(toDate) - dateFormatter(fromDate));
-
-    // Convert back to days and return
-    return Math.round(diffMilliseconds / oneDay);
-  }
-
   // formatting date to DD.MM.YYYY
-  function formatDateString(inputDate) {
-    const day = inputDate.substring(0, 2);
-    const month = inputDate.substring(2, 4);
-    const year = inputDate.substring(4, 8);
 
-    return `${day}.${month}.${year}`;
-  }
-
-  const formattedStartDate = formatDateString(startDate);
-  const formattedEndDate = formatDateString(endDate);
+  const formattedStartDate = dateFormatWithDots(startDate);
+  const formattedEndDate = dateFormatWithDots(endDate);
+  const price = numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price);
 
   function onBook(event) {
     event.preventDefault();
@@ -81,9 +65,7 @@ function RentBookingDetails() {
                 </div>
               </div>
             </div>
-            <p>
-              Price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price)} HUF
-            </p>
+            <p>Price: {price} HUF</p>
           </div>
         </div>
       </div>

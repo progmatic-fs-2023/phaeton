@@ -7,11 +7,13 @@ import '../../components/styles/Booking/ServiceForm.css';
 import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
 import ServiceMessage from '../../components/Booking/ServiceMessage';
 import fetchWithCheck from '../../utils/fetchWitchCheck';
+import CarContext from '../../contexts/CarContext';
+import BookingReceipt from '../../components/Booking/BookingReceipt';
 
 function ServiceFormForRent() {
   const userCtx = useContext(UserContext);
   const { startDate, endDate, carId } = useParams();
-
+  const carCtx = useContext(CarContext);
   const navigate = useNavigate();
 
   function dateFormatterWithHyphen(value) {
@@ -23,7 +25,7 @@ function ServiceFormForRent() {
 
     return `${year}-${month}-${day}`;
   }
-
+  const { carData } = carCtx;
   const { user } = userCtx;
   const [isLoggedIn] = useState(user !== 'GuestUser');
   const [email, setEmail] = useState(isLoggedIn ? user.email : '');
@@ -63,7 +65,14 @@ function ServiceFormForRent() {
         }),
       };
       await fetchWithCheck(url, options);
-
+      BookingReceipt({
+        user,
+        carData,
+        startDateValue,
+        endDateValue,
+        // phoneNumberValue,
+        service: 'rental',
+      });
       successfullBooking();
     }
 
@@ -122,6 +131,18 @@ function ServiceFormForRent() {
         }),
       };
       await fetchWithCheck(rentalUrl, rentalOptions);
+      BookingReceipt({
+        user: {
+          email: emailValue,
+          firstName: firstNameValue,
+          lastName: lastNameValue,
+        },
+        carData,
+        startDateValue,
+        endDateValue,
+        // phoneNumberValue,
+        service: 'rental',
+      });
       successfullBooking();
     }
 
