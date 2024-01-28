@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import LoadingScreen from '../components/ReusableComponents/LoadingScreen';
 import UserContext from '../contexts/UserContext';
+import SortByArrows from '../components/ReusableComponents/SortByArrows';
 import '../components/styles/Pages/AdminPage.css';
 
 function AdminPage() {
@@ -14,6 +15,7 @@ function AdminPage() {
   const [changedItemIndexArr, setChangedItemIndexArr] = useState([]);
   const [changedItemValueArr, setChangedItemValueArr] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const userCtx = useContext(UserContext);
 
@@ -119,14 +121,14 @@ function AdminPage() {
     return status;
   }
 
-  function dateFormatter(value) {
+  function dateFormatter(value, correction) {
     if (value) {
       const newValue = new Date(value);
       const date = [
-        newValue.getDate(),
-        newValue.toLocaleString('default', { month: 'short' }),
         newValue.getFullYear(),
-      ].join(' ');
+        (newValue.getMonth() + 1).toString().padStart(2, '0'),
+        (newValue.getDate() - correction).toString().padStart(2, '0'),
+      ].join('-');
       return date;
     }
     return '-';
@@ -145,26 +147,209 @@ function AdminPage() {
       }
       return null;
     };
-    window.addEventListener('beforeunload', (event) => {
-      handleBeforeUnload(event);
-    });
-
-    return () => {
-      window.removeEventListener('beforeunload', (event) => {
+    if (changedItemIndexArr.length < 0) {
+      window.addEventListener('beforeunload', (event) => {
         handleBeforeUnload(event);
       });
-    };
+    }
   }, [changedItemIndexArr]);
 
+  // Sort arrows
+
+  function clickOnSortButton(direction, property) {
+    let sortedServices;
+
+    if ((direction === 'up' && property === 'id') || (direction === 'up' && property === 'name')) {
+      sortedServices = [...services].sort((a, b) => a[property].localeCompare(b[property]));
+    }
+
+    if (
+      (direction === 'down' && property === 'id') ||
+      (direction === 'down' && property === 'name')
+    ) {
+      sortedServices = [...services].sort((a, b) => b[property].localeCompare(a[property]));
+    }
+
+    if (
+      (direction === 'up' && property.includes('Service')) ||
+      (direction === 'down' && property.includes('Service'))
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const dateA = new Date(a[property]);
+        const dateB = new Date(b[property]);
+        if (direction === 'up') {
+          return dateA - dateB;
+        }
+        return dateB - dateA;
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'ActualServiceEndDate') ||
+      (direction === 'down' && property === 'ActualServiceEndDate')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const dateA = a[property] === null ? null : new Date(a[property]);
+        const dateB = b[property] === null ? null : new Date(b[property]);
+
+        if (dateA === null && dateB === null) {
+          return 0;
+        }
+        if (dateA === null) {
+          return 1;
+        }
+        if (dateB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return dateA > dateB ? 1 : -1;
+        }
+        return dateA < dateB ? 1 : -1;
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'zone') ||
+      (direction === 'down' && property === 'zone')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.ParkingLot ? a.ParkingLot.zone : null;
+        const zoneB = b.ParkingLot ? b.ParkingLot.zone : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'PhoneNumber') ||
+      (direction === 'down' && property === 'PhoneNumber')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.PhoneNumber ? a.PhoneNumber : null;
+        const zoneB = b.PhoneNumber ? b.PhoneNumber : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+    if (
+      (direction === 'up' && property === 'zone') ||
+      (direction === 'down' && property === 'zone')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.ParkingLot ? a.ParkingLot.zone : null;
+        const zoneB = b.ParkingLot ? b.ParkingLot.zone : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'model') ||
+      (direction === 'down' && property === 'model')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.Cars ? a.Cars.model : null;
+        const zoneB = b.Cars ? b.Cars.model : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'IsActive') ||
+      (direction === 'down' && property === 'IsActive')
+    ) {
+      const order = direction === 'up' ? 1 : -1;
+
+      sortedServices = [...services].sort((a, b) => {
+        if (a.IsActive && !b.IsActive) {
+          return -1 * order;
+        }
+        if (!a.IsActive && b.IsActive) {
+          return 1 * order;
+        }
+
+        if (a.IsActive === b.IsActive) {
+          if (a.ActualServiceEndDate && !b.ActualServiceEndDate) {
+            return -1 * order;
+          }
+          if (!a.ActualServiceEndDate && b.ActualServiceEndDate) {
+            return 1 * order;
+          }
+        }
+
+        return 0;
+      });
+    }
+    setServices(sortedServices);
+    setCurrentPage(1);
+  }
+
   // Confirm button
-  function handleConfirm(index) {
-    const activeSelector = document.querySelectorAll('#status-selector')[index];
-    const service = services[absoluteIndex(index)];
-    const action = changedItemValueArr.filter((item) => item.index === index);
+  function handleConfirm(event, index) {
+    const serviceId = event.target.parentNode.parentNode.querySelector('#service-id').innerHTML;
+    const activeSelector = event.target.parentNode.parentNode.querySelector('#status-selector');
+
+    const service = services.filter((serviceItem) => serviceItem.id === serviceId);
+    const action = changedItemValueArr.filter((item) => item.index === absoluteIndex(index));
+
     const serviceFetch = async () => {
       const response = await fetch(
         `http://localhost:3000/admin/${action[0].value === 'returned' ? 'return' : 'cancel'}/${
-          service.Users.id
+          service[0].Users.id
         }`,
         {
           method: 'PATCH',
@@ -172,7 +357,7 @@ function AdminPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: service.id,
+            id: serviceId,
           }),
         },
       );
@@ -182,13 +367,21 @@ function AdminPage() {
       }
     };
     serviceFetch();
+    if (action[0].value !== 'active') {
+      activeSelector.setAttribute('id', `${action[0].value}`);
+      activeSelector.setAttribute('disabled', '');
+    }
 
-    activeSelector.setAttribute('id', `${action[0].value}`);
-    activeSelector.setAttribute('disabled', '');
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
   }
+
+  const handleSearch = (event) => {
+    if (changedItemIndexArr.length === 0) {
+      setSearchTerm(event.target.value);
+    } else setErrorMessage(true);
+  };
 
   const navigate = useNavigate();
   if (userCtx.user.role === 'ADMIN') {
@@ -196,112 +389,272 @@ function AdminPage() {
       if (!isLoading) {
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = services.slice(indexOfFirstItem, indexOfLastItem);
+        const filteredItems = services.filter((service) =>
+          Object.values(service).some((value) =>
+            String(value).toLowerCase().includes(searchTerm.toLowerCase()),
+          ),
+        );
+
+        const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
         return (
           <div className="admin-page-container">
-            <h1>Welcome {userCtx.user.firstName}!</h1>
-            <label htmlFor="item-per-page">
-              Items per Page
-              <select
-                id="item-per-page"
-                onChange={(event) => {
-                  setItemsPerPage(event.target.value);
-                }}
-                name="item-per-page"
-              >
-                <option>10</option>
-                <option>15</option>
-                <option>25</option>
-                <option>50</option>
-              </select>
-            </label>
-            <div className="admin-page-filter-button">
-              {['All', 'Parkings', 'Rents'].map((filter, index) => (
-                <button
-                  key={filter}
-                  type="button"
-                  onClick={(event) => handleFilterButton(event, index)}
-                  className={activeFilterIndex === index ? 'active-filter' : ''}
-                >
-                  {filter}
-                </button>
-              ))}
+            <div className="searchbar">
+              <span className="material-symbols-outlined">search</span>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearch}
+              />
             </div>
-            <table className="services-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Actual End Date</th>
-                  <th>Parking Zone</th>
-                  <th>Name</th>
-                  <th>Car Model</th>
-                  <th>Phone Number</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((service, index) => (
-                  <tr key={service.id}>
-                    <td>{service.id}</td>
-                    <td>{dateFormatter(service.ServiceStartDate)}</td>
-                    <td>{dateFormatter(service.ServiceEndDate)}</td>
-                    <td>{dateFormatter(service.ActualServiceEndDate)}</td>
-                    <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
-                    <td>
-                      {service.Users.firstName} {service.Users.lastName}
-                    </td>
-                    <td>{service.Cars ? service.Cars.model : '-'}</td>
-                    <td>
-                      <a href={`tel:${service.PhoneNumber}`}>{service.PhoneNumber}</a>
-                    </td>
-                    <td>
-                      <select
-                        id="status-selector"
-                        disabled={isDisabled(service)}
-                        className={
-                          changedItemIndexArr.includes(index)
-                            ? 'color-change'
-                            : defaultStatus(service)
-                        }
-                        defaultValue={defaultStatus(service)}
-                        onChange={(event) => handleSelectChange(event, index)}
+            <div className="table-container">
+              <div>
+                <div className="filter-and-sortby-container">
+                  <div className="admin-page-filter-button">
+                    {['All', 'Parkings', 'Rents'].map((filter, index) => (
+                      <button
+                        key={filter}
+                        type="button"
+                        onClick={(event) => handleFilterButton(event, index)}
+                        className={activeFilterIndex === index ? 'active-filter' : ''}
                       >
-                        <option className="active" value="active">
-                          Active
-                        </option>
-                        <option className="returned" value="returned">
-                          Returned
-                        </option>
-                        <option className="canceled" value="canceled">
-                          Canceled
-                        </option>
-                      </select>
-                      {changedItemIndexArr.includes(index) && (
-                        <button type="button" onClick={() => handleConfirm(index)}>
-                          Confirm
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>
-              {currentPage > 1 && (
-                <button type="button" onClick={handlePrevClick}>
-                  Previous
+                        {filter}
+                      </button>
+                    ))}
+                  </div>
+                  <label htmlFor="item-per-page">
+                    Items per Page
+                    <select
+                      id="item-per-page"
+                      onChange={(event) => {
+                        setItemsPerPage(event.target.value);
+                      }}
+                      name="item-per-page"
+                    >
+                      <option>10</option>
+                      <option>15</option>
+                      <option>25</option>
+                      <option>50</option>
+                    </select>
+                  </label>
+                </div>
+                <table className="services-table">
+                  <thead>
+                    <tr>
+                      <th>
+                        <div className="table-head-content">
+                          ID
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'id')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'id')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Start Date
+                          <div className="sort-arrow-container">
+                            <div className="sort-arrow-container">
+                              <SortByArrows
+                                direction="up"
+                                onClick={() => clickOnSortButton('up', 'ServiceStartDate')}
+                              />
+                              <SortByArrows
+                                direction="down"
+                                onClick={() => clickOnSortButton('down', 'ServiceStartDate')}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          End Date
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'ServiceEndDate')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'ServiceEndDate')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Actual End Date
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'ActualServiceEndDate')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'ActualServiceEndDate')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content parking-zone-table-head">
+                          Parking Zone
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'zone')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'zone')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Name
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'name')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'name')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Car Model
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'model')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'model')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Phone Number
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'PhoneNumber')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'PhoneNumber')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Status
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'IsActive')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'IsActive')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentItems.map((service, index) => (
+                      <tr key={service.id}>
+                        <td id="service-id">{service.id}</td>
+                        <td>{dateFormatter(service.ServiceStartDate, 1)}</td>
+                        <td>{dateFormatter(service.ServiceEndDate, 1)}</td>
+                        <td>{dateFormatter(service.ActualServiceEndDate, 0)}</td>
+                        <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
+                        <td>{service.name}</td>
+                        <td>{service.Cars ? service.Cars.model : '-'}</td>
+                        <td>
+                          <a href={`tel:${service.PhoneNumber}`}>{service.PhoneNumber}</a>
+                        </td>
+                        <td>
+                          <select
+                            id="status-selector"
+                            disabled={isDisabled(service)}
+                            className={
+                              changedItemIndexArr.includes(index)
+                                ? 'color-change'
+                                : defaultStatus(service)
+                            }
+                            defaultValue={defaultStatus(service)}
+                            onChange={(event) => handleSelectChange(event, index)}
+                          >
+                            <option className="active" value="active">
+                              Active
+                            </option>
+                            <option className="returned" value="returned">
+                              Returned
+                            </option>
+                            <option className="canceled" value="canceled">
+                              Canceled
+                            </option>
+                          </select>
+                          {changedItemIndexArr.includes(index) && (
+                            <button
+                              className="confirm-button"
+                              type="button"
+                              onClick={(event) => handleConfirm(event, index)}
+                            >
+                              Confirm
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="next-and-previous-buttons">
+                <button
+                  type="button"
+                  onClick={handlePrevClick}
+                  disabled={currentPage === 1}
+                  className={currentPage > 1 ? 'active-move-button' : ''}
+                >
+                  &larr; Previous
                 </button>
-              )}
-              {currentPage < Math.ceil(services.length / itemsPerPage) && (
-                <button type="button" onClick={handleNextClick}>
-                  Next
+                <button
+                  type="button"
+                  onClick={handleNextClick}
+                  disabled={currentPage === Math.ceil(services.length / itemsPerPage)}
+                  className={
+                    currentPage < Math.ceil(services.length / itemsPerPage) && 'active-move-button'
+                  }
+                >
+                  Next &rarr;
                 </button>
-              )}
+              </div>
+              <div className="save-reminder-container">
+                {errorMessage && <p className="save-reminder">Please save your changes</p>}
+              </div>
             </div>
-            {errorMessage && <p>Please save your changes</p>}
           </div>
         );
       }

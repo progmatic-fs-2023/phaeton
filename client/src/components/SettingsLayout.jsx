@@ -5,7 +5,6 @@ import UserContext from '../contexts/UserContext';
 
 function SettingsLayout() {
   const navigate = useNavigate();
-
   const userCtx = useContext(UserContext);
   if (userCtx.user === 'GuestUser') {
     useEffect(() => {
@@ -34,6 +33,13 @@ function SettingsLayout() {
               Booked ParkingLots
             </button>
           </NavLink>
+          {userCtx.user.role === 'ADMIN' && (
+            <NavLink to="/admin">
+              <button type="button" className="profile-btn">
+                Admin Page
+              </button>
+            </NavLink>
+          )}
         </div>
         <Outlet />
         <div className="profile-menubar1" />
