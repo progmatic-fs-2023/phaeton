@@ -18,6 +18,7 @@ function RentBookingDetails() {
 
   const formattedStartDate = dateFormatWithDots(startDate);
   const formattedEndDate = dateFormatWithDots(endDate);
+  const price = numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price);
 
   function onBook(event) {
     event.preventDefault();
@@ -64,9 +65,7 @@ function RentBookingDetails() {
                 </div>
               </div>
             </div>
-            <p>
-              Price: {numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price)} HUF
-            </p>
+            <p>Price: {price} HUF</p>
           </div>
         </div>
       </div>

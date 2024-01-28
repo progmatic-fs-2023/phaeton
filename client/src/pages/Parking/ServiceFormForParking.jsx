@@ -80,6 +80,7 @@ function ServiceFormForParking() {
         parkingDataValue,
         price,
         spots,
+        service: 'parking',
         phoneNumberValue,
       });
       successfullBooking();
@@ -150,6 +151,7 @@ function ServiceFormForParking() {
         endDateValue,
         spots,
         phoneNumberValue,
+        service: 'parking',
       });
       successfullBooking();
     }
