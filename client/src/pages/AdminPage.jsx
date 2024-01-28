@@ -340,7 +340,7 @@ function AdminPage() {
                   type="button"
                   onClick={handlePrevClick}
                   disabled={currentPage === 1}
-                  className={currentPage > 1 && 'active-move-button'}
+                  className={currentPage > 1 ? 'active-move-button' : ""}
                 >
                   &larr; Previous
                 </button>
