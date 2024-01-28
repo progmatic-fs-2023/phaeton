@@ -74,13 +74,12 @@ export async function serviceQuery() {
     ],
   });
 
-
   const flattenedServices = services.map(service => ({
     ...service,
     ...service.Cars,
     ...service.ParkingLot,
     userId: service.Users.id,
-    name: `${service.Users.firstName} ${service.Users.lastName}` ,
+    name: `${service.Users.firstName} ${service.Users.lastName}`,
   }));
 
   return flattenedServices;

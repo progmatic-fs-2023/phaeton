@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import LoadingScreen from '../components/ReusableComponents/LoadingScreen';
 import UserContext from '../contexts/UserContext';
+import SortByArrows from '../components/ReusableComponents/SortByArrows';
 import '../components/styles/Pages/AdminPage.css';
 
 function AdminPage() {
@@ -21,15 +22,12 @@ function AdminPage() {
   // Getting Data for the table
 
   const fetchData = async () => {
-    const response = await fetch(
-      `http://localhost:3000/admin/services/${userCtx.user.id}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const response = await fetch(`http://localhost:3000/admin/services/${userCtx.user.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
     const data = await response.json();
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -123,14 +121,14 @@ function AdminPage() {
     return status;
   }
 
-  function dateFormatter(value) {
+  function dateFormatter(value, correction) {
     if (value) {
       const newValue = new Date(value);
       const date = [
-        (newValue.getDate() + 1).toString().padStart(2, '0'),
-        (newValue.getMonth() + 1).toString().padStart(2, '0'),
         newValue.getFullYear(),
-      ].join('.');
+        (newValue.getMonth() + 1).toString().padStart(2, '0'),
+        (newValue.getDate() - correction).toString().padStart(2, '0'),
+      ].join('-');
       return date;
     }
     return '-';
@@ -156,10 +154,194 @@ function AdminPage() {
     }
   }, [changedItemIndexArr]);
 
+  // Sort arrows
+
+  function clickOnSortButton(direction, property) {
+    let sortedServices;
+
+    if ((direction === 'up' && property === 'id') || (direction === 'up' && property === 'name')) {
+      sortedServices = [...services].sort((a, b) => a[property].localeCompare(b[property]));
+    }
+
+    if (
+      (direction === 'down' && property === 'id') ||
+      (direction === 'down' && property === 'name')
+    ) {
+      sortedServices = [...services].sort((a, b) => b[property].localeCompare(a[property]));
+    }
+
+    if (
+      (direction === 'up' && property.includes('Service')) ||
+      (direction === 'down' && property.includes('Service'))
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const dateA = new Date(a[property]);
+        const dateB = new Date(b[property]);
+        if (direction === 'up') {
+          return dateA - dateB;
+        }
+        return dateB - dateA;
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'ActualServiceEndDate') ||
+      (direction === 'down' && property === 'ActualServiceEndDate')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const dateA = a[property] === null ? null : new Date(a[property]);
+        const dateB = b[property] === null ? null : new Date(b[property]);
+
+        if (dateA === null && dateB === null) {
+          return 0;
+        }
+        if (dateA === null) {
+          return 1;
+        }
+        if (dateB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return dateA > dateB ? 1 : -1;
+        }
+        return dateA < dateB ? 1 : -1;
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'zone') ||
+      (direction === 'down' && property === 'zone')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.ParkingLot ? a.ParkingLot.zone : null;
+        const zoneB = b.ParkingLot ? b.ParkingLot.zone : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'PhoneNumber') ||
+      (direction === 'down' && property === 'PhoneNumber')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.PhoneNumber ? a.PhoneNumber : null;
+        const zoneB = b.PhoneNumber ? b.PhoneNumber : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+    if (
+      (direction === 'up' && property === 'zone') ||
+      (direction === 'down' && property === 'zone')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.ParkingLot ? a.ParkingLot.zone : null;
+        const zoneB = b.ParkingLot ? b.ParkingLot.zone : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'model') ||
+      (direction === 'down' && property === 'model')
+    ) {
+      sortedServices = [...services].sort((a, b) => {
+        const zoneA = a.Cars ? a.Cars.model : null;
+        const zoneB = b.Cars ? b.Cars.model : null;
+
+        if (zoneA === null && zoneB === null) {
+          return 0;
+        }
+        if (zoneA === null) {
+          return 1;
+        }
+        if (zoneB === null) {
+          return -1;
+        }
+
+        if (direction === 'up') {
+          return zoneA.localeCompare(zoneB, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return zoneB.localeCompare(zoneA, undefined, { numeric: true, sensitivity: 'base' });
+      });
+    }
+
+    if (
+      (direction === 'up' && property === 'IsActive') ||
+      (direction === 'down' && property === 'IsActive')
+    ) {
+      const order = direction === 'up' ? 1 : -1;
+
+      sortedServices = [...services].sort((a, b) => {
+        if (a.IsActive && !b.IsActive) {
+          return -1 * order;
+        }
+        if (!a.IsActive && b.IsActive) {
+          return 1 * order;
+        }
+
+        if (a.IsActive === b.IsActive) {
+          if (a.ActualServiceEndDate && !b.ActualServiceEndDate) {
+            return -1 * order;
+          }
+          if (!a.ActualServiceEndDate && b.ActualServiceEndDate) {
+            return 1 * order;
+          }
+        }
+
+        return 0;
+      });
+    }
+    setServices(sortedServices);
+    setCurrentPage(1);
+  }
+
   // Confirm button
   function handleConfirm(event, index) {
     const serviceId = event.target.parentNode.parentNode.querySelector('#service-id').innerHTML;
-    const activeSelector = document.querySelectorAll('#status-selector')[index];
+    const activeSelector = event.target.parentNode.parentNode.querySelector('#status-selector');
 
     const service = services.filter((serviceItem) => serviceItem.id === serviceId);
     const action = changedItemValueArr.filter((item) => item.index === absoluteIndex(index));
@@ -185,11 +367,11 @@ function AdminPage() {
       }
     };
     serviceFetch();
-
     if (action[0].value !== 'active') {
       activeSelector.setAttribute('id', `${action[0].value}`);
       activeSelector.setAttribute('disabled', '');
     }
+
     setErrorMessage(false);
     setChangedItemIndexArr(changedItemIndexArr.filter((item) => item !== index));
     setChangedItemValueArr(changedItemValueArr.filter((item) => item.index !== index));
@@ -261,37 +443,151 @@ function AdminPage() {
                   <thead>
                     <tr>
                       <th>
-                        ID
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const sortedServices = services.sort((a, b) =>
-                              b.ServiceStartDate.localeCompare(a.ServiceStartDate),
-                            );
-
-                            setServices(sortedServices);
-                          }}
-                        >
-                          sort
-                        </button>
+                        <div className="table-head-content">
+                          ID
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'id')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'id')}
+                            />
+                          </div>
+                        </div>
                       </th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-                      <th>Actual End Date</th>
-                      <th>Parking Zone</th>
-                      <th>Name</th>
-                      <th>Car Model</th>
-                      <th>Phone Number</th>
-                      <th>Status</th>
+                      <th>
+                        <div className="table-head-content">
+                          Start Date
+                          <div className="sort-arrow-container">
+                            <div className="sort-arrow-container">
+                              <SortByArrows
+                                direction="up"
+                                onClick={() => clickOnSortButton('up', 'ServiceStartDate')}
+                              />
+                              <SortByArrows
+                                direction="down"
+                                onClick={() => clickOnSortButton('down', 'ServiceStartDate')}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          End Date
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'ServiceEndDate')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'ServiceEndDate')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Actual End Date
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'ActualServiceEndDate')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'ActualServiceEndDate')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content parking-zone-table-head">
+                          Parking Zone
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'zone')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'zone')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Name
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'name')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'name')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Car Model
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'model')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'model')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Phone Number
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'PhoneNumber')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'PhoneNumber')}
+                            />
+                          </div>
+                        </div>
+                      </th>
+                      <th>
+                        <div className="table-head-content">
+                          Status
+                          <div className="sort-arrow-container">
+                            <SortByArrows
+                              direction="up"
+                              onClick={() => clickOnSortButton('up', 'IsActive')}
+                            />
+                            <SortByArrows
+                              direction="down"
+                              onClick={() => clickOnSortButton('down', 'IsActive')}
+                            />
+                          </div>
+                        </div>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {currentItems.map((service, index) => (
                       <tr key={service.id}>
                         <td id="service-id">{service.id}</td>
-                        <td>{dateFormatter(service.ServiceStartDate)}</td>
-                        <td>{dateFormatter(service.ServiceEndDate)}</td>
-                        <td>{dateFormatter(service.ActualServiceEndDate)}</td>
+                        <td>{dateFormatter(service.ServiceStartDate, 1)}</td>
+                        <td>{dateFormatter(service.ServiceEndDate, 1)}</td>
+                        <td>{dateFormatter(service.ActualServiceEndDate, 0)}</td>
                         <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
                         <td>{service.name}</td>
                         <td>{service.Cars ? service.Cars.model : '-'}</td>
@@ -340,7 +636,7 @@ function AdminPage() {
                   type="button"
                   onClick={handlePrevClick}
                   disabled={currentPage === 1}
-                  className={currentPage > 1 ? 'active-move-button' : ""}
+                  className={currentPage > 1 ? 'active-move-button' : ''}
                 >
                   &larr; Previous
                 </button>
@@ -355,7 +651,9 @@ function AdminPage() {
                   Next &rarr;
                 </button>
               </div>
-              {errorMessage && <p className="save-reminder">Please save your changes</p>}
+              <div className="save-reminder-container">
+                {errorMessage && <p className="save-reminder">Please save your changes</p>}
+              </div>
             </div>
           </div>
         );
