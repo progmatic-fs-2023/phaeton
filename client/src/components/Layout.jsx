@@ -22,14 +22,15 @@ import ServiceFormForRent from '../pages/Rent/ServiceFormForRent';
 import AdminPage from '../pages/AdminPage';
 
 function Layout() {
+  // parking context
   const [parkingData, setParkingData] = useState(null);
   const parkingDetailsContextValue = useMemo(
     () => ({ parkingData, setParkingData }),
     [parkingData, setParkingData],
   );
+  // car context
   const [carData, setCarData] = useState(null);
   const CarContextValue = useMemo(() => ({ carData, setCarData }), [carData, setCarData]);
-
   // Get the current location.
   const { pathname } = useLocation();
 
