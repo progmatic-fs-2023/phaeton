@@ -213,7 +213,6 @@ function AdminPage() {
 
         return (
           <div className="admin-page-container">
-            <h1>Welcome {userCtx.user.firstName}!</h1>
             <div className="searchbar">
               <span className="material-symbols-outlined">search</span>
               <input
@@ -257,7 +256,22 @@ function AdminPage() {
                 <table className="services-table">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>
+                        ID
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const sortedServices = services.sort((a, b) =>
+                              b.ServiceStartDate.localeCompare(a.ServiceStartDate),
+                            );
+                            console.log(sortedServices);
+
+                            setServices(sortedServices);
+                          }}
+                        >
+                          sort
+                        </button>
+                      </th>
                       <th>Start Date</th>
                       <th>End Date</th>
                       <th>Actual End Date</th>
