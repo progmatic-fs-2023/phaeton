@@ -22,7 +22,7 @@ function AdminPage() {
 
   const fetchData = async () => {
     const response = await fetch(
-      `http://localhost:3000/admin/services/${userCtx.user.id}?search=${searchTerm}`,
+      `http://localhost:3000/admin/services/${userCtx.user.id}`,
       {
         method: 'GET',
         headers: {
@@ -157,15 +157,17 @@ function AdminPage() {
   }, [changedItemIndexArr]);
 
   // Confirm button
-  function handleConfirm(index) {
+  function handleConfirm(event, index) {
+    const serviceId = event.target.parentNode.parentNode.querySelector('#service-id').innerHTML;
     const activeSelector = document.querySelectorAll('#status-selector')[index];
-    const service = services[absoluteIndex(index)];
+
+    const service = services.filter((serviceItem) => serviceItem.id === serviceId);
     const action = changedItemValueArr.filter((item) => item.index === absoluteIndex(index));
 
     const serviceFetch = async () => {
       const response = await fetch(
         `http://localhost:3000/admin/${action[0].value === 'returned' ? 'return' : 'cancel'}/${
-          service.Users.id
+          service[0].Users.id
         }`,
         {
           method: 'PATCH',
@@ -173,7 +175,7 @@ function AdminPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: service.id,
+            id: serviceId,
           }),
         },
       );
@@ -194,7 +196,9 @@ function AdminPage() {
   }
 
   const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+    if (changedItemIndexArr.length === 0) {
+      setSearchTerm(event.target.value);
+    } else setErrorMessage(true);
   };
 
   const navigate = useNavigate();
@@ -264,7 +268,6 @@ function AdminPage() {
                             const sortedServices = services.sort((a, b) =>
                               b.ServiceStartDate.localeCompare(a.ServiceStartDate),
                             );
-                            console.log(sortedServices);
 
                             setServices(sortedServices);
                           }}
@@ -285,7 +288,7 @@ function AdminPage() {
                   <tbody>
                     {currentItems.map((service, index) => (
                       <tr key={service.id}>
-                        <td>{service.id}</td>
+                        <td id="service-id">{service.id}</td>
                         <td>{dateFormatter(service.ServiceStartDate)}</td>
                         <td>{dateFormatter(service.ServiceEndDate)}</td>
                         <td>{dateFormatter(service.ActualServiceEndDate)}</td>
@@ -321,7 +324,7 @@ function AdminPage() {
                             <button
                               className="confirm-button"
                               type="button"
-                              onClick={() => handleConfirm(index)}
+                              onClick={(event) => handleConfirm(event, index)}
                             >
                               Confirm
                             </button>
