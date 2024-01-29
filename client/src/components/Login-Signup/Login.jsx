@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Login-Signup/Login.css';
 import PropTypes from 'prop-types';
 import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
+import AutoEmail from './AutoEmail';
 
 function Login({ handleLogin, errorMsg }) {
   Login.propTypes = {
@@ -66,6 +67,7 @@ function Login({ handleLogin, errorMsg }) {
         setPassword('');
         setPasswordConfirm('');
         setMessage('');
+        AutoEmail({ firstName, lastName, email });
       }
     }
   };
