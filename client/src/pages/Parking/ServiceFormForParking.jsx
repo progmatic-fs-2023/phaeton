@@ -8,11 +8,14 @@ import '../../components/styles/Booking/ServiceForm.css';
 import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
 import ServiceMessage from '../../components/Booking/ServiceMessage';
 import fetchWithCheck from '../../utils/fetchWitchCheck';
+import BookingReceipt from '../../components/Booking/BookingReceipt';
+import numberWithSpaces from '../../utils/numberWithSpaces';
+import getDaysBetweenDates from '../../utils/getDaysBetweenDates';
 
 function ServiceFormForParking() {
   const userCtx = useContext(UserContext);
   const parkingCtx = useContext(ParkingDetailsContext);
-  const { startDate, endDate } = useParams();
+  const { startDate, endDate, spots } = useParams();
   const navigate = useNavigate();
 
   function dateFormatterWithHyphen(value) {
@@ -37,6 +40,7 @@ function ServiceFormForParking() {
   const [message, setMessage] = useState('');
   const [IsVisible, setIsVisible] = useState('non-visible');
   const [isBlurred, setIsBlurred] = useState('');
+  const price = numberWithSpaces(getDaysBetweenDates(startDate, endDate) * 3000);
 
   function successfullBooking() {
     setIsVisible('visible');
@@ -69,7 +73,16 @@ function ServiceFormForParking() {
         }),
       };
       await fetchWithCheck(url, options);
-
+      BookingReceipt({
+        user,
+        startDateValue,
+        endDateValue,
+        parkingDataValue,
+        price,
+        spots,
+        service: 'parking',
+        phoneNumberValue,
+      });
       successfullBooking();
     }
 
@@ -127,6 +140,19 @@ function ServiceFormForParking() {
         }),
       };
       await fetchWithCheck(serviceUrl, serviceOptions);
+      BookingReceipt({
+        user: {
+          email: emailValue,
+          firstName: firstNameValue,
+          lastName: lastNameValue,
+        },
+        parkingDataValue,
+        startDateValue,
+        endDateValue,
+        spots,
+        phoneNumberValue,
+        service: 'parking',
+      });
       successfullBooking();
     }
 

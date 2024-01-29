@@ -1,0 +1,15 @@
+.sort-arrow {
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: smaller;
+    padding: 0;
+}
+
+.sort-arrow:hover {
+    color: grey
+}
+
+.sort-arrow:active {
+    color: silver
+}

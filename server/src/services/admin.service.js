@@ -48,6 +48,7 @@ export async function serviceQuery() {
       IsActive: true,
       Users: {
         select: {
+          id: true,
           firstName: true,
           lastName: true,
         },
@@ -63,7 +64,23 @@ export async function serviceQuery() {
         },
       },
     },
+    orderBy: [
+      {
+        ServiceStartDate: 'desc',
+      },
+      {
+        ServiceEndDate: 'asc',
+      },
+    ],
   });
 
-  return services;
+  const flattenedServices = services.map(service => ({
+    ...service,
+    ...service.Cars,
+    ...service.ParkingLot,
+    userId: service.Users.id,
+    name: `${service.Users.firstName} ${service.Users.lastName}`,
+  }));
+
+  return flattenedServices;
 }

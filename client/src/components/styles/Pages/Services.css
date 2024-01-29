@@ -1,0 +1,56 @@
+.price-cancel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.canceled-p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  border-radius: 10px;
+  width: 128px;
+  height: 29px;
+  color: white;
+  font-size: large;
+}
+.settings-center-h1 {
+  text-align: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+.cancel-btn {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border: white 1px solid;
+  border-radius: 10px;
+  width: 100%;
+}
+.cancel-btn:hover,
+.cancel-btn::after {
+  background-color: var(--secondary-color);
+}
+
+.cancel-btn:disabled {
+  background-color: grey;
+}
+
+.car-date {
+  justify-content: center;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  border: 1px solid silver;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: var(--main-box-shadow);
+  background-color: white;
+}
+.car-container.padding {
+  gap: 2px;
+  margin: 20px;
+}

@@ -29,7 +29,7 @@ function ParkingBooking(parkingLotData) {
     <div className="parking-zones-container">
       <div className="parking-text-container">
         <h1>Your vehicle is safe and secure with us.</h1>
-        <h2>Select a parking zone </h2>
+        <p className="price-tag">Each parking spots cost 3000 HUF per day</p>
       </div>
       <ParkingZones data={parkingData} parkingID={handleGetParkingID} />
     </div>
