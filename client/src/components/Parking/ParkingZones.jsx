@@ -55,7 +55,6 @@ function ParkingZones({ data, parkingID }) {
     });
   }
   function checkSpace(zone) {
-    // console.log(zone, 'zonaCsekk');
     if (zone === 0) {
       return 'noSpace';
     }

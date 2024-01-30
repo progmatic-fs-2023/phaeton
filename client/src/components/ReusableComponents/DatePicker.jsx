@@ -57,8 +57,8 @@ function DatePicker({ onSearch }) {
   function onDateChange(date) {
     const fromDate = new Date(date[0].getFullYear(), date[0].getMonth(), date[0].getDate());
     const toDate = new Date(date[1].getFullYear(), date[1].getMonth(), date[1].getDate());
-  
-    if(fromDate >= toDate){
+
+    if (fromDate >= toDate) {
       setToValue(new Date(fromDate.getTime() + 86400000));
     } else {
       setToValue(toDate);
@@ -67,7 +67,6 @@ function DatePicker({ onSearch }) {
     setIsVisible('non-visible');
     setIsBlurred('');
   }
-  
 
   const HandleEndDateChange = useCallback(
     (date) => {
@@ -82,7 +81,9 @@ function DatePicker({ onSearch }) {
       <div className={`${parkingBg} ${isBlurred}`}>
         <div>
           <div className="date-picker-container" id={parkingBg}>
-        <p  className="help" title="The minimum duration for this service is one day.">?</p>
+            <p className="help" title="The minimum duration for this service is one day.">
+              ?
+            </p>
             <button className="date-picker-button" type="button" onClick={() => openCalendar()}>
               <p>Departure</p>
               <div>

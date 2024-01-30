@@ -19,8 +19,6 @@ function AdminPage() {
 
   const userCtx = useContext(UserContext);
 
-  console.log(userCtx)
-
   // Getting Data for the table
 
   const fetchData = async () => {
