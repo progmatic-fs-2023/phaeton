@@ -9,7 +9,7 @@ import '../styles/ReusableComponents/DatePicker.css';
 import '../styles/ReusableComponents/Calendar.css';
 import calendarSVG from '../../assets/DatePicker/calendar.svg';
 import arrow from '../../assets/DatePicker/arrow.svg';
-import getSomeYearsAgo from '../../utils/getSomeYearsAgo'
+import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
 
 function DatePicker({ onSearch }) {
   const current = new Date();
@@ -30,48 +30,44 @@ function DatePicker({ onSearch }) {
 
   const [fromValue, setFromValue] = useState(!startDate ? current : dateFormatter(startDate));
   const [toValue, setToValue] = useState(!startDate ? followingDay2 : dateFormatter(endDate));
-  const [option, setOption] = useState('');
+  const [IsVisible, setIsVisible] = useState('non-visible');
+  const [isBlurred, setIsBlurred] = useState('');
   const parkingBg = useContext(BackGroundContext);
-  const calendarDialogFrom = useRef(null);
-  const calendarDialogTo = useRef(null);
+  const calendarDialog = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (calendarDialogFrom.current && !calendarDialogFrom.current.contains(event.target)) {
-        console.log('From calendar: it\'s outside');
-        calendarDialogFrom.current.close();
-      }
-      if (calendarDialogTo.current && !calendarDialogTo.current.contains(event.target)) {
-        console.log('To calendar: it\'s outside');
-        calendarDialogTo.current.close();
+      if (calendarDialog.current && !calendarDialog.current.contains(event.target)) {
+        setIsVisible('non-visible');
+        setIsBlurred('');
       }
     }
 
-
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
-  function openCalendar(prop) {
-    if (prop === 'start') {
-    calendarDialogFrom.current.showModal();
-  } else if (prop === 'end') {
-    calendarDialogTo.current.showModal(); }
-    setOption(prop);
+  function openCalendar() {
+    setIsVisible('visible');
+    setIsBlurred('blurred');
   }
 
   function onDateChange(date) {
-    if (option === 'start') {
-      setFromValue(date);
-      calendarDialogFrom.current.close();
-    } else if (option === 'end') {
-      setToValue(date);
-      calendarDialogTo.current.close()
+    const fromDate = new Date(date[0].getFullYear(), date[0].getMonth(), date[0].getDate());
+    const toDate = new Date(date[1].getFullYear(), date[1].getMonth(), date[1].getDate());
+  
+    if(fromDate >= toDate){
+      setToValue(new Date(fromDate.getTime() + 86400000));
+    } else {
+      setToValue(toDate);
     }
+    setFromValue(fromDate);
+    setIsVisible('non-visible');
+    setIsBlurred('');
   }
+  
 
   const HandleEndDateChange = useCallback(
     (date) => {
@@ -81,15 +77,13 @@ function DatePicker({ onSearch }) {
   );
 
   return (
-    <div className={parkingBg}>
-      <div className="date-picker-main-container">
+    <div>
+      {isBlurred === 'blurred' && <div className="overlay" />}
+      <div className={`${parkingBg} ${isBlurred}`}>
         <div>
           <div className="date-picker-container" id={parkingBg}>
-            <button
-              className="date-picker-button"
-              type="button"
-              onClick={() => openCalendar('start')}
-            >
+        <p  className="help" title="The minimum duration for this service is one day.">?</p>
+            <button className="date-picker-button" type="button" onClick={() => openCalendar()}>
               <p>Departure</p>
               <div>
                 <img src={calendarSVG} alt="calendar" />
@@ -100,7 +94,7 @@ function DatePicker({ onSearch }) {
             <button
               className="button date-picker-button"
               type="button"
-              onClick={() => openCalendar('end')}
+              onClick={() => openCalendar()}
             >
               <p>Return</p>
               <div>
@@ -124,24 +118,15 @@ function DatePicker({ onSearch }) {
           </div>
         </div>
       </div>
-      <dialog id="calendar-dialog" ref={calendarDialogFrom}>
+      <div className={IsVisible} ref={calendarDialog}>
         <Calendar
-          className="date-picker-calendar-from"
+          className="date-picker-calendar"
           onChange={HandleEndDateChange}
-          value={fromValue}
+          selectRange
           minDate={fromValue}
           maxDate={new Date(getSomeYearsAgo(-1))}
         />
-      </dialog>
-      <dialog id="calendar-dialog" ref={calendarDialogTo}>
-        <Calendar
-          className="date-picker-calendar-to"
-          onChange={HandleEndDateChange}
-          value={[fromValue, new Date(fromValue.getTime() + 86400000)]}
-          minDate={new Date(fromValue.getTime() + 86400000)}
-          maxDate={new Date(getSomeYearsAgo(-1))}
-        />
-      </dialog>
+      </div>
     </div>
   );
 }
