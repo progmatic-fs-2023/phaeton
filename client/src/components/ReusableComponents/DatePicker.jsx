@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useRef } from 'react';
+import React, { useState, useContext, useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Calendar from 'react-calendar';
 import { useParams } from 'react-router-dom';
@@ -9,6 +9,7 @@ import '../styles/ReusableComponents/DatePicker.css';
 import '../styles/ReusableComponents/Calendar.css';
 import calendarSVG from '../../assets/DatePicker/calendar.svg';
 import arrow from '../../assets/DatePicker/arrow.svg';
+import getSomeYearsAgo from '../../utils/getSomeYearsAgo'
 
 function DatePicker({ onSearch }) {
   const current = new Date();
@@ -24,27 +25,52 @@ function DatePicker({ onSearch }) {
   }
   const followingDay = new Date(current.getTime() + 86400000);
   const followingDay2 = new Date(current.getTime() + 172800000);
+
   const { startDate, endDate } = useParams();
 
   const [fromValue, setFromValue] = useState(!startDate ? current : dateFormatter(startDate));
-
   const [toValue, setToValue] = useState(!startDate ? followingDay2 : dateFormatter(endDate));
   const [option, setOption] = useState('');
   const parkingBg = useContext(BackGroundContext);
-  const calendarDialog = useRef(null);
+  const calendarDialogFrom = useRef(null);
+  const calendarDialogTo = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (calendarDialogFrom.current && !calendarDialogFrom.current.contains(event.target)) {
+        console.log('From calendar: it\'s outside');
+        calendarDialogFrom.current.close();
+      }
+      if (calendarDialogTo.current && !calendarDialogTo.current.contains(event.target)) {
+        console.log('To calendar: it\'s outside');
+        calendarDialogTo.current.close();
+      }
+    }
+
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   function openCalendar(prop) {
-    calendarDialog.current.showModal();
+    if (prop === 'start') {
+    calendarDialogFrom.current.showModal();
+  } else if (prop === 'end') {
+    calendarDialogTo.current.showModal(); }
     setOption(prop);
   }
 
   function onDateChange(date) {
     if (option === 'start') {
       setFromValue(date);
+      calendarDialogFrom.current.close();
     } else if (option === 'end') {
       setToValue(date);
+      calendarDialogTo.current.close()
     }
-    calendarDialog.current.close();
   }
 
   const HandleEndDateChange = useCallback(
@@ -98,11 +124,22 @@ function DatePicker({ onSearch }) {
           </div>
         </div>
       </div>
-      <dialog id="calendar-dialog" ref={calendarDialog}>
+      <dialog id="calendar-dialog" ref={calendarDialogFrom}>
         <Calendar
-          className="date-picker-calendar"
+          className="date-picker-calendar-from"
           onChange={HandleEndDateChange}
           value={fromValue}
+          minDate={fromValue}
+          maxDate={new Date(getSomeYearsAgo(-1))}
+        />
+      </dialog>
+      <dialog id="calendar-dialog" ref={calendarDialogTo}>
+        <Calendar
+          className="date-picker-calendar-to"
+          onChange={HandleEndDateChange}
+          value={[fromValue, new Date(fromValue.getTime() + 86400000)]}
+          minDate={new Date(fromValue.getTime() + 86400000)}
+          maxDate={new Date(getSomeYearsAgo(-1))}
         />
       </dialog>
     </div>

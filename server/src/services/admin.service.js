@@ -23,7 +23,7 @@ export async function returnServiceById(userID, id) {
 }
 
 export async function cancelServiceById(userID, id) {
-  const canceledService = await prisma.Services.update({
+  const canceledService = await prisma.services.update({
     where: {
       id,
       userID,
