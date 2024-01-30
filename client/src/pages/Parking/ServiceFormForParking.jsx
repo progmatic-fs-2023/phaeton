@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
 import UserContext from '../../contexts/UserContext';
@@ -28,7 +28,6 @@ function ServiceFormForParking() {
 
   const { user } = userCtx;
   const { parkingData } = parkingCtx;
-
   const [isLoggedIn] = useState(user !== 'GuestUser');
   const [email, setEmail] = useState(isLoggedIn ? user.email : '');
   const [firstName, setFirstName] = useState(isLoggedIn ? user.firstName : '');
@@ -40,6 +39,7 @@ function ServiceFormForParking() {
   const [message, setMessage] = useState('');
   const [IsVisible, setIsVisible] = useState('non-visible');
   const [isBlurred, setIsBlurred] = useState('');
+  const [isOnThisSite, setIsOnThisSite] = useState(true);
   const price = numberWithSpaces(getDaysBetweenDates(startDate, endDate) * 3000);
 
   function successfullBooking() {
@@ -50,6 +50,28 @@ function ServiceFormForParking() {
       navigate('/');
     }, 2000);
   }
+  // when parkingData null, navigates to /parking
+  useEffect(() => {
+    if (!parkingData) {
+      navigate('/parking');
+    }
+  }, [parkingData]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const e = event;
+      const newMessage =
+        'You have unsaved changes. If you leave the page, your changes will be lost.';
+      e.returnValue = newMessage; // Standard for most browsers
+      setIsOnThisSite(false);
+      return newMessage; // For some older browsers
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      // EventListener eltávolítása
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isOnThisSite]);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -81,7 +103,6 @@ function ServiceFormForParking() {
         price,
         spots,
         service: 'parking',
-        phoneNumberValue,
       });
       successfullBooking();
     }
@@ -150,7 +171,6 @@ function ServiceFormForParking() {
         startDateValue,
         endDateValue,
         spots,
-        phoneNumberValue,
         service: 'parking',
       });
       successfullBooking();
@@ -175,7 +195,7 @@ function ServiceFormForParking() {
   };
 
   return (
-    <div>
+    <div className="main-serviceform-container">
       <label id="serviceform-container" className={isBlurred} htmlFor="serviceform">
         <h2>Driver Details</h2>
         <form id="serviceform" name="serviceform" onSubmit={(event) => onSubmit(event)}>

@@ -4,7 +4,8 @@ import numberWithSpaces from '../../utils/numberWithSpaces';
 import getDaysBetweenDates from '../../utils/getDaysBetweenDates';
 
 export default function BookingReceipt(serviceObject) {
-  const { VITE_RECEIPT_MAIL_SERVICE_ID, VITE_RECEIPT_MAIL_TEMPLATE_ID } = import.meta.env;
+  const { VITE_RECEIPT_MAIL_SERVICE_ID, VITE_RECEIPT_MAIL_TEMPLATE_ID, VITE_RECEIPT_PUBLIC_KEY } =
+    import.meta.env;
 
   if (serviceObject.service === 'parking') {
     const { user, startDateValue, endDateValue, parkingDataValue, spots, price } = serviceObject;
@@ -15,9 +16,23 @@ export default function BookingReceipt(serviceObject) {
     const emailParams = {
       to_name: `${user.firstName} ${user.lastName}`,
       user_email: user.email,
-      message: `
-      Thank you for reserving in zone ${zone} ${spots} spots,
-      `,
+      message: `Dear ${user.firstName} ${user.lastName},
+
+Thank you for choosing our parking service. We are pleased to confirm your reservation for the following details:
+Number of parking spots: ${spots}
+Zone: ${zone}
+Start Date: ${formattedStartDate}
+End Date: ${formattedEndDate}
+The total cost of your reservation is ${price} HUF, payable upon pickup.
+
+If you have any questions or need to make changes, feel free to contact us at info@phaeton.com.
+
+We appreciate your business and look forward to serving you.
+
+Best regards,
+
+Chuck Norris,
+Phaeton`,
       start_date: formattedStartDate,
       end_date: formattedEndDate,
       price,
@@ -27,7 +42,7 @@ export default function BookingReceipt(serviceObject) {
         VITE_RECEIPT_MAIL_SERVICE_ID,
         VITE_RECEIPT_MAIL_TEMPLATE_ID,
         emailParams,
-        import.meta.env.VITE_API_PUBLIC_KEY,
+        VITE_RECEIPT_PUBLIC_KEY,
       )
       .then((response) => response)
       .catch((error) => error);
@@ -44,7 +59,23 @@ export default function BookingReceipt(serviceObject) {
     const emailParams = {
       to_name: `${user.firstName} ${user.lastName}`,
       user_email: user.email,
-      message: `Thank you for renting ${model}`,
+      message: `Dear ${user.firstName} ${user.lastName},
+
+Thank you for choosing our car rental service. We are pleased to confirm your reservation for the following details:
+
+Car Type: ${model}
+Pickup Date: ${formattedStartDate}
+Return Date: ${formattedEndDate}
+Please ensure to bring the necessary documents and adhere to the agreed-upon pickup and return times. The total cost of your reservation is ${calculatedPrice} HUF, payable upon pickup.
+
+If you have any questions or need to make changes, feel free to contact us at info@phaeton.com.
+
+We appreciate your business and look forward to serving you.
+
+Best regards,
+
+Chuck Norris,
+Phaeton`,
       start_date: formattedStartDate,
       end_date: formattedEndDate,
       price: calculatedPrice,
@@ -54,7 +85,7 @@ export default function BookingReceipt(serviceObject) {
         VITE_RECEIPT_MAIL_SERVICE_ID,
         VITE_RECEIPT_MAIL_TEMPLATE_ID,
         emailParams,
-        import.meta.env.VITE_API_PUBLIC_KEY,
+        VITE_RECEIPT_PUBLIC_KEY,
       )
       .then((response) => response)
       .catch((error) => error);

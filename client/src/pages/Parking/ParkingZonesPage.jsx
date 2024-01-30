@@ -52,7 +52,6 @@ function ParkingZonesPage() {
           <LoadingScreen />
         ) : (
           <div className="parking-booking-bg">
-            <p>asd</p>
             <DatePicker
               onSearch={(startDateOnSearch, endDateOnSearch) => {
                 onSearchFn(startDateOnSearch, endDateOnSearch);
