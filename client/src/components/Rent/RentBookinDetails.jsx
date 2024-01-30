@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CarContext from '../../contexts/CarContext';
@@ -8,17 +8,37 @@ import dateFormatWithDots from '../../utils/dateFormatWithDots';
 
 function RentBookingDetails() {
   const { startDate, endDate, carId } = useParams();
+  const [isOnThisSite, setIsOnThisSite] = useState(true);
 
   const navigate = useNavigate();
 
   const carCtx = useContext(CarContext);
   const { carData } = carCtx;
 
+  useEffect(() => {
+    if (!carData || !carData.price) {
+      navigate('/rental');
+    }
+  }, [carData]);
   // formatting date to DD.MM.YYYY
-
   const formattedStartDate = dateFormatWithDots(startDate);
   const formattedEndDate = dateFormatWithDots(endDate);
   const price = numberWithSpaces(getDaysBetweenDates(startDate, endDate) * carData.price);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const e = event;
+      const message = 'You have unsaved changes. If you leave the page, your changes will be lost.';
+      e.returnValue = message; // Standard for most browsers
+      setIsOnThisSite(false);
+      return message; // For some older browsers
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      // removing eventListener
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isOnThisSite]);
 
   function onBook(event) {
     event.preventDefault();

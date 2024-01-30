@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import PhoneInput from 'react-phone-number-input';
 import UserContext from '../../contexts/UserContext';
@@ -15,7 +15,6 @@ function ServiceFormForRent() {
   const { startDate, endDate, carId } = useParams();
   const carCtx = useContext(CarContext);
   const navigate = useNavigate();
-
   function dateFormatterWithHyphen(value) {
     const date = new Date(value);
 
@@ -38,6 +37,7 @@ function ServiceFormForRent() {
   const [message, setMessage] = useState('');
   const [IsVisible, setIsVisible] = useState('non-visible');
   const [isBlurred, setIsBlurred] = useState('');
+  const [isOnThisSite, setIsOnThisSite] = useState(true);
 
   function successfullBooking() {
     setIsVisible('visible');
@@ -47,7 +47,26 @@ function ServiceFormForRent() {
       navigate('/');
     }, 2000);
   }
-
+  useEffect(() => {
+    if (!carData) {
+      navigate('/rental');
+    }
+  }, [carData]);
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const e = event;
+      const newMessage =
+        'You have unsaved changes. If you leave the page, your changes will be lost.';
+      e.returnValue = newMessage; // Standard for most browsers
+      setIsOnThisSite(false);
+      return message; // For some older browsers
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      // EventListener eltávolítása
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [isOnThisSite]);
   const onSubmit = (event) => {
     event.preventDefault();
     async function loggedInUserRenting(carIdValue, startDateValue, endDateValue, phoneNumberValue) {
