@@ -40,6 +40,7 @@ function DatePicker({ onSearch }) {
       if (calendarDialog.current && !calendarDialog.current.contains(event.target)) {
         setIsVisible('non-visible');
         setIsBlurred('');
+        document.body.style.overflow = 'auto';
       }
     }
 
@@ -52,6 +53,7 @@ function DatePicker({ onSearch }) {
   function openCalendar() {
     setIsVisible('visible');
     setIsBlurred('blurred');
+    document.body.style.overflow = 'hidden';
   }
 
   function onDateChange(date) {
@@ -66,6 +68,7 @@ function DatePicker({ onSearch }) {
     setFromValue(fromDate);
     setIsVisible('non-visible');
     setIsBlurred('');
+    document.body.style.overflow = 'auto';
   }
 
   const HandleEndDateChange = useCallback(
