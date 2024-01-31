@@ -38,7 +38,7 @@ function Login({ handleLogin, errorMsg }) {
         'A password should be 8 characters long and include uppercase and lowercase letters as well as numbers ',
       );
     } else {
-      const response = await fetch('http://localhost:3000/users/signup', {
+      const response = await fetch('http://localhost:3000/users/guestusersignup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

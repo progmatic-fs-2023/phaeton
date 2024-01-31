@@ -135,21 +135,21 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .parking-zones-wrapper {
-    width: 420px;
-  }
-  .zones-grid {
-    font-size: 3em;
-    scale: 0.47;
-    margin-bottom: -200px;
-    margin-left: -225px;
-  }
-  .parkingzones-input-container {
-    scale: 0.7;
-    margin-bottom: -200px;
-    margin-left: -100px;
-  }
-  .shuttle-div {
-    font-size: 0.6em;
-  }
+    .parking-zones-wrapper {
+        width: 100vw;
+    }
+    .zones-grid{
+        font-size: 3em;
+        scale: 0.45;
+        margin-bottom: -200px;
+        margin-left: -245px;
+    }
+    .parkingzones-input-container{
+        margin-bottom: -200px;
+        width: 100vw;
+        font-size: small;
+    }
+        .shuttle-div{
+            font-size: 0.6em;
+        }
 }

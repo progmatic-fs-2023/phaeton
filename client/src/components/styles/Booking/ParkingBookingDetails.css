@@ -30,3 +30,12 @@ font-size: 1.3em;
 font-weight: 400;
 letter-spacing: 1px;
 }
+
+@media only screen and (max-width: 600px) { 
+  .end-booking-details{
+    width: auto;
+    margin: auto;
+    padding: 5px;
+    padding-bottom: 30px;
+  }
+}
