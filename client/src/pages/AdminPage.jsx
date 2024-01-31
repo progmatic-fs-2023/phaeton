@@ -585,8 +585,8 @@ function AdminPage() {
                     {currentItems.map((service, index) => (
                       <tr key={service.id}>
                         <td id="service-id">{service.id}</td>
-                        <td>{dateFormatter(service.ServiceStartDate, 1)}</td>
-                        <td>{dateFormatter(service.ServiceEndDate, 1)}</td>
+                        <td>{dateFormatter(service.ServiceStartDate, 0)}</td>
+                        <td>{dateFormatter(service.ServiceEndDate, 0)}</td>
                         <td>{dateFormatter(service.ActualServiceEndDate, 0)}</td>
                         <td>{service.ParkingLot ? service.ParkingLot.zone : '-'}</td>
                         <td>{service.name}</td>

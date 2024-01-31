@@ -1,120 +1,137 @@
 @import url('../variables.css');
 
-.zones-grid{
-    background-image: url("/parking_pictures/parkingBG.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 879px;
-    height: 882px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    display: grid;
-    grid-template-columns: 130px repeat(2, 2fr);
-    grid-template-rows: 120px repeat(3, 1fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 0px;
-    text-align: center;
-    justify-content: center;
-    align-content: center;
-    font-weight: bold;
-    font-size: 1.5em;
+.zones-grid {
+  background-image: url('/parking_pictures/parkingBG.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 879px;
+  height: 882px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 130px repeat(2, 2fr);
+  grid-template-rows: 120px repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  font-weight: bold;
+  font-size: 1.5em;
 }
 
 .zones-grid div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  opacity: 0.8;
 }
-
 
 /*zone "button" config */
 .zone-btn {
-    font-size: 1em;
-    font-weight: bold;
-    border: none;
-    margin-right: 90px;
-    background-color: var(--secondary-color);
-    opacity: 0.8;
-    transition: 0.5s;
-    cursor: pointer;
-    height: 230px;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  margin-right: 90px;
+  background-color: var(--secondary-color);
+  opacity: 0.8;
+  transition: 0.5s;
+  cursor: pointer;
+  height: 230px;
 }
 
 .noSpace:hover {
-    background-color: red;
+  background-color: red;
 }
 .fewSpace:hover {
-    background-color: orange;
+  background-color: orange;
 }
 
 .freeSpace:hover {
-    background-color: greenyellow;
+  background-color: greenyellow;
 }
 
 /* Grid area setting */
-.shuttle-div { 
-    grid-area: 3 / 1 / 5 / 2;
-    margin: 70px 0px 20px 20px;
-    width: 100px;
-    background-color: greenyellow;
+.shuttle-div {
+  grid-area: 3 / 1 / 5 / 2;
+  margin: 70px 0px 20px 20px;
+  width: 100px;
+  background-color: greenyellow;
 }
-.office { 
-    grid-area: 1 / 1 / 2 / 4;
-    margin-left:70px ;
-    margin-right:115px ;
-    height: 65px;
-    background-color: gray;
+.office {
+  grid-area: 1 / 1 / 2 / 4;
+  margin-left: 70px;
+  margin-right: 115px;
+  height: 65px;
+  background-color: gray;
 }
 
-.zone-A { grid-area: 2 / 2 / 3 / 3; }
-.zone-B { grid-area: 2 / 3 / 3 / 4; }
-.zone-C { grid-area: 3 / 2 / 4 / 3; }
-.zone-D { grid-area: 3 / 3 / 4 / 4; }
-.zone-E { grid-area: 4 / 2 / 5 / 3; }
-.zone-F { grid-area: 4 / 3 / 5 / 4; }
+.zone-A {
+  grid-area: 2 / 2 / 3 / 3;
+}
+.zone-B {
+  grid-area: 2 / 3 / 3 / 4;
+}
+.zone-C {
+  grid-area: 3 / 2 / 4 / 3;
+}
+.zone-D {
+  grid-area: 3 / 3 / 4 / 4;
+}
+.zone-E {
+  grid-area: 4 / 2 / 5 / 3;
+}
+.zone-F {
+  grid-area: 4 / 3 / 5 / 4;
+}
 
 /*  Number picker */
-.parkingzones-input-container{
-background-color: var(--main-color);
-color:#fff;
-width: 600px;
-letter-spacing: 2px;
-font-weight: bold;
-font-size: 1.3rem;
-gap: 80px;
-margin: auto;
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 10px;
-border-radius: 5px;
+.parkingzones-input-container {
+  background-color: var(--main-color);
+  color: #fff;
+  width: 600px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  gap: 80px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
 }
-.parkingzones-input-container label{
-    padding: 20px;
-    margin: auto;
+.parkingzones-input-container label {
+  padding: 20px;
+  margin: auto;
 }
-#parking{
-    margin-left: 50px;
-    height: 50px;
-    border-radius: 5px;
-    font-size: large;
-    font-weight: bold;
-    text-align: center;
+#parking {
+  margin-left: 50px;
+  height: 50px;
+  border-radius: 5px;
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
 }
 
-.error-message-dialog{
-    border: 1px solid black;
-    width: 500px;
-    background-color: #b94646;
-    font-size: 1.3em;
-    color: white;
-    text-align: center;
-    border-radius: 10px;
-    border:none;
-    outline: none;
-    box-shadow: 5px 5px 5px rgb(52, 50, 50);
+.error-message-dialog {
+  border: 1px solid black;
+  width: 500px;
+  background-color: #b94646;
+  font-size: 1.3em;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  box-shadow: 5px 5px 5px rgb(52, 50, 50);
+}
+
+.parking-booking-bg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 600px) {

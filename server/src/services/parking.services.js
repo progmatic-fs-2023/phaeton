@@ -22,6 +22,7 @@ export async function getParkingAndServicesByDate(ServiceStartDate, ServiceEndDa
             gte: ServiceEndDate,
           },
         },
+        { IsActive: true },
       ],
     },
   });

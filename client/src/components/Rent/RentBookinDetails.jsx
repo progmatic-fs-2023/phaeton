@@ -5,6 +5,8 @@ import CarContext from '../../contexts/CarContext';
 import getDaysBetweenDates from '../../utils/getDaysBetweenDates';
 import numberWithSpaces from '../../utils/numberWithSpaces';
 import dateFormatWithDots from '../../utils/dateFormatWithDots';
+import '../styles/Rent/RentBookingDetails.css';
+import BackButton from '../ReusableComponents/BackButton';
 
 function RentBookingDetails() {
   const { startDate, endDate, carId } = useParams();
@@ -47,52 +49,61 @@ function RentBookingDetails() {
 
   const splittedImageUrl = carData.imageUrl.split('.');
   return (
-    <div className="end-booking-details-rent">
-      <h2>Confirm your booking:</h2>
-      <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
-      <div className="car-container">
-        <div key={carData.model} className="car-card">
-          <div className="photo-and-info-container">
-            <div className="car-photo-container">
-              <LazyLoadImage
-                effect="blur"
-                src={`http://localhost:5173/cars/${carData.imageUrl}`}
-                className="car-photo"
-                alt={carData.model}
-                placeholderSrc={`http://localhost:5173/cars/${splittedImageUrl[0]}_lazy.jpg`}
-              />
-            </div>
-            <div className="title-and-info-container">
-              <h3 className="car-title">{carData.model}</h3>
-              <div className="car-info-container">
-                <div className="car-info-elem">
-                  <span className="material-symbols-outlined">person</span> {carData.seats}
-                </div>
-                <div className="car-info-elem">
-                  <span className="material-symbols-outlined">luggage</span> {carData.trunkCapacity}
-                </div>
-                <div className="car-info-elem">
-                  <span className="material-symbols-outlined">local_gas_station</span>{' '}
-                  {carData.fuel}
-                </div>
-                <div className="car-info-elem">
-                  <span className="material-symbols-outlined">auto_transmission</span>{' '}
-                  {carData.transmission === 'A' ? 'Automatic' : 'Manual'}
-                </div>
-                <div className="car-info-elem">
-                  <span className="material-symbols-outlined">settings</span>{' '}
-                  {`${carData.power} KW`}
+    <div>
+      <BackButton />
+      <div className="end-booking-details-rent">
+        <div className="car-container-for-confirm">
+          <div>
+            <h2>Your Deal</h2>
+            <div className="from-to-div-for-confirm">{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
+          </div>
+          <h3 className="car-title">{carData.model}</h3>
+          <div key={carData.model} className="car-card-for-confirm">
+            <div className="photo-and-info-container-for-confirm">
+              <div className="car-photo-container">
+                <LazyLoadImage
+                  effect="blur"
+                  src={`http://localhost:5173/cars/${carData.imageUrl}`}
+                  className="car-photo"
+                  alt={carData.model}
+                  placeholderSrc={`http://localhost:5173/cars/${splittedImageUrl[0]}_lazy.jpg`}
+                />
+              </div>
+              <div className="title-and-info-container">
+                <div className="car-info-container">
+                  <div className="car-info-elem">
+                    <span className="material-symbols-outlined">person</span> {carData.seats}
+                  </div>
+                  <div className="car-info-elem">
+                    <span className="material-symbols-outlined">luggage</span>{' '}
+                    {carData.trunkCapacity}
+                  </div>
+                  <div className="car-info-elem">
+                    <span className="material-symbols-outlined">local_gas_station</span>{' '}
+                    {carData.fuel}
+                  </div>
+                  <div className="car-info-elem">
+                    <span className="material-symbols-outlined">auto_transmission</span>{' '}
+                    {carData.transmission === 'A' ? 'Automatic' : 'Manual'}
+                  </div>
+                  <div className="car-info-elem">
+                    <span className="material-symbols-outlined">settings</span>{' '}
+                    {`${carData.power} KW`}
+                  </div>
                 </div>
               </div>
             </div>
-            <p>Price: {price} HUF</p>
+          </div>
+          <div className="price-container-for-confirm">
+            <p>Price for {getDaysBetweenDates(startDate, endDate)} days: </p>{' '}
+            <p className="price-for-confirm">{price} HUF</p>
           </div>
         </div>
-      </div>
 
-      <button type="submit" onClick={onBook}>
-        Confirm
-      </button>
+        <button className="rent-button" type="submit" onClick={onBook}>
+          Confirm
+        </button>
+      </div>
     </div>
   );
 }

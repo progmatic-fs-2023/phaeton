@@ -42,7 +42,7 @@
    }
    .react-calendar__tile--now:enabled:hover,
    .react-calendar__tile--now:enabled:focus {
-    background: var(--main-color)33;
+    background: var(--main-color);
     border-radius: 6px;
     font-weight: bold;
     color: var(--main-color);
@@ -75,9 +75,10 @@
     border-bottom-right-radius: 0;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
-    background: var(--main-color);
-    color: white;
-   }
+    background-color: var(--secondary-color);
+    color: white
+  }
+
    .react-calendar__tile--rangeEnd {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
