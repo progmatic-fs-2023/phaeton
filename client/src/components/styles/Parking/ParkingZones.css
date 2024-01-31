@@ -119,18 +119,18 @@ border-radius: 5px;
 
 @media only screen and (max-width: 600px) {
     .parking-zones-wrapper {
-        width: 420px;
+        width: 100vw;
     }
     .zones-grid{
         font-size: 3em;
-        scale: 0.47;
+        scale: 0.45;
         margin-bottom: -200px;
-        margin-left: -225px;
+        margin-left: -245px;
     }
     .parkingzones-input-container{
-        scale: 0.7;
         margin-bottom: -200px;
-        margin-left: -100px;
+        width: 100vw;
+        font-size: small;
     }
         .shuttle-div{
             font-size: 0.6em;
