@@ -20,15 +20,15 @@ function ParkingBookingDetails() {
   return (
     <div>
       <BackButton />
-    <div className="end-booking-details">
-      <h2>Confirm your booking:</h2>
-      <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
-      <div>{`${spots} spot in zone: ${zone}`}</div>
-      <p>Price: {price} HUF</p>
-      <button type="submit" onClick={onBook}>
-        Confirm
-      </button>
-    </div>
+      <div className="end-booking-details">
+        <h2>Confirm your booking:</h2>
+        <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
+        <div>{`${spots} spot in zone: ${zone}`}</div>
+        <p>Price: {price} HUF</p>
+        <button type="submit" onClick={onBook}>
+          Confirm
+        </button>
+      </div>
     </div>
   );
 }
