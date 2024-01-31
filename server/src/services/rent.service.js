@@ -22,9 +22,11 @@ export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
             gte: ServiceStartDate,
           },
         },
+        { IsActive: true },
       ],
     },
   });
+  console.log(services);
 
   return { cars, services };
 }

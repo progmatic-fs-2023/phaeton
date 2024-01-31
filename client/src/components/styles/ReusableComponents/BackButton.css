@@ -1,0 +1,20 @@
+.back-button {
+  margin: 5px;
+  font-size: 3rem;
+  background-color: transparent;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.back-button:hover {
+  background-color: rgb(210, 210, 210);
+}
+
+.back-button:active {
+  background-color: rgb(220, 220, 220);
+}

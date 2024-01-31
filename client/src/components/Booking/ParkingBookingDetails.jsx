@@ -4,6 +4,7 @@ import '../styles/Booking/ParkingBookingDetails.css';
 import numberWithSpaces from '../../utils/numberWithSpaces';
 import getDaysBetweenDates from '../../utils/getDaysBetweenDates';
 import dateFormatWithDots from '../../utils/dateFormatWithDots';
+import BackButton from '../ReusableComponents/BackButton';
 
 function ParkingBookingDetails() {
   const navigate = useNavigate();
@@ -17,14 +18,17 @@ function ParkingBookingDetails() {
     navigate(`/parking/from/${startDate}/end/${endDate}/zone/${zone}/spots/${spots}/form`);
   }
   return (
-    <div className="end-booking-details">
-      <h2>Confirm your booking:</h2>
-      <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
-      <div>{`${spots} spot in zone: ${zone}`}</div>
-      <p>Price: {price} HUF</p>
-      <button type="submit" onClick={onBook}>
-        Confirm
-      </button>
+    <div>
+      <BackButton />
+      <div className="end-booking-details">
+        <h2>Confirm your booking:</h2>
+        <div>{`From ${formattedStartDate} to ${formattedEndDate}`}</div>
+        <div>{`${spots} spot in zone: ${zone}`}</div>
+        <p>Price: {price} HUF</p>
+        <button type="submit" onClick={onBook}>
+          Confirm
+        </button>
+      </div>
     </div>
   );
 }

@@ -5,6 +5,8 @@
 .component-background {
   background-size: cover;
   height: 87vh;
+  display: flex;
+  justify-content: center;
 }
 
 .parking-bg {
@@ -34,7 +36,8 @@
 }
 
 .date-picker-container {
-  margin: 0 100px;
+  max-width: 800px;
+  margin: 0 300px;
   gap: 30px;
   display: flex;
   justify-content: center;
@@ -121,13 +124,12 @@ button {
 }
 
 .non-visible {
-  display: none
+  display: none;
 }
 
 .visible {
-  display: contents
+  display: contents;
 }
-
 
 .overlay {
   position: fixed;
@@ -155,10 +157,17 @@ button {
   justify-content: center;
 }
 
+@media only screen and (max-width: 1500px) {
+  .date-picker-container {
+    margin: 0px 150px;
+  }
+}
+
 @media only screen and (max-width: 1000px) {
   .date-picker-container {
     flex-direction: column;
     align-items: center;
+    margin: 0px 100px;
   }
 }
 
