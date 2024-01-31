@@ -8,7 +8,8 @@ import {
   removeUserByEmail,
 } from '../services/users.service';
 import 'dotenv/config';
-
+import AuthService from '../services/auth.services';
+const authService = new AuthService();
 // user registration
 export const signUp = async (req, res) => {
   const { firstName, lastName, email, dateOfBirth, password, IsGuestUser } = req.body;
@@ -171,6 +172,35 @@ export const deleteUser = async (req, res) => {
     res.status(400).json({
       error: 'Failed to delete user.',
       message: err.message,
+    });
+  }
+};
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Ellenőrizd, hogy a felhasználó létezik
+    const user = await findUserByEmail(email);
+
+    if (!user) {
+      res.status(404).json({
+        message: 'User not found.',
+        error: 'Email is invalid.',
+      });
+      return;
+    }
+
+    // Elküld egy jelszóvisszaállító e-mailt
+    await authService.sendPasswordResetEmail(email);
+
+    res.status(200).json({
+      message: 'Password reset email sent.',
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: 'Failed to process the request.',
+      error: err.message,
     });
   }
 };
