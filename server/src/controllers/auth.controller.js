@@ -12,9 +12,35 @@ import 'dotenv/config';
 // user registration
 export const signUp = async (req, res) => {
   const { firstName, lastName, email, dateOfBirth, password, IsGuestUser } = req.body;
+
+  try {
+    const passwordHash = await bcrypt.hash(password, 10);
+    const createdUser = await createUser({
+      firstName,
+      lastName,
+      email,
+      DateOfBirth: new Date(dateOfBirth),
+      password: passwordHash,
+      IsGuestUser,
+    });
+
+    res.status(201).json({
+      message: 'User created.',
+      user: createdUser,
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: 'Failed to create user.',
+      error: err.message,
+    });
+  }
+};
+
+export const guestUserSignUp = async (req, res) => {
+  const { firstName, lastName, email, dateOfBirth, password, IsGuestUser } = req.body;
   try {
     const checkIfGuestUser = await findUserByEmail(email);
-    if (checkIfGuestUser.IsGuestUser) {
+    if (checkIfGuestUser) {
       const passwordHash = await bcrypt.hash(password, 10);
       const updatedUser = await updateGuestUser({
         firstName,
@@ -29,10 +55,7 @@ export const signUp = async (req, res) => {
         message: 'User created.',
         user: updatedUser,
       });
-
-      console.log('isguestuser true');
     } else {
-      console.log('isguestuser false');
       const passwordHash = await bcrypt.hash(password, 10);
       const createdUser = await createUser({
         firstName,
