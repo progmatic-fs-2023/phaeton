@@ -1,31 +1,57 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { createUser, findUserByEmail, findServicesByUserId } from '../services/users.service';
+import {
+  createUser,
+  findUserByEmail,
+  findServicesByUserId,
+  updateGuestUser,
+  removeUserByEmail,
+} from '../services/users.service';
 import 'dotenv/config';
 
 // user registration
 export const signUp = async (req, res) => {
   const { firstName, lastName, email, dateOfBirth, password, IsGuestUser } = req.body;
-
   try {
-    const passwordHash = await bcrypt.hash(password, 10);
-    const createdUser = await createUser({
-      firstName,
-      lastName,
-      email,
-      DateOfBirth: new Date(dateOfBirth),
-      password: passwordHash,
-      IsGuestUser,
-    });
+    const checkIfGuestUser = await findUserByEmail(email);
+    if (checkIfGuestUser.IsGuestUser) {
+      const passwordHash = await bcrypt.hash(password, 10);
+      const updatedUser = await updateGuestUser({
+        firstName,
+        lastName,
+        email,
+        DateOfBirth: new Date(dateOfBirth),
+        password: passwordHash,
+        IsGuestUser: false,
+      });
 
-    res.status(201).json({
-      message: 'User created.',
-      user: createdUser,
-    });
+      res.status(201).json({
+        message: 'User created.',
+        user: updatedUser,
+      });
+
+      console.log('isguestuser true');
+    } else {
+      console.log('isguestuser false');
+      const passwordHash = await bcrypt.hash(password, 10);
+      const createdUser = await createUser({
+        firstName,
+        lastName,
+        email,
+        DateOfBirth: new Date(dateOfBirth),
+        password: passwordHash,
+        IsGuestUser,
+      });
+
+      res.status(201).json({
+        message: 'User created.',
+        user: createdUser,
+      });
+    }
   } catch (err) {
     res.status(400).json({
-      message: 'Failed to create user.',
-      error: err.message,
+      error: 'Failed to create user.',
+      message: err.message,
     });
   }
 };
@@ -104,5 +130,24 @@ export const list = async (req, res) => {
     res.status(200).json(services);
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await findUserByEmail(email);
+    if (user) {
+      const deletedUser = await removeUserByEmail(user.email);
+      res.status(201).json({
+        message: 'User deleted.',
+        user: deletedUser,
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      error: 'Failed to delete user.',
+      message: err.message,
+    });
   }
 };
