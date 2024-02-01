@@ -28,6 +28,10 @@
   gap: 10px;
 }
 
+.list-container li a {
+  margin: 16px 0
+}
+
 .form-container form {
   display: flex;
   flex-direction: column;

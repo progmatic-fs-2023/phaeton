@@ -24,6 +24,10 @@ body {
   gap: 10px;
 }
 
+.main-container li a {
+  margin: 16px 0;
+}
+
 .main-container img {
   filter: var(--main-svg-filter)
 }

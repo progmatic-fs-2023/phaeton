@@ -12,7 +12,7 @@ function SettingsLayout() {
     }, []);
   }
 
-  console.log(userCtx)
+
   return (
     <>
       <div className="profile-header">

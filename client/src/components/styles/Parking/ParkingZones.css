@@ -142,7 +142,7 @@
         font-size: 3em;
         scale: 0.44;
         margin-bottom: -200px;
-        margin-left: -250px;
+        margin-left: -150px;
     }
     .parkingzones-input-container{
         margin-bottom: -200px;
@@ -163,4 +163,16 @@
         .shuttle-div{
             font-size: 0.6em;
         }
+}
+
+@media only screen and (max-width: 500px) {
+  .zones-grid{
+    margin-left: -200px;
+  }
+  }
+
+@media only screen and (max-width: 400px) {
+.zones-grid{
+  margin-left: -250px;
+}
 }

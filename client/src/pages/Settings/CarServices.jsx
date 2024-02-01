@@ -73,6 +73,8 @@ function CarServices() {
   }
   const filteredServices = userServices.filter((service) => service.CarID);
 
+  console.log(userServices);
+
   if (filteredServices.length === 0) {
     return (
       <div className="settings-center-h1">
@@ -141,20 +143,27 @@ function CarServices() {
                         HUF
                       </p>
                       <div className="car-info-elem">
-                      {services.IsActive ? (
-  <button
-    type="button"
-    className="cancel-btn"
-    disabled={!(new Date(services.ServiceStartDate) > new Date())}
-    onClick={() => handleCancel(services.id)}
-  >
-    Cancel
-  </button>
-) : !services.ActualServiceDate ? (
-  <p className="canceled-p">Canceled</p>
-) : (
-  <p className="returned-p">Returned</p>
-)}
+                        {(() => {
+                          if (services.IsActive) {
+                            return (
+                              <button
+                                type="button"
+                                className="cancel-btn"
+                                disabled={!(new Date(services.ServiceStartDate) > new Date())}
+                                onClick={() => handleCancel(services.id)}
+                              >
+                                Cancel
+                              </button>
+                            );
+                          }
+                          if (!services.IsActive && !services.ActualServiceEndDate) {
+                            return <p className="canceled-p">Canceled</p>;
+                          }
+                          if (!services.IsActive && services.ActualServiceEndDate) {
+                            return <p className="returned-p">Returned</p>;
+                          }
+                          return null;
+                        })()}
                       </div>
                     </div>
                   </div>
