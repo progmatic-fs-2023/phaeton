@@ -34,8 +34,12 @@
   border-radius: 5px;
   padding: 20px;
 }
-.profile-data{
-  margin: auto;
+.profile-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px auto;
+  gap: 30px;
 }
 .profile-header {
   background-color: var(--secondary-color);
