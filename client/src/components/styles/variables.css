@@ -1,5 +1,6 @@
 :root {
     --main-color: rgb(3, 30, 74);
+    --main-color-hover: #031533;
     --secondary-color: #6b9ac7;
     --main-svg-filter: invert(100%);
     --main-box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 5px;
