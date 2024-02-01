@@ -19,6 +19,7 @@ model Users {
   DateOfBirth   DateTime?
   Verified      Boolean    @default(false)
   Service       Services[]
+  ResetToken    String?
 }
 
 model Cars {

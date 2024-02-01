@@ -21,6 +21,8 @@ import ServiceFormForParking from '../pages/Parking/ServiceFormForParking';
 import ServiceFormForRent from '../pages/Rent/ServiceFormForRent';
 import AdminPage from '../pages/AdminPage';
 import ActivationPage from '../pages/ActivationPage';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 function Layout() {
   // parking context
@@ -53,6 +55,8 @@ function Layout() {
               <Route path="parkingservices" element={<ParkingServices />} />
             </Route>
             <Route path="shuttle" element={<Shuttle />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="reset-password/:id" element={<ResetPassword />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<PageNotFound />} />
             {/* Rent */}

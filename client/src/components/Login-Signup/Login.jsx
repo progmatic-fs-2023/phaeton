@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { NavLink } from 'react-router-dom';
 import '../styles/Login-Signup/Login.css';
 import PropTypes from 'prop-types';
 import getSomeYearsAgo from '../../utils/getSomeYearsAgo';
@@ -153,9 +154,9 @@ function Login({ handleLogin, errorMsg }) {
                 {message ? <p className="pw-error">{message}</p> : ''}
 
                 {/* forgot password needs a ref later */}
-                <a className="forgot-password" href="http://localhost:5173/">
+                <NavLink onClick={closeDialog} to="forgot-password">
                   I forgot my password
-                </a>
+                </NavLink>
               </div>
               <div>
                 <button className="submit-btn" type="submit" onClick={handleLoginSubmit}>
