@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../components/styles/Pages/ResetForgotPassword.css';
+
 function ForgotPassword() {
   const [email, setEmail] = useState('');
   const handleSubmit = async (e) => {
