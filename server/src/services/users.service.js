@@ -48,6 +48,17 @@ export async function findServicesByUserId(userID) {
       Cars: true,
       ParkingLot: true,
     },
+    orderBy: [
+      {
+        ServiceStartDate: 'desc',
+      },
+      {
+        ActualServiceEndDate: 'asc',
+      },
+      {
+        IsActive: 'asc',
+      },
+    ],
   });
 
   return services;
@@ -65,7 +76,6 @@ export async function removeUserByEmail(email) {
 }
 
 export async function findUserById(userId) {
-  console.log(userId);
   const user = await prisma.users.findUnique({
     where: {
       id: userId,
