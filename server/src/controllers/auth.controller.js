@@ -6,9 +6,12 @@ import {
   findServicesByUserId,
   updateGuestUser,
   removeUserByEmail,
+  findUserById,
+  updatePassword,
 } from '../services/users.service';
 import 'dotenv/config';
 import AuthService from '../services/auth.services';
+
 const authService = new AuthService();
 // user registration
 export const signUp = async (req, res) => {
@@ -175,13 +178,31 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
+
+export const getUserById = async (req, res) => {
+  try {
+    const user = await findUserById(req.params.id);
+    if (!user) {
+      res.status(404).json({
+        message: 'User not found.',
+        error: 'Id is invalid.',
+      });
+    } else {
+      res.status(200).json(user);
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: 'Failed to process the request.',
+      error: err.message,
+    });
+  }
+};
+
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
-    // Ellenőrizd, hogy a felhasználó létezik
     const user = await findUserByEmail(email);
-
     if (!user) {
       res.status(404).json({
         message: 'User not found.',
@@ -190,12 +211,24 @@ export const forgotPassword = async (req, res) => {
       return;
     }
 
-    // Elküld egy jelszóvisszaállító e-mailt
-    await authService.sendPasswordResetEmail(email);
+    await authService.sendPasswordResetEmail(email, user.id);
 
     res.status(200).json({
       message: 'Password reset email sent.',
     });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Failed to process the request.',
+      error: err.message,
+    });
+  }
+};
+export const resetPassword = async (req, res) => {
+  const { password, email } = req.body;
+  const passwordHash = await bcrypt.hash(password, 10);
+  try {
+    const changedUserPw = await updatePassword(passwordHash, email);
+    res.status(200).json({ changedUserPw, message: 'pw changed' });
   } catch (err) {
     console.error(err);
     res.status(500).json({

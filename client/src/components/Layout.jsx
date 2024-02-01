@@ -55,7 +55,7 @@ function Layout() {
             </Route>
             <Route path="shuttle" element={<Shuttle />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="reset-password/:id" element={<ResetPassword />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<PageNotFound />} />
             {/* Rent */}

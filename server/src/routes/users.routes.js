@@ -9,5 +9,7 @@ router.post('/login', authController.login);
 router.post('/check', authController.check);
 router.post('/services', authController.list);
 router.delete('/delete', authController.deleteUser);
+router.get('/userbyid/:id', authController.getUserById);
 router.post('/forgot-password', authController.forgotPassword);
+router.patch('/reset-password', authController.resetPassword);
 export default router;
