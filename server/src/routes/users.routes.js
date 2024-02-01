@@ -8,6 +8,7 @@ router.post('/guestusersignup', authController.guestUserSignUp);
 router.post('/login', authController.login);
 router.post('/check', authController.check);
 router.post('/services', authController.list);
+router.patch('/activate/:email/:code', authController.activateAccount);
 router.delete('/delete', authController.deleteUser);
 router.get('/userbyid/:id', authController.getUserById);
 router.post('/forgot-password', authController.forgotPassword);

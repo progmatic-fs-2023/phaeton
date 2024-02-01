@@ -2,26 +2,24 @@ import emailjs from 'emailjs-com';
 import PropTypes from 'prop-types';
 
 function AutoEmail({ firstName, lastName, email }) {
-  const generateActivationCode = () =>
-    // Generate a random activation code here (you can use any method you prefer)
-    Math.random().toString(36).substring(7);
+  const generateActivationCode = () => Math.random().toString(36).substring(7);
   const sendActivationEmail = () => {
     const activationCode = generateActivationCode();
+    const activationLink = `http://localhost:5173/users/activate/${email}/${activationCode}`;
 
     // Use EmailJS to send the activation email
     emailjs
       .send(
-        'service_yde3o5f',
-        'template_egto16r',
+        'service_pd14pij',
+        'template_autoemail',
         {
           to_name: `${firstName} ${lastName}`,
           user_email: email,
           message: `
-        Thank you for registering on our website! Please activate your account with this <a href="#">Link</a>!
+          Thank you for registering on our website! Please activate your account with this <a href="${activationLink}">activation link</a>!
       `,
-          activation_code: activationCode,
         },
-        'O4GAt_vMnBOO_lMwn',
+        'EbL3nVlFcKPfXly4p',
       )
       .then()
       .catch(() => {
@@ -29,11 +27,12 @@ function AutoEmail({ firstName, lastName, email }) {
       });
   };
   sendActivationEmail();
-  return null; // This component doesn't render anything visible
+  return null;
 }
 AutoEmail.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
 };
+
 export default AutoEmail;
