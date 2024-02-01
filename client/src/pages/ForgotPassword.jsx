@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import '../components/styles/Pages/ResetForgotPassword.css';
 function ForgotPassword() {
   const [email, setEmail] = useState('');
   const handleSubmit = async (e) => {
@@ -15,8 +15,8 @@ function ForgotPassword() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="forgot-password-dialog">
+      <div className="forgot-password-content">
         <h1>Forgot Password?</h1>
         <label htmlFor="email">
           Enter your E-mail for the password change

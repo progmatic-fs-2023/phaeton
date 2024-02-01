@@ -151,9 +151,8 @@ export const check = (req, res) => {
 };
 
 export const list = async (req, res) => {
-  const userId = req.body;
   try {
-    const services = await findServicesByUserId(userId);
+    const services = await findServicesByUserId(req.body.id);
     res.status(200).json(services);
   } catch (err) {
     res.status(400).json({ error: err.message });

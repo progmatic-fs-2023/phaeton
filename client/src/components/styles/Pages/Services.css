@@ -54,6 +54,7 @@
   gap: 2px;
   margin: 20px;
 }
-.profile-parking-lot-container{
+.profile-parking-lot-container {
   margin: auto;
+  min-height: 500px;
 }

@@ -39,28 +39,19 @@ export async function findUserByEmail(email, IsGuestUser) {
   return user;
 }
 
-export async function findServicesByUserId({ userId }) {
+export async function findServicesByUserId(userID) {
   const services = await prisma.services.findMany({
     where: {
-      userID: userId,
+      userID,
     },
     include: {
-      Cars: {
-        where: {
-          userID: userId,
-        },
-      },
-      ParkingLot: {
-        where: {
-          userID: userId,
-        },
-      },
+      Cars: true,
+      ParkingLot: true,
     },
   });
 
   return services;
 }
-
 export async function removeUserByEmail(email) {
   const deletedUser = await prisma.users.delete({
     where: {
