@@ -51,7 +51,6 @@ function Contact() {
             E-mail : <br />
             <input id="email" placeholder="E-mail..." name="user_email" type="email" required />
           </label>
-          <br />
           <label htmlFor="name">
             Name : <br />
             <input id="name" placeholder="Name..." type="text" name="user_name" />

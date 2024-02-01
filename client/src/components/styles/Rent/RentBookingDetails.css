@@ -34,3 +34,12 @@
   align-items: center;
   gap: 50px;
 }
+
+@media only screen and (max-width: 600px) {
+.car-container-for-confirm {
+  padding: 5px;
+}
+  .photo-and-info-container-for-confirm{
+    gap:20px;
+  }
+}

@@ -37,7 +37,7 @@
 
 .date-picker-container {
   max-width: 800px;
-  margin: 0 300px;
+  margin: auto;
   gap: 30px;
   display: flex;
   justify-content: center;
