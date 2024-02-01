@@ -20,6 +20,7 @@ import ParkingServices from '../pages/Settings/ParkingServices';
 import ServiceFormForParking from '../pages/Parking/ServiceFormForParking';
 import ServiceFormForRent from '../pages/Rent/ServiceFormForRent';
 import AdminPage from '../pages/AdminPage';
+import ActivationPage from '../pages/ActivationPage';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
 
@@ -82,6 +83,7 @@ function Layout() {
               element={<ServiceFormForParking />}
             />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/users/activate/:email/:code" element={<ActivationPage />} />
           </Routes>
         </CarContext.Provider>
       </ParkingDetailsContext.Provider>
