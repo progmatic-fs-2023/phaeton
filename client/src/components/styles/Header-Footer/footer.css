@@ -40,3 +40,7 @@ body {
   padding: 10px;
   filter: var(--main-svg-filter);
 }
+
+.phone-num{
+  color:#fff;
+}

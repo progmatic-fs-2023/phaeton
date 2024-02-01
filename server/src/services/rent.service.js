@@ -26,7 +26,6 @@ export async function getCarsAndServicesByDate(ServiceStartDate, ServiceEndDate)
       ],
     },
   });
-  console.log(services);
 
   return { cars, services };
 }

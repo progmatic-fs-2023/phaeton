@@ -57,7 +57,7 @@
 }
 
 #serviceform button:hover {
-  background-color: #031533;
+  background-color: var(--main-color-hover);
 }
 
 #serviceform button:active {

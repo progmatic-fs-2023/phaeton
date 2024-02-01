@@ -79,7 +79,7 @@ export default function ParkingServices() {
   }
 
   return (
-    <div>
+    <div className="profile-parking-lot-container">
       {userServices.map((services) => {
         if (services.ParkingLot || services.ParkingLotID) {
           return (

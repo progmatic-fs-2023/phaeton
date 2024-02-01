@@ -1,5 +1,10 @@
-@import url("../variables.css");
+@import url('../variables.css');
 
+.profile-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .profile-dropbtn {
   background-color: var(--main-color);
@@ -84,3 +89,80 @@
   flex-direction: column;
   gap: 10px;
 }
+
+/* Delete modal */
+
+.delete-modal-container {
+  white-space: nowrap;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  max-width: 100vw;
+  margin: 0px 10px;
+  border: 1px solid silver;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: var(--main-box-shadow);
+  z-index: 1000;
+}
+
+.delete-profile-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+.delete-profile-button, .delete-profile-button-container button {
+  border: 1px solid;
+  color: white;
+  border-radius: 5px;
+  padding: 8px 10px;
+}
+
+.delete-profile-button {
+  background-color: #c60000;
+}
+
+.delete-profile-button:hover {
+  background-color: #aa0000;
+}
+
+.delete-profile-button:active {
+  background-color: #ec0000;
+}
+
+.delete-profile-cancel-button {
+  background-color: var(--main-color);
+}
+
+.delete-profile-cancel-button:hover {
+  background-color: var(--main-color-hover)
+}
+
+.delete-profile-cancel-button:active {
+  background-color: var(--secondary-color);
+}
+
+/* Modal visibility and backdrop */
+
+.non-visible {
+  display: none;
+}
+
+.visible {
+  display: contents;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  z-index: 999;
+}
+

@@ -9,6 +9,15 @@ export async function createUser(newUser) {
   return user;
 }
 
+export async function updateGuestUser(guestUser) {
+  const user = await prisma.users.update({
+    where: {
+      email: guestUser.email,
+    },
+    data: guestUser,
+  });
+  return user;
+}
 export async function findUserByEmail(email, IsGuestUser) {
   const user = await prisma.users.findUnique({
     where: {
@@ -24,6 +33,7 @@ export async function findUserByEmail(email, IsGuestUser) {
       password: true,
       role: true,
       DateOfBirth: true,
+      IsGuestUser: true,
     },
   });
   return user;
@@ -41,4 +51,13 @@ export async function findServicesByUserId({ userId }) {
   });
 
   return services;
+}
+
+export async function removeUserByEmail(email) {
+  const deletedUser = await prisma.users.delete({
+    where: {
+      email,
+    },
+  });
+  return deletedUser;
 }
