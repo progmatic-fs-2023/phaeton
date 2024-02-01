@@ -21,6 +21,7 @@ function AdminPage() {
 
   // Getting Data for the table
 
+
   const fetchData = async () => {
     const response = await fetch(`http://localhost:3000/admin/services/${userCtx.user.id}`, {
       method: 'GET',

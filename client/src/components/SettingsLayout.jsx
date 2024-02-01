@@ -11,6 +11,8 @@ function SettingsLayout() {
       navigate('/');
     }, []);
   }
+
+  console.log(userCtx)
   return (
     <>
       <div className="profile-header">

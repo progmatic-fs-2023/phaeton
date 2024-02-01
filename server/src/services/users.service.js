@@ -54,10 +54,13 @@ export async function findServicesByUserId({ userId }) {
 }
 
 export async function removeUserByEmail(email) {
-  const deletedUser = await prisma.users.delete({
+  const deletedUser = await prisma.users.update({
     where: {
       email,
     },
+    data: {
+      IsGuestUser: true
+    }
   });
   return deletedUser;
 }

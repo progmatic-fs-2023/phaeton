@@ -141,18 +141,20 @@ function CarServices() {
                         HUF
                       </p>
                       <div className="car-info-elem">
-                        {services.IsActive ? (
-                          <button
-                            type="button"
-                            className="cancel-btn"
-                            disabled={!(new Date(services.ServiceStartDate) > new Date())}
-                            onClick={() => handleCancel(services.id)}
-                          >
-                            Cancel
-                          </button>
-                        ) : (
-                          <p className="canceled-p">Canceled</p>
-                        )}
+                      {services.IsActive ? (
+  <button
+    type="button"
+    className="cancel-btn"
+    disabled={!(new Date(services.ServiceStartDate) > new Date())}
+    onClick={() => handleCancel(services.id)}
+  >
+    Cancel
+  </button>
+) : !services.ActualServiceDate ? (
+  <p className="canceled-p">Canceled</p>
+) : (
+  <p className="returned-p">Returned</p>
+)}
                       </div>
                     </div>
                   </div>
