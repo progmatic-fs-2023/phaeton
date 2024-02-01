@@ -50,13 +50,13 @@ export async function findServicesByUserId(userID) {
     },
     orderBy: [
       {
+        IsActive: 'desc',
+      },
+      {
         ServiceStartDate: 'desc',
       },
       {
         ActualServiceEndDate: 'asc',
-      },
-      {
-        IsActive: 'asc',
       },
     ],
   });
@@ -69,8 +69,8 @@ export async function removeUserByEmail(email) {
       email,
     },
     data: {
-      IsGuestUser: true
-    }
+      IsGuestUser: true,
+    },
   });
   return deletedUser;
 }

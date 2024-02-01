@@ -164,7 +164,6 @@ const prisma = new PrismaClient();
 
 export const activateAccount = async (req, res) => {
   const { email } = req.params;
-  console.log('lefutok');
   try {
     const user = await prisma.users.findUnique({
       where: { email },
@@ -172,8 +171,6 @@ export const activateAccount = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
-    console.log('lefutok222');
     await prisma.users.update({
       where: { email },
       data: { Verified: true },

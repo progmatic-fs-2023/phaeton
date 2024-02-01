@@ -12,7 +12,6 @@ function SettingsLayout() {
     }, []);
   }
 
-
   return (
     <>
       <div className="profile-header">
