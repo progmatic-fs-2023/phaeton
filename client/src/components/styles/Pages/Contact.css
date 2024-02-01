@@ -56,3 +56,13 @@
   box-shadow: 5px 5px 5px rgb(52, 50, 50);
   z-index: 100;
 }
+
+@media only screen and (max-width: 600px) {
+  .contact-main-container{
+    flex-direction: column;
+  }
+  iframe{
+  margin: auto;
+  border: none;
+  }
+}

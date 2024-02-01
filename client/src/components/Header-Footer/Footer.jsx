@@ -23,7 +23,9 @@ export default function Footer() {
       <ul>
         <li>
           <img src={phoneIcon} alt="phone" />
-          <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+          <a className="phone-num" href={`tel:${phoneNumber}`}>
+            {phoneNumber}
+          </a>
         </li>
         <li>
           <img src={mailIcon} alt="email" />
