@@ -39,7 +39,7 @@ function Profile() {
 
   const handleDeleteProfileConfirm = async (email) => {
     const response = await fetch('http://localhost:3000/users/delete', {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },

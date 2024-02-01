@@ -3,17 +3,26 @@
   flex-direction: column;
   justify-content: space-evenly;
 }
-.canceled-p {
+.canceled-p,
+.returned-p {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
   border-radius: 10px;
   width: 128px;
   height: 29px;
   color: white;
   font-size: large;
 }
+
+.canceled-p {
+  background-color: #ff6c6c;
+}
+
+.returned-p {
+  background-color: #ffb76f;
+}
+
 .settings-center-h1 {
   text-align: center;
   height: 400px;

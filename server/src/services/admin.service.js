@@ -78,8 +78,8 @@ export async function serviceQuery() {
     ...service,
     ...service.Cars,
     ...service.ParkingLot,
-    userId: service.Users.id,
-    name: `${service.Users.firstName} ${service.Users.lastName}`,
+    userId: service.Users ? service.Users.id : 'Removed User',
+    name: service.Users ? `${service.Users.firstName} ${service.Users.lastName}` : 'Removed User',
   }));
 
   return flattenedServices;

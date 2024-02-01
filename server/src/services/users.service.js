@@ -48,21 +48,34 @@ export async function findServicesByUserId(userID) {
       Cars: true,
       ParkingLot: true,
     },
+    orderBy: [
+      {
+        IsActive: 'desc',
+      },
+      {
+        ServiceStartDate: 'desc',
+      },
+      {
+        ActualServiceEndDate: 'asc',
+      },
+    ],
   });
 
   return services;
 }
 export async function removeUserByEmail(email) {
-  const deletedUser = await prisma.users.delete({
+  const deletedUser = await prisma.users.update({
     where: {
       email,
+    },
+    data: {
+      IsGuestUser: true,
     },
   });
   return deletedUser;
 }
 
 export async function findUserById(userId) {
-  console.log(userId);
   const user = await prisma.users.findUnique({
     where: {
       id: userId,

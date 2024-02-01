@@ -11,6 +11,7 @@ function SettingsLayout() {
       navigate('/');
     }, []);
   }
+
   return (
     <>
       <div className="profile-header">
