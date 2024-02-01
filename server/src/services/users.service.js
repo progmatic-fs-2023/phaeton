@@ -39,10 +39,10 @@ export async function findUserByEmail(email, IsGuestUser) {
   return user;
 }
 
-export async function findServicesByUserId({ userId }) {
+export async function findServicesByUserId(userID) {
   const services = await prisma.services.findMany({
     where: {
-      userID: userId,
+      userID,
     },
     include: {
       Cars: true,
@@ -52,7 +52,6 @@ export async function findServicesByUserId({ userId }) {
 
   return services;
 }
-
 export async function removeUserByEmail(email) {
   const deletedUser = await prisma.users.update({
     where: {
@@ -63,4 +62,21 @@ export async function removeUserByEmail(email) {
     }
   });
   return deletedUser;
+}
+
+export async function findUserById(userId) {
+  console.log(userId);
+  const user = await prisma.users.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+  return user;
+}
+
+export async function updatePassword(newPasswordHash, email) {
+  await prisma.users.update({
+    where: { email },
+    data: { password: newPasswordHash },
+  });
 }
