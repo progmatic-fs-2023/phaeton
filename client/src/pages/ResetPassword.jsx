@@ -9,6 +9,8 @@ function ResetPassword() {
   const [passwordConfirm, setConfirmPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [color, setColor] = useState('red');
+
   useEffect(() => {
     fetch(`http://localhost:3000/users/userbyid/${id}`, {
       method: 'GET',
@@ -52,11 +54,12 @@ function ResetPassword() {
 
           if (response.ok) {
             await response.json();
+            setColor('green');
             setErrorMsg('Password changed successfully. Redirecting to Home.');
             setIsVisible(true);
             setTimeout(() => {
               navigate('/');
-            }, 1000);
+            }, 3000);
           } else {
             setErrorMsg('Failed to send password reset email please try again later');
             setIsVisible(true);
@@ -88,7 +91,11 @@ function ResetPassword() {
             value={passwordConfirm}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {isVisible && <p className="error-message">{errorMsg}</p>}
+          {isVisible && (
+            <p className="error-message" style={{ color }}>
+              {errorMsg}
+            </p>
+          )}
           <button type="submit">Submit</button>
         </form>
       </div>

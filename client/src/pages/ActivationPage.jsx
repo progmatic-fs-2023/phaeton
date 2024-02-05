@@ -22,7 +22,7 @@ function ActivationPage() {
 
           setTimeout(() => {
             navigate('/');
-          }, 1000);
+          }, 3000);
         }
       } catch (error) {
         throw new Error('Error activating account:', error);
@@ -34,7 +34,9 @@ function ActivationPage() {
 
   return (
     <div>
-      <h1>Your account is active... Redirecting to HomePage!</h1>
+      <h1 style={{ height: '75vh', textAlign: 'center', display: 'flex', alignItems: 'center' }}>
+        Your account is active... Redirecting to HomePage!
+      </h1>
     </div>
   );
 }
