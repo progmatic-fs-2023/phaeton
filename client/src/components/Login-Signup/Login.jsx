@@ -23,6 +23,7 @@ function Login({ handleLogin, errorMsg }) {
 
   const openDialog2 = () => {
     dialog2Ref.current.showModal();
+    setIsLogin(true);
   };
   const closeDialog2 = () => {
     dialog2Ref.current.close();
@@ -80,6 +81,7 @@ function Login({ handleLogin, errorMsg }) {
   };
   const openDialog = () => {
     dialogRef.current.showModal();
+    setIsLogin(true);
   };
 
   const closeDialog = () => {
